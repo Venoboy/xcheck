@@ -1,4 +1,5 @@
-const requests = () => {
+type requestsType = {type:"REQUESTS"}
+const requests = ():requestsType => {
   return {
     type: "REQUESTS",
   };

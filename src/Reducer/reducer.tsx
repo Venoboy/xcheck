@@ -1,4 +1,8 @@
-const initialState = {
+type stateType = {
+  loaded: boolean
+}
+
+const initialState: stateType = {
   loaded: false
 };
 
