@@ -1,0 +1,8 @@
+{
+  "users": [
+    {
+      "githubId": "torvalds",
+      "roles": ["author", "student", "supervisor", "course_manager"]
+    }
+  ]
+}

@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './Components/App/App';
+import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
+import Store from "./Store/Store";
+import Context from "./Context/Context";
+import Service from "./Service/Service";
+import { Provider } from "react-redux";
 import './index.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+const service: any = new Service();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Provider store={Store}>
+        <ErrorBoundary>
+            <Context.Provider value={service}>
+                <App />
+            </Context.Provider>
+        </ErrorBoundary>
+    </Provider>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
