@@ -5,8 +5,8 @@ const Hoc = () => (View: any) => {
   return (props: any) => {
     return (
     <Context.Consumer >
-      {(Service: any)=>{
-        return <View {...props} service={Service}/>
+      {(service: any)=>{
+        return <View {...props} service={service}/>
       }}
     </Context.Consumer>
     )
