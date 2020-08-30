@@ -5,4 +5,12 @@ const requests = ():requestsType => {
   };
 };
 
-export {requests};
+type setUserType = {type:"SET_USER", payload:string}
+const setUser = (data :string):setUserType => {
+  return {
+    type: "SET_USER",
+    payload: data
+  };
+};
+
+export {requests, setUser};

@@ -1,9 +1,11 @@
 type stateType = {
   loaded: boolean
+  user: string | null
 }
 
 const initialState: stateType = {
-  loaded: false
+  loaded: false,
+  user: null
 };
 
 const reducer = (state = initialState, actions: any) => {
@@ -12,6 +14,12 @@ const reducer = (state = initialState, actions: any) => {
       return {
         ...state,
         loaded: true,
+      };
+
+    case "SET_USER":
+      return {
+          ...state,
+        user: actions.payload
       };
 
     default:
