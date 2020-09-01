@@ -1,0 +1,30 @@
+.logo {
+  background-image: url('./rsimg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  width: 83.36px;
+  height: 30px;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+}
+
+.profile {
+  min-width: 150px;
+  padding: 5px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border: 1px dashed grey;
+  p {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-bottom: 0;
+  }
+}

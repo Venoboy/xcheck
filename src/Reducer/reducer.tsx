@@ -1,30 +1,24 @@
 type stateType = {
-  loaded: boolean
-  user: string | null
-}
+  loaded: boolean;
+  user: string | null;
+};
 
 const initialState: stateType = {
   loaded: false,
-  user: null
+  user: 'user'
 };
 
 const reducer = (state = initialState, actions: any) => {
   switch (actions.type) {
-    case "REQUESTS":
+    case 'REQUESTS':
       return {
         ...state,
-        loaded: true,
-      };
-
-    case "SET_USER":
-      return {
-          ...state,
-        user: actions.payload
+        loaded: true
       };
 
     default:
       return {
-        ...state,
+        ...state
       };
   }
 };
