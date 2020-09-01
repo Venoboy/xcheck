@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
       // eslint-disable-next-line react/destructuring-assignment
       return <Error error={this.state.errorInfo} />;
     }
-    // eslint-disable-next-line react/destructuring-assignment,react/prop-types
+    // eslint-disable-next-line react/prop-types,react/destructuring-assignment
     return this.props.children;
   }
 }

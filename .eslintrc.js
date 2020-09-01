@@ -42,7 +42,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'react/jsx-filename-extension': [2, { extensions: ['jsx', '.js', '.jsx', '.tsx'] }],
+    'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.tsx'] }],
     'react/button-has-type': 'off',
     'react/display-name': 'off',
     'prefer-destructuring': 'off',
