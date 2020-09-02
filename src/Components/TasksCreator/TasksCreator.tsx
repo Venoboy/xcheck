@@ -1,16 +1,13 @@
 import React from 'react';
 import Header from '../Header/Header';
-import './TasksCreator.css';
+import TaskForm from '../TaskForm/TaskForm';
+import './TasksCreator.scss';
 
 const TasksCreator = () => {
-  const TaskMainInfo = () => {
-    return <div>MainInfo</div>;
-  };
-
   return (
     <div className="tasks-creator">
       <Header />
-      <TaskMainInfo />
+      <TaskForm />
     </div>
   );
 };
