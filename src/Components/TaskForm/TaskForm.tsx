@@ -1,6 +1,8 @@
 import React from 'react';
 import { Input, Form, DatePicker } from 'antd';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { EditOutlined } from '@ant-design/icons';
+
 import './TaskForm.scss';
 import 'antd/dist/antd.css';
 
@@ -12,8 +14,6 @@ const TaskForm = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
-  // @ts-ignore
-  // @ts-ignore
   return (
     <Form
       id="task-form"
