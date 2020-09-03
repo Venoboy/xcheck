@@ -30,7 +30,12 @@ const TaskForm = () => {
           </Form.Item>
         </Col>
         <Col span={6}>
-          <Form.Item label="Author" name="author-name" rules={[{ required: true }]}>
+          <Form.Item
+            label="Author"
+            name="author-name"
+            rules={[{ required: true }]}
+            initialValue="User"
+          >
             <Input placeholder="Author" suffix={<EditOutlined />} />
           </Form.Item>
         </Col>
