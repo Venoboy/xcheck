@@ -30,6 +30,10 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
+    'import/no-extraneous-dependencies': [
+      'off',
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
+    ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
     'no-console': 'off',

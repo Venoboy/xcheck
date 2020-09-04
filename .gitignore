@@ -4,9 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-.eslint.js
-package.json
 prettier.config.js
+package-lock.json
 
 # testing
 /coverage
