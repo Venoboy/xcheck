@@ -2,7 +2,7 @@ module.exports = {
   env: {
     es6: true,
     browser: true,
-    node: true,
+    node: true
   },
   extends: [
     'airbnb',
@@ -16,8 +16,8 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   rules: {
     'linebreak-style': 'off',
@@ -29,19 +29,24 @@ module.exports = {
     'no-plusplus': 'off',
     'space-before-function-paren': 0,
     'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
+    'import/no-extraneous-dependencies': [
+      'off',
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
+    ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    'no-console': 'error',
+    'no-console': 'off',
     'no-alert': 'error',
-
     'no-param-reassign': 'off',
     radix: 'off',
-
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
-
+    'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.tsx'] }],
+    'react/button-has-type': 'off',
+    'react/display-name': 'off',
     'prefer-destructuring': 'off',
 
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],
@@ -53,10 +58,9 @@ module.exports = {
         labelAttributes: [],
         controlComponents: [],
         assert: 'either',
-        depth: 3,
-      },
+        depth: 3
+      }
     ],
-
-    'prettier/prettier': ['error'],
-  },
+    'prettier/prettier': ['error']
+  }
 };

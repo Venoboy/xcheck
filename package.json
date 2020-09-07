@@ -24,7 +24,11 @@
     "prettier": "^1.14.3",
     "lint-staged": "^7.3.0",
     "antd": "^4.6.1",
+    "@ant-design/icons": "^4.2.2",
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
     "node-sass": "^4.14.1",
+    "prettier": "^2.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -39,7 +43,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --debug src/",
-    "lint:write": "eslint --debug src/ --fix",
+    "lint:write": "eslint --debug src/ --fix --no-error-on-unmatched-pattern ",
     "prettier": "prettier --write src/**/*.js"
   },
   "husky": {
@@ -70,6 +74,14 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
-    "json-server": "^0.16.1"
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^2.7.0",
+    "eslint-plugin-react": "^7.20.6",
+    "react-simplemde-editor": "^4.1.3"
   }
 }

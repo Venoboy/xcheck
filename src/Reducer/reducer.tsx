@@ -1,22 +1,24 @@
 type stateType = {
-  loaded: boolean
-}
+  loaded: boolean;
+  user: string | null;
+};
 
 const initialState: stateType = {
-  loaded: false
+  loaded: false,
+  user: 'user'
 };
 
 const reducer = (state = initialState, actions: any) => {
   switch (actions.type) {
-    case "REQUESTS":
+    case 'REQUESTS':
       return {
         ...state,
-        loaded: true,
+        loaded: true
       };
 
     default:
       return {
-        ...state,
+        ...state
       };
   }
 };

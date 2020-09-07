@@ -1,17 +1,11 @@
 import React from 'react';
-import Hoc from "../Hoc/Hoc";
+import TasksCreator from '../TasksCreator/TasksCreator';
 import './App.scss';
 
-const App = ({service}:any) => {
-    // service.testMethodPost("http://localhost:3004/users", { username: 'example' })
-    //     .then((res: any)=>console.log(res));
-    //
-    // service.testMethodGet("http://localhost:3004/users")
-    //     .then((res:any)=>console.log(res));
-
+const App = () => {
   return (
     <div className="App">
-      APP
+      <TasksCreator />
     </div>
   );
 };
