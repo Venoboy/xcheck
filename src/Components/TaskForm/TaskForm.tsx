@@ -1,21 +1,27 @@
-import React from 'react';
-import { Form, Button } from 'antd';
+import React, { useState } from 'react';
+import { Form } from 'antd';
 import TaskMainInfo from '../TaskMainInfo/TaskMainInfo';
 import TaskDescription from '../TaskDescription/TaskDescription';
 import TaskSubTasks from '../TaskSubTasks/TaskSubTasks';
+import TaskSubmitButton from '../TaskSubmitButton/TaskSubmitButton';
 
 import './TaskForm.scss';
 import 'antd/dist/antd.css';
 import './easymde.min.css';
 
 const TaskForm = () => {
-  const onFinish = (values: string) => {
+  const [description, setDescription] = useState('');
+  const onFinish = (values: { [key: string]: any }) => {
+    values.description = description;
     console.log('Success:', values);
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
-
+  const changeDiscription: any = (value: any) => {
+    setDescription(value);
+    console.log(description);
+  };
   return (
     <Form
       id="task-form"
@@ -27,19 +33,9 @@ const TaskForm = () => {
       onFinishFailed={onFinishFailed}
     >
       <TaskMainInfo />
-      <TaskDescription />
+      <TaskDescription change={changeDiscription} />
       <TaskSubTasks />
-      <Form.Item wrapperCol={{ span: 24 }}>
-        <Button
-          style={{ backgroundColor: '#50c400', color: 'black', borderColor: 'black' }}
-          type="default"
-          htmlType="submit"
-          onSubmit={(e) => console.log(e)}
-          block
-        >
-          Save Task
-        </Button>
-      </Form.Item>
+      <TaskSubmitButton />
     </Form>
   );
 };

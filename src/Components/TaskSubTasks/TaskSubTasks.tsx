@@ -88,7 +88,6 @@ const TaskSubTasks = () => {
                 type="dashed"
                 onClick={() => {
                   add();
-                  console.log(fields);
                 }}
                 block
               >
