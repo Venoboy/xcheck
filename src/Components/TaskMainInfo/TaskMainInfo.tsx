@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Col, DatePicker, Form, Input, Row } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
+import { connect } from 'react-redux';
 
-const TaskMainInfo = () => {
+const TaskMainInfo = (props: any) => {
+  const { userName } = props;
   const { RangePicker } = DatePicker;
   return (
     <Row>
@@ -18,7 +20,7 @@ const TaskMainInfo = () => {
           label="Author"
           name="author-name"
           rules={[{ required: true }]}
-          initialValue="User"
+          initialValue={userName}
         >
           <Input placeholder="Author" suffix={<EditOutlined />} />
         </Form.Item>
@@ -43,4 +45,10 @@ const TaskMainInfo = () => {
   );
 };
 
-export default TaskMainInfo;
+const mapStateToProps = (state: any) => {
+  return {
+    userName: state.user.userName
+  };
+};
+
+export default connect(mapStateToProps)(TaskMainInfo);

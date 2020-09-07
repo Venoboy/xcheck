@@ -13,7 +13,7 @@ const Header = (props: any) => {
       <b>X-Check</b>
       <div className="profile">
         <Avatar size={30} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-        <p>{user}</p>
+        <p>{user.userName}</p>
       </div>
     </header>
   );
