@@ -12,6 +12,7 @@
     "@types/react": "^16.9.47",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
+    "antd": "^4.6.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-react": "^1.1.7",
@@ -21,10 +22,9 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "husky": "^1.1.2",
-    "prettier": "^1.14.3",
     "lint-staged": "^7.3.0",
-    "antd": "^4.6.1",
     "node-sass": "^4.14.1",
+    "prettier": "^1.19.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -39,7 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --debug src/",
-    "lint:write": "eslint --debug src/ --fix",
+    "lint:write": " eslint src/**/*.ts[x] --fix",
     "prettier": "prettier --write src/**/*.js"
   },
   "husky": {

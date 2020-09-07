@@ -1,14 +1,14 @@
 type stateType = {
-  loaded: boolean
-}
+  loaded: boolean;
+};
 
 const initialState: stateType = {
-  loaded: false
+  loaded: false,
 };
 
 const reducer = (state = initialState, actions: any) => {
   switch (actions.type) {
-    case "REQUESTS":
+    case 'REQUESTS':
       return {
         ...state,
         loaded: true,

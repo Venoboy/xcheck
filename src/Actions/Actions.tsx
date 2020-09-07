@@ -1,8 +1,8 @@
-type requestsType = {type:"REQUESTS"}
-const requests = ():requestsType => {
+type requestsType = { type: 'REQUESTS' };
+const requests = (): requestsType => {
   return {
-    type: "REQUESTS",
+    type: 'REQUESTS',
   };
 };
 
-export {requests};
+export { requests };

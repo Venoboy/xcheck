@@ -10,6 +10,14 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:react/recommended',
   ],
+  settings: {
+    'import/resolver': {
+      'node': {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        paths: ['src']
+      }
+    }
+  },
   plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,7 +29,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
-
+    'import/extensions':'off',
     'arrow-parens': 'off',
     'object-curly-newline': 'off',
     'no-mixed-operators': 'off',
@@ -40,7 +48,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
+    'react/jsx-filename-extension': [2, { 'extensions': ['.jsx', '.tsx'] }],
 
     'prefer-destructuring': 'off',
 
