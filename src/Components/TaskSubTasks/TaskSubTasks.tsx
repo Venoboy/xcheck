@@ -65,7 +65,9 @@ const TaskSubTasks = () => {
                         </Form.Item>
                         <Form.Item
                           style={{ marginLeft: '15px' }}
+                          valuePropName="checked"
                           name={[field.name, 'mentor-check']}
+                          initialValue={false}
                         >
                           <Checkbox>Only Mentor?</Checkbox>
                         </Form.Item>
