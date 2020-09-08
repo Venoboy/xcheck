@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Header/Header';
-import TaskForm from '../TaskForm/TaskForm';
+import TaskForm from './TaskForm/TaskForm';
 import './TasksCreator.scss';
 
 const TasksCreator = () => {

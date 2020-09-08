@@ -4,7 +4,7 @@ import TaskMainInfo from '../TaskMainInfo/TaskMainInfo';
 import TaskDescription from '../TaskDescription/TaskDescription';
 import TaskSubTasks from '../TaskSubTasks/TaskSubTasks';
 import TaskSubmitButton from '../TaskSubmitButton/TaskSubmitButton';
-import createEssence from '../../Scripts/createEssenceTask';
+import createEssence from '../../../Scripts/createEssenceTask';
 
 import './TaskForm.scss';
 import 'antd/dist/antd.css';
@@ -23,7 +23,6 @@ const TaskForm = () => {
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
-    console.log(valueMde.value());
   };
   return (
     <Form
