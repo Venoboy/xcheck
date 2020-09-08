@@ -3,7 +3,7 @@ import Error from '../Error/Error';
 
 class ErrorBoundary extends React.Component {
   // eslint-disable-next-line react/state-in-constructor
-  state = {
+  state: any = {
     error: false,
     errorInfo: [],
   };

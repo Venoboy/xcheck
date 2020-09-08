@@ -1,9 +1,11 @@
 type stateType = {
   loaded: boolean;
+  user: string | null;
 };
 
 const initialState: stateType = {
   loaded: false,
+  user: 'user',
 };
 
 const reducer = (state = initialState, actions: any) => {

@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+prettier.config.js
+package-lock.json
 
 # testing
 /coverage
@@ -23,3 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
+react-app-env.d.ts

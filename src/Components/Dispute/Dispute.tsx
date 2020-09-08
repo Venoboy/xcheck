@@ -6,8 +6,13 @@ const { Text, Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
-const Dispute: React.FC = () => {
-  return (
+interface disputeType {
+  isActive: boolean;
+}
+
+const Dispute: React.FC<any> = (props: disputeType) => {
+  const { isActive } = props;
+  const renderedComponent = (
     <Content className={classes.content}>
       <Row>
         <Col span={18}>
@@ -48,6 +53,7 @@ const Dispute: React.FC = () => {
       </Row>
     </Content>
   );
+  return isActive ? renderedComponent : null;
 };
 
 export default Dispute;

@@ -37,9 +37,14 @@ module.exports = {
     'no-plusplus': 'off',
     'space-before-function-paren': 0,
     'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': [
+      'off',
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
+    ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    'no-console': 'error',
+    'no-console': 'warn',
     'no-alert': 'error',
 
     'no-param-reassign': 'off',
@@ -48,8 +53,9 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'react/jsx-filename-extension': [2, { 'extensions': ['.jsx', '.tsx'] }],
-
+    'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.tsx'] }],
+    'react/button-has-type': 'off',
+    'react/display-name': 'off',
     'prefer-destructuring': 'off',
 
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],

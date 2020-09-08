@@ -18,5 +18,5 @@ ReactDOM.render(
       </Context.Provider>
     </ErrorBoundary>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
