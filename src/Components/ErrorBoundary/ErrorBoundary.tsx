@@ -5,13 +5,13 @@ class ErrorBoundary extends React.Component {
   // eslint-disable-next-line react/state-in-constructor
   state: any = {
     error: false,
-    errorInfo: []
+    errorInfo: [],
   };
 
   componentDidCatch(error: any, errorInfo: any) {
     this.setState({
       error: true,
-      errorInfo: [error, errorInfo]
+      errorInfo: [error, errorInfo],
     });
   }
 

@@ -47,7 +47,7 @@ const TaskMainInfo = (props: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    userName: state.user.userName
+    userName: state.user.userName,
   };
 };
 

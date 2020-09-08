@@ -12,8 +12,8 @@ const initialState: stateType = {
   user: {
     userName: 'aliaksandrtseliuk',
     userId: '1234561',
-    role: 'student'
-  }
+    role: 'student',
+  },
 };
 
 const reducer = (state = initialState, actions: any) => {
@@ -21,12 +21,12 @@ const reducer = (state = initialState, actions: any) => {
     case 'REQUESTS':
       return {
         ...state,
-        loaded: true
+        loaded: true,
       };
 
     default:
       return {
-        ...state
+        ...state,
       };
   }
 };

@@ -2,13 +2,13 @@ module.exports = {
   env: {
     es6: true,
     browser: true,
-    node: true
+    node: true,
   },
   extends: [
     'airbnb',
     'prettier',
     'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
   ],
   plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
   parser: '@typescript-eslint/parser',
@@ -16,8 +16,8 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
   rules: {
     'linebreak-style': 'off',
@@ -33,7 +33,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': [
       'off',
-      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false },
     ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
@@ -58,9 +58,9 @@ module.exports = {
         labelAttributes: [],
         controlComponents: [],
         assert: 'either',
-        depth: 3
-      }
+        depth: 3,
+      },
     ],
-    'prettier/prettier': ['error']
-  }
+    'prettier/prettier': ['error'],
+  },
 };

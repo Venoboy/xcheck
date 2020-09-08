@@ -92,7 +92,7 @@ const TaskSubTasks = () => {
                             marginLeft: '15px',
                             marginTop: '60px',
                             fontSize: '20px',
-                            color: 'red'
+                            color: 'red',
                           }}
                         />
                       </Col>
