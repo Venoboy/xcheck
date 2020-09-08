@@ -5,7 +5,7 @@ const TaskSubmitButton = () => {
   return (
     <Form.Item wrapperCol={{ span: 24 }}>
       <Button
-        style={{ backgroundColor: '#50c400', color: 'black', borderColor: 'black' }}
+        style={{ backgroundColor: '#50c400', color: 'white' }}
         type="default"
         htmlType="submit"
         block

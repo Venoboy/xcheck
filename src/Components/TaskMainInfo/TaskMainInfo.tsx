@@ -11,14 +11,14 @@ const TaskMainInfo = (props: any) => {
       <Col span={12}>
         <Form.Item
           label="Task Name"
-          name="task-name"
+          name="taskName"
           rules={[{ required: true, message: 'Please enter Task Name' }]}
         >
           <Input placeholder="Enter Task Name" suffix={<EditOutlined />} />
         </Form.Item>
         <Form.Item
           label="Author"
-          name="author-name"
+          name="authorName"
           rules={[{ required: true }]}
           initialValue={userName}
         >

@@ -4,23 +4,26 @@ import TaskMainInfo from '../TaskMainInfo/TaskMainInfo';
 import TaskDescription from '../TaskDescription/TaskDescription';
 import TaskSubTasks from '../TaskSubTasks/TaskSubTasks';
 import TaskSubmitButton from '../TaskSubmitButton/TaskSubmitButton';
+import createEssence from '../../Scripts/createEssenceTask';
 
 import './TaskForm.scss';
 import 'antd/dist/antd.css';
 import './easymde.min.css';
 
 const TaskForm = () => {
-  const [description, setDescription] = useState('');
+  const [valueMde, setValueMde] = useState({ value: () => {} });
+  const getInstans = (instance: any) => {
+    setValueMde(instance);
+  };
   const onFinish = (values: { [key: string]: any }) => {
-    values.description = description;
-    console.log('Success:', values);
+    console.log('Success:');
+    const description = valueMde.value();
+    const taskEssence = createEssence(values, description);
+    console.log(taskEssence);
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
-  };
-  const changeDiscription: any = (value: any) => {
-    setDescription(value);
-    console.log(description);
+    console.log(valueMde.value());
   };
   return (
     <Form
@@ -33,7 +36,7 @@ const TaskForm = () => {
       onFinishFailed={onFinishFailed}
     >
       <TaskMainInfo />
-      <TaskDescription change={changeDiscription} />
+      <TaskDescription getInstans={getInstans} />
       <TaskSubTasks />
       <TaskSubmitButton />
     </Form>
