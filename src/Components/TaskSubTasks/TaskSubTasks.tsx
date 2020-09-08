@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Divider, Form, Input, Row, Select } from 'antd';
+import { Button, Col, Divider, Form, Input, Row, Select, Checkbox } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons/lib';
 
 import './TaskSubTasks.scss';
@@ -62,6 +62,14 @@ const TaskSubTasks = () => {
                               </Option>
                             ))}
                           </Select>
+                        </Form.Item>
+                        <Form.Item
+                          style={{ marginLeft: '15px' }}
+                          valuePropName="checked"
+                          name={[field.name, 'mentor-check']}
+                          initialValue={false}
+                        >
+                          <Checkbox>Only Mentor?</Checkbox>
                         </Form.Item>
                       </Col>
                       <Col>
