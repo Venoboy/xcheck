@@ -5,7 +5,7 @@ type stateType = {
 
 const initialState: stateType = {
   loaded: false,
-  user: 'user'
+  user: 'user',
 };
 
 const reducer = (state = initialState, actions: any) => {
@@ -13,12 +13,12 @@ const reducer = (state = initialState, actions: any) => {
     case 'REQUESTS':
       return {
         ...state,
-        loaded: true
+        loaded: true,
       };
 
     default:
       return {
-        ...state
+        ...state,
       };
   }
 };
