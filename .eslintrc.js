@@ -18,7 +18,7 @@ module.exports = {
       }
     }
   },
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier', '@typescript-eslint',],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 6,
@@ -72,5 +72,8 @@ module.exports = {
     ],
 
     'prettier/prettier': ['error'],
+
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   },
 };

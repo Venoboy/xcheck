@@ -31,8 +31,7 @@
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "redux": "^4.0.5",
-    "typescript": "^3.7.5"
+    "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -71,6 +70,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
-    "react-simplemde-editor": "^4.1.3"
+    "eslint": "^7.8.1",
+    "react-simplemde-editor": "^4.1.3",
+    "typescript": "^3.9.7"
   }
 }
