@@ -15,7 +15,7 @@ const createEssence = (valueForm: any, description: any) => {
       category: task.typeTask,
       mentorCheck: task.mentorCheck,
       description: task.descSubtask,
-      score: task.costSubtask,
+      score: Number(task.costSubtask),
     };
     return formatTask;
   });
