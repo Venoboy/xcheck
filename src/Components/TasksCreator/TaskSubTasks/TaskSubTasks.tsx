@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, Col, Divider, Form, Input, Row, Select, Checkbox } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons/lib';
 
-import './TaskSubTasks.scss';
+// @ts-ignore
+import classes from './TaskSubTasks.scss';
 
 const TaskSubTasks = () => {
   const { Option } = Select;
@@ -16,7 +17,7 @@ const TaskSubTasks = () => {
             <ol>
               {fields.map((field) => (
                 <li
-                  className="subtask-list-item"
+                  className={classes.subtaskListItem}
                   key={field.key}
                   style={{ borderBottom: 'solid 1px grey', marginTop: '15px' }}
                 >

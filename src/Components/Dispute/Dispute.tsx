@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography } from 'antd';
+// @ts-ignore
 import classes from './Dispute.module.scss';
 
 const { Text, Title }: any = Typography;

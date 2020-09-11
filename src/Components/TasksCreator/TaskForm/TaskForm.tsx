@@ -6,7 +6,8 @@ import TaskSubTasks from '../TaskSubTasks/TaskSubTasks';
 import TaskSubmitButton from '../TaskSubmitButton/TaskSubmitButton';
 import createEssence from '../../../Scripts/createEssenceTask';
 
-import './TaskForm.scss';
+// @ts-ignore
+import classes from './TaskForm.scss';
 import 'antd/dist/antd.css';
 import './easymde.min.css';
 
@@ -26,7 +27,7 @@ const TaskForm = () => {
   };
   return (
     <Form
-      id="task-form"
+      className={classes.taskForm}
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 24 }}
       name="basic"
