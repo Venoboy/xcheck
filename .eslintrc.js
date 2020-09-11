@@ -11,14 +11,20 @@ module.exports = {
     'plugin:react/recommended',
   ],
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
+    },
     'import/resolver': {
       'node': {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         paths: ['src']
-      }
+      },
+      'typescript': {
+        'alwaysTryTypes': true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      },
     }
   },
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 6,
@@ -29,7 +35,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
-    'import/extensions':'off',
+    'import/extensions': 'off',
     'arrow-parens': 'off',
     'object-curly-newline': 'off',
     'no-mixed-operators': 'off',
@@ -37,7 +43,8 @@ module.exports = {
     'no-plusplus': 'off',
     'space-before-function-paren': 0,
     'import/prefer-default-export': 'off',
-    'import/no-unresolved': 'off',
+    'import/no-unresolved': 'error',
+    '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
     'import/no-extraneous-dependencies': [
       'off',
       { devDependencies: false, optionalDependencies: false, peerDependencies: false }

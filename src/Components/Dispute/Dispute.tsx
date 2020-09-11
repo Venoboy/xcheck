@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography } from 'antd';
+import { connect } from 'react-redux';
+
 import classes from './Dispute.module.scss';
+import { stateType, subTaskType } from '../../TsTypes/types';
 
 const { Text, Title }: any = Typography;
 const { Content }: any = Layout;
@@ -8,18 +11,20 @@ const { TextArea }: any = Input;
 
 interface disputeType {
   isActive: boolean;
+  task: any;
 }
 
 const Dispute: React.FC<any> = (props: disputeType) => {
   const { isActive } = props;
-  const renderedComponent = (
-    <Content className={classes.content}>
+  console.log(props.task);
+  const subtasks = props.task.subTasks.map((subtask: subTaskType) => (
+    <div key={subtask.id}>
       <Row>
         <Col span={18}>
           <Row>
             <Title level={2}>Текст задачи</Title>
           </Row>
-          <Row>Минимальная ширина, при которой приложение отображается корректно – 320 рх</Row>
+          <Row>{subtask.description}</Row>
           <Divider />
           <Row>
             <Title level={4}>Комментарий ученика</Title>
@@ -44,6 +49,11 @@ const Dispute: React.FC<any> = (props: disputeType) => {
           </Button>
         </Col>
       </Row>
+    </div>
+  ));
+  const renderedComponent = (
+    <Content className={classes.content}>
+      {subtasks}
       <Row>
         <Col className={classes.review} span={18}>
           <Title level={4}>Отзыв о проверяющем</Title>
@@ -56,4 +66,8 @@ const Dispute: React.FC<any> = (props: disputeType) => {
   return isActive ? renderedComponent : null;
 };
 
-export default Dispute;
+const mapStateToProps = (state: stateType) => ({
+  task: state.task,
+});
+
+export default connect(mapStateToProps)(Dispute);
