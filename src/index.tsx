@@ -10,6 +10,7 @@ import './index.scss';
 import App from './Components/App/App';
 import Dispute from './Components/Dispute/Dispute';
 import { TasksList } from './Components/TasksList/TasksList';
+import { TaskReview } from './TaskReview/TaskReview';
 
 const service = new Service();
 
@@ -27,6 +28,11 @@ ReactDOM.render(
             <Route path="/tasks-list">
               <App>
                 <TasksList />
+              </App>
+            </Route>
+            <Route path="/task-review">
+              <App>
+                <TaskReview />
               </App>
             </Route>
           </Switch>
