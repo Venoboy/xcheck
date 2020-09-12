@@ -1,16 +1,9 @@
 import React from 'react';
-// import TasksCreator from '../TasksCreator/TasksCreator';
 import 'antd/dist/antd.css';
 import './App.scss';
-import Dispute from '../Dispute/Dispute';
 
-const App = () => {
-  return (
-    <div className="App">
-      {/* <TasksCreator /> */}
-      <Dispute isActive={false} />
-    </div>
-  );
+const App: React.FC = ({ children }) => {
+  return <div className="App">{children}</div>;
 };
 
 export default App;

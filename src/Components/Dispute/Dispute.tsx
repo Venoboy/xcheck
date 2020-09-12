@@ -6,11 +6,11 @@ const { Text, Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
-interface disputeType {
+interface DisputeProps {
   isActive: boolean;
 }
 
-const Dispute: React.FC<any> = (props: disputeType) => {
+const Dispute: React.FC<DisputeProps> = (props) => {
   const { isActive } = props;
   const renderedComponent = (
     <Content className={classes.content}>
