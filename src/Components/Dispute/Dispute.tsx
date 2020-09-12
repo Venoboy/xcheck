@@ -3,21 +3,14 @@ import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography }
 import { connect } from 'react-redux';
 
 import classes from './Dispute.module.scss';
-import { stateType, subTaskType } from '../../TsTypes/types';
 
 const { Text, Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
-interface disputeType {
-  isActive: boolean;
-  task: any;
-}
-
-const Dispute: React.FC<any> = (props: disputeType) => {
+const Dispute: React.FC<any> = (props: any) => {
   const { isActive } = props;
-  console.log(props.task);
-  const subtasks = props.task.subTasks.map((subtask: subTaskType) => (
+  const subtasks = props.task.subTasks.map((subtask: any) => (
     <div key={subtask.id}>
       <Row>
         <Col span={18}>
@@ -66,8 +59,8 @@ const Dispute: React.FC<any> = (props: disputeType) => {
   return isActive ? renderedComponent : null;
 };
 
-const mapStateToProps = (state: stateType) => ({
-  task: state.task,
+const mapStateToProps = (state: any) => ({
+  task: state.tasks[0],
 });
 
 export default connect(mapStateToProps)(Dispute);
