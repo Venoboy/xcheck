@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -12,6 +13,8 @@
     "@types/react": "^16.9.47",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
+    "@types/react-router-dom": "^5.1.5",
+    "antd": "^4.6.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-react": "^1.1.7",
@@ -20,8 +23,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
-    "antd": "^4.6.1",
-    "@ant-design/icons": "^4.2.2",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "node-sass": "^4.14.1",
@@ -29,6 +30,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5"
@@ -39,7 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --debug src/",
-    "lint:write": " eslint src/**/*.ts[x] --fix",
+    "lint:write": "eslint --fix src/**/*.ts[x]",
     "prettier": "prettier --write src/**/*.ts[x]"
   },
   "husky": {
@@ -70,7 +72,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.8.1",
+    "eslint": "^6.6.0",
     "react-simplemde-editor": "^4.1.3",
     "typescript": "^3.9.7"
   }
