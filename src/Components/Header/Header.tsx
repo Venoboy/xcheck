@@ -21,7 +21,7 @@ const Header = (props: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 
