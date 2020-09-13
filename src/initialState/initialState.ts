@@ -5,6 +5,7 @@ import disputes from './disputes';
 import reviewRequests from './reviewRequests';
 import taskScores from './taskScores';
 import reviews from './reviews';
+import feedbacks from './feedbacks';
 
 const initialState: any = {
   checkSessions,
@@ -14,6 +15,7 @@ const initialState: any = {
   reviewRequests,
   taskScores,
   reviews,
+  feedbacks,
 };
 
 export default initialState;

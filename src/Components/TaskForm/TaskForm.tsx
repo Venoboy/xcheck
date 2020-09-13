@@ -9,11 +9,13 @@ import 'antd/dist/antd.css';
 import './easymde.min.css';
 
 const TaskForm = () => {
+  // eslint-disable-next-line no-unused-vars
   const onFinish = (values: string) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
   };
+  // eslint-disable-next-line no-unused-vars
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
   };
 
   return (
@@ -34,7 +36,7 @@ const TaskForm = () => {
           style={{ backgroundColor: '#50c400', color: 'black', borderColor: 'black' }}
           type="default"
           htmlType="submit"
-          onSubmit={(e) => console.log(e)}
+          // onSubmit={(e) => console.log(e)}
           block
         >
           Save Task
