@@ -1,8 +1,9 @@
 const taskScore1: any = {
+  userId: 11111,
   taskId: 1,
   taskScoreId: 1,
-  items: {
-    basic_p1: {
+  subTasks: [
+    {
       score: {
         self: 20,
         reviewer: 'Ok',
@@ -14,7 +15,7 @@ const taskScore1: any = {
         dispute: '',
       },
     },
-    extra_p1: {
+    {
       score: {
         self: 15,
         reviewer: 0,
@@ -26,7 +27,7 @@ const taskScore1: any = {
         dispute: 'Sorry, did all than i could',
       },
     },
-    fines_p1: {
+    {
       score: {
         self: 0,
         reviewer: 'Ok',
@@ -38,14 +39,15 @@ const taskScore1: any = {
         dispute: '',
       },
     },
-  },
+  ],
 };
 
 const taskScore2: any = {
+  userId: 22222,
   taskId: 2,
   taskScoreId: 2,
-  items: {
-    basic_p1: {
+  subTasks: [
+    {
       score: {
         self: 20,
         reviewer: 'Ok',
@@ -57,7 +59,7 @@ const taskScore2: any = {
         dispute: '',
       },
     },
-    extra_p1: {
+    {
       score: {
         self: 10,
         reviewer: 0,
@@ -69,7 +71,7 @@ const taskScore2: any = {
         dispute: 'Sorry, did all than i could',
       },
     },
-    fines_p1: {
+    {
       score: {
         self: 10,
         reviewer: 0,
@@ -81,7 +83,7 @@ const taskScore2: any = {
         dispute: '',
       },
     },
-  },
+  ],
 };
 
 const taskScores = [taskScore1, taskScore2];
