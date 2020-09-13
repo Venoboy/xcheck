@@ -26,7 +26,6 @@
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "node-sass": "^4.14.1",
-    "prettier": "^2.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",

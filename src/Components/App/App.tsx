@@ -22,7 +22,8 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </Router>
-    </div>);
+    </div>
+  );
 };
 
 export default App;
