@@ -7,13 +7,13 @@ const defaultTasks1 = {
     {
       category: 'Basic',
       description: 'Минимальная ширина, при которой приложение отображается корректно – 320 рх',
-      id: 0,
+      id: 'a0',
       mentorCheck: false,
       score: 100,
       title: 'Проверка 1',
     },
     {
-      id: 1,
+      id: 'b1',
       title: 'Проверка 2',
       category: 'Fine',
       mentorCheck: true,
@@ -38,13 +38,13 @@ const defaultTasks2 = {
     {
       category: 'Basic',
       description: 'Минимальная ширина, при которой приложение отображается корректно – 320 рх',
-      id: 0,
+      id: 'a1',
       mentorCheck: false,
       score: 100,
       title: 'Проверка 1',
     },
     {
-      id: 1,
+      id: 'b2',
       title: 'Проверка 2',
       category: 'Fine',
       mentorCheck: true,
