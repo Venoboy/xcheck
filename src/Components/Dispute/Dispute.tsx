@@ -1,23 +1,25 @@
 import React from 'react';
 import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography } from 'antd';
-import { connect } from 'react-redux';
-
 import classes from './Dispute.module.scss';
 
 const { Text, Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
-const Dispute: React.FC<any> = (props: any) => {
+interface DisputeProps {
+  isActive: boolean;
+}
+
+const Dispute: React.FC<DisputeProps> = (props) => {
   const { isActive } = props;
-  const subtasks = props.task.subTasks.map((subtask: any) => (
-    <div key={subtask.id}>
+  const renderedComponent = (
+    <Content className={classes.content}>
       <Row>
         <Col span={18}>
           <Row>
             <Title level={2}>Текст задачи</Title>
           </Row>
-          <Row>{subtask.description}</Row>
+          <Row>Минимальная ширина, при которой приложение отображается корректно – 320 рх</Row>
           <Divider />
           <Row>
             <Title level={4}>Комментарий ученика</Title>
@@ -42,11 +44,6 @@ const Dispute: React.FC<any> = (props: any) => {
           </Button>
         </Col>
       </Row>
-    </div>
-  ));
-  const renderedComponent = (
-    <Content className={classes.content}>
-      {subtasks}
       <Row>
         <Col className={classes.review} span={18}>
           <Title level={4}>Отзыв о проверяющем</Title>
@@ -59,8 +56,4 @@ const Dispute: React.FC<any> = (props: any) => {
   return isActive ? renderedComponent : null;
 };
 
-const mapStateToProps = (state: any) => ({
-  task: state.tasks[0],
-});
-
-export default connect(mapStateToProps)(Dispute);
+export default Dispute;

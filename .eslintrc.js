@@ -64,6 +64,7 @@ module.exports = {
     'react/button-has-type': 'off',
     'react/display-name': 'off',
     'prefer-destructuring': 'off',
+    'react/prop-types': 'off',
 
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],
 
@@ -79,5 +80,7 @@ module.exports = {
     ],
 
     'prettier/prettier': ['error'],
+
+    "no-unused-vars": "off",
   },
 };
