@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { AUTH_GITHUB_SUCCESS } from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
@@ -19,9 +20,9 @@ export enum TaskStates {
 }
 
 export type User = {
-  githubId: string;
+  githubId: string | null;
   role: UserRoles[];
-  userName: string;
+  userName: string | null;
 };
 
 export type TaskItem = {
@@ -127,18 +128,24 @@ export type Dispute = {
 const initialState: stateType = {
   loaded: false,
   user: {
-    githubId: 'user',
+    userName: null,
+    githubId: null,
     role: [UserRoles.Student],
-    userName: '',
   },
 };
 
 const reducer = (state = initialState, action: Action) => {
+  const { user }: any = action;
   switch (action.type) {
     case 'REQUESTS':
       return {
         ...state,
         loaded: true,
+      };
+    case AUTH_GITHUB_SUCCESS:
+      return {
+        ...state,
+        user,
       };
 
     default:
