@@ -7,7 +7,6 @@ const defaultTasks1 = {
     {
       category: 'Basic',
       description: 'Минимальная ширина, при которой приложение отображается корректно – 320 рх',
-      id: 'a0',
       mentorCheck: false,
       score: 100,
       title: 'Проверка 1',
@@ -60,6 +59,9 @@ const defaultTasks2 = {
   state: 'Draft',
 };
 
-const tasks = [defaultTasks1, defaultTasks2];
+const tasks = {
+  MH6LY96FSOLrKaoKE: defaultTasks1,
+  MH6LnTePa2cTDVQjx: defaultTasks2,
+};
 
 export default tasks;

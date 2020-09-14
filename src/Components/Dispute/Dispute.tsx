@@ -3,34 +3,26 @@ import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography }
 import { connect } from 'react-redux';
 
 import classes from './Dispute.module.scss';
+import CommentList from '../CommentList/CommentList';
 
-const { Text, Title }: any = Typography;
+const { Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
 const Dispute: React.FC<any> = (props: any) => {
-  const { isActive } = props;
-  const subtasks = props.task.subTasks.map((subtask: any) => (
+  const { isActive, user, task } = props;
+  const subtasks = props.task.subTasks.map((subtask: any, index: number) => (
     <div key={subtask.id}>
       <Row>
         <Col span={18}>
           <Row>
-            <Title level={2}>Текст задачи</Title>
+            <Title level={2}>{subtask.category}</Title>
           </Row>
           <Row>{subtask.description}</Row>
           <Divider />
           <Row>
-            <Title level={4}>Комментарий ученика</Title>
+            <CommentList user={user} subTaskIndex={index} taskId={task.id} />
           </Row>
-          <Row>
-            <Text>Я все сделал правильно!</Text>
-          </Row>
-          <Divider />
-          <Row>
-            <Title level={4}>Комментарий проверяющего</Title>
-          </Row>
-          <Row>Все поехало по бороде!</Row>
-          <Divider />
           <Row>
             <TextArea placeholder="Enter comment" autoSize />
           </Row>

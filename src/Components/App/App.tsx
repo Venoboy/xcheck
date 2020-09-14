@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="App">
       {/* <TasksCreator /> */}
-      <Dispute isActive={false} />
+      <Dispute isActive user={11111} />
     </div>
   );
 };
