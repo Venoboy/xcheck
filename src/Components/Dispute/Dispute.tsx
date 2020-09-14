@@ -10,7 +10,7 @@ interface DisputeProps {
   isActive: boolean;
 }
 
-const Dispute: React.FC<DisputeProps> = (props) => {
+const Dispute: React.FC<DisputeProps> = props => {
   const { isActive } = props;
   const renderedComponent = (
     <Content className={classes.content}>

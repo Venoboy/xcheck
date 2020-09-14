@@ -34,7 +34,7 @@ const TaskForm = () => {
           style={{ backgroundColor: '#50c400', color: 'black', borderColor: 'black' }}
           type="default"
           htmlType="submit"
-          onSubmit={(e) => console.log(e)}
+          onSubmit={e => console.log(e)}
           block
         >
           Save Task
