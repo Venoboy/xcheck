@@ -12,13 +12,13 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      node: {
+      'node': {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        paths: ['src'],
-      },
-    },
+        paths: ['src']
+      }
+    }
   },
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier', '@typescript-eslint',],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 6,
@@ -29,7 +29,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
-    'import/extensions': 'off',
+    'import/extensions':'off',
     'arrow-parens': 'off',
     'object-curly-newline': 'off',
     'no-mixed-operators': 'off',
@@ -40,11 +40,11 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': [
       'off',
-      { devDependencies: false, optionalDependencies: false, peerDependencies: false },
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
     ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    'no-console': 'off',
+    'no-console': 'warn',
     'no-alert': 'error',
 
     'no-param-reassign': 'off',
@@ -57,6 +57,7 @@ module.exports = {
     'react/button-has-type': 'off',
     'react/display-name': 'off',
     'prefer-destructuring': 'off',
+    'react/prop-types': 'off',
 
     'jsx-a11y/anchor-is-valid': ['error', { components: ['Link'], specialLink: ['to'] }],
 
@@ -72,5 +73,8 @@ module.exports = {
     ],
 
     'prettier/prettier': ['error'],
+
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   },
 };

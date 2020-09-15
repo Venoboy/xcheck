@@ -1,14 +1,18 @@
 import React from 'react';
 import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography } from 'antd';
-// @ts-ignore
 import classes from './Dispute.module.scss';
 
 const { Text, Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
-const Dispute: React.FC = () => {
-  return (
+interface DisputeProps {
+  isActive: boolean;
+}
+
+const Dispute: React.FC<DisputeProps> = props => {
+  const { isActive } = props;
+  const renderedComponent = (
     <Content className={classes.content}>
       <Row>
         <Col span={18}>
@@ -49,6 +53,7 @@ const Dispute: React.FC = () => {
       </Row>
     </Content>
   );
+  return isActive ? renderedComponent : null;
 };
 
 export default Dispute;
