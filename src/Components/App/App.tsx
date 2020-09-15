@@ -6,6 +6,7 @@ import Dispute from '../Dispute/Dispute';
 import Auth from '../Auth/Auth';
 import { TasksList } from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
+import Main from '../../Pages/Main/Main';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
           <Route path="/task-review">
             <TaskReview />
           </Route>
+          <Route path="/" component={Main} />
         </Switch>
       </Router>
     </div>

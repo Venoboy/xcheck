@@ -14,7 +14,7 @@ const TaskSubTasks = () => {
           <div>
             <Divider>Subtasks</Divider>
             <ol>
-              {fields.map((field) => (
+              {fields.map(field => (
                 <li className="subtask-list-item" key={field.key}>
                   <Form.Item
                     {...field}
@@ -56,7 +56,7 @@ const TaskSubTasks = () => {
                             placeholder="Select Type Task"
                             optionFilterProp="children"
                           >
-                            {taskTypes.map((taskType) => (
+                            {taskTypes.map(taskType => (
                               <Option key={taskType} value={taskType}>
                                 {taskType}
                               </Option>
