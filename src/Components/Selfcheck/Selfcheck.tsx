@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography, Checkbox } from 'antd';
 import Header from '../Header/Header';
 import { ButtonReview } from './ components/buttons/buttonReview';
-import { App } from '../comment/comment';
+import { App } from './ components/comment/comment';
 import './Selfcheck.scss';
 
 const { Text, Title } = Typography;
