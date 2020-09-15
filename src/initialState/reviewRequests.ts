@@ -5,6 +5,7 @@ const reviewRequest1 = {
   task: 'simple-task-v1',
   state: 'PUBLISHED', // enum [DRAFT, PUBLISHED, COMPLETED]
   taskScoreId: 1,
+  solution: 'https://www.youtube.com/',
 };
 
 const reviewRequest2 = {
@@ -14,6 +15,7 @@ const reviewRequest2 = {
   task: 'simple-task-v2',
   state: 'PUBLISHED', // enum [DRAFT, PUBLISHED, COMPLETED]
   taskScoreId: 2,
+  solution: 'https://www.google.ru/',
 };
 
 const reviewRequests = [reviewRequest1, reviewRequest2];
