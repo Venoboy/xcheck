@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from '../Header/Header';
 import TaskForm from './TaskForm/TaskForm';
-// @ts-ignore
-import classes from './TasksCreator.scss';
+import classes from './TasksCreator.module.scss';
 
-const TasksCreator = () => {
+const TasksCreator = ({ taskName }: any) => {
   return (
     <div className={classes.tasksCreator}>
       <Header />
-      <TaskForm />
+      <TaskForm taskName={taskName} />
     </div>
   );
 };

@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, Col, Divider, Form, Input, Row, Select, Checkbox } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons/lib';
 
-// @ts-ignore
-import classes from './TaskSubTasks.scss';
+import classes from './TaskSubTasks.module.scss';
 
-const TaskSubTasks = () => {
+const TaskSubTasks = (props: any) => {
+  const { taskSubtasks } = props;
+  console.log(taskSubtasks);
   const { Option } = Select;
   const taskTypes = ['Basic', 'Advanced', 'Extra', 'Fine'];
   return (

@@ -3,11 +3,11 @@ import { Divider, Form } from 'antd';
 import SimpleMDE from 'react-simplemde-editor';
 
 const TaskDescription = (props: any) => {
-  const { getInstans } = props;
+  const { getInstans, taskDescription } = props;
   return (
     <Form.Item wrapperCol={{ span: 24 }} style={{ margin: '15px' }}>
       <Divider>Description Task</Divider>
-      <SimpleMDE id="simple-mde" getMdeInstance={getInstans} />
+      <SimpleMDE value={taskDescription} id="simple-mde" getMdeInstance={getInstans} />
     </Form.Item>
   );
 };

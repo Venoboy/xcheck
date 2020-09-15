@@ -1,7 +1,6 @@
 const createEssence = (valueForm: any, description: any) => {
   type taskType = {
     name: string;
-    id: string;
     author: string;
     state: string;
     description: string;
@@ -21,9 +20,8 @@ const createEssence = (valueForm: any, description: any) => {
   });
   const task: taskType = {
     name: valueForm.taskName,
-    id: `${valueForm.taskName}-${valueForm.authorName}`,
     author: valueForm.authorName,
-    state: 'Draft',
+    state: valueForm.typeState,
     subTasks,
     description,
   };

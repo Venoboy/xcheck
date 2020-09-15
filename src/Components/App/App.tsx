@@ -7,7 +7,7 @@ import './App.scss';
 const App = () => {
   return (
     <div className="App">
-      <TasksCreator />
+      <TasksCreator taskName="-MH6LnTePa2cTDVQjxuZ" />
       {/* <Dispute isActive={false} /> */}
     </div>
   );

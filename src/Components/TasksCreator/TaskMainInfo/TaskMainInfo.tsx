@@ -1,11 +1,13 @@
 import React from 'react';
-import { Button, Col, DatePicker, Form, Input, Row } from 'antd';
+import { Button, Col, Form, Input, Row, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
 import { connect } from 'react-redux';
 
 const TaskMainInfo = (props: any) => {
-  const { userName } = props;
-  const { RangePicker } = DatePicker;
+  const { userName, taskName, taskAuthor, taskState } = props;
+  const { Option } = Select;
+  const taskStates = ['DRAFT', 'PUBLISHED', 'ARCHIVED'];
+
   return (
     <Row>
       <Col span={12}>
@@ -13,6 +15,7 @@ const TaskMainInfo = (props: any) => {
           label="Task Name"
           name="taskName"
           rules={[{ required: true, message: 'Please enter Task Name' }]}
+          initialValue={taskName}
         >
           <Input placeholder="Enter Task Name" suffix={<EditOutlined />} />
         </Form.Item>
@@ -20,24 +23,50 @@ const TaskMainInfo = (props: any) => {
           label="Author"
           name="authorName"
           rules={[{ required: true }]}
-          initialValue={userName}
+          initialValue={taskAuthor || userName}
         >
           <Input placeholder="Author" suffix={<EditOutlined />} />
         </Form.Item>
-        <Form.Item label="Range Date" name="deadline-time" rules={[{ required: true }]}>
-          <RangePicker showTime placeholder={['Start Date', 'Deadline']} />
+        <Form.Item
+          name="typeState"
+          rules={[{ required: true, message: 'Missing State Task' }]}
+          label="State Task"
+          initialValue={taskState}
+        >
+          <Select showSearch placeholder="Select Type Task" optionFilterProp="children">
+            {taskStates.map((state) => (
+              <Option key={state} value={state}>
+                {state}
+              </Option>
+            ))}
+          </Select>
         </Form.Item>
       </Col>
       <Col span={8} offset={4}>
-        <Button type="dashed" shape="round" style={{ marginBottom: '24px', width: '200px' }}>
+        <Button
+          size="small"
+          type="dashed"
+          shape="round"
+          style={{ marginBottom: '14px', width: '200px' }}
+        >
           Import RSS Checklist
         </Button>
         <br />
-        <Button type="dashed" shape="round" style={{ marginBottom: '24px', width: '200px' }}>
+        <Button
+          size="small"
+          type="dashed"
+          shape="round"
+          style={{ marginBottom: '14px', width: '200px' }}
+        >
           Import Markdown
         </Button>
         <br />
-        <Button type="primary" shape="round" style={{ marginBottom: '24px', width: '200px' }}>
+        <Button
+          size="small"
+          type="primary"
+          shape="round"
+          style={{ marginBottom: '14px', width: '200px' }}
+        >
           Import Json
         </Button>
       </Col>
