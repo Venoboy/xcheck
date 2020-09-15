@@ -11,6 +11,10 @@ import { TaskReview } from '../../TaskReview/TaskReview';
 const App: React.FC = () => {
   return (
     <div className="App">
+      <Selfcheck />
+      <TasksCreator />
+    </div>
+  );
       <Router>
         <Switch>
           <Route path="/dispute">
