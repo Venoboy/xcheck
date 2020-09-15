@@ -1,9 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import { Subtask } from './ components/subtask/subtask';
 import { Typography, Checkbox } from 'antd';
 import Header from '../Header/Header';
-import { ButtonReview } from './ components/buttons/buttonReview';
-import { App } from '../comment/comment';
 import './Selfcheck.scss';
 
 const { Text, Title } = Typography;
@@ -48,21 +47,12 @@ export const Selfcheck = () => {
   return (
     <div className="selfcheck_container">
       <Header />
+      <Title level={1} key={task.id}>
+        {task.id}
+      </Title>
       {task.items.map((item, index) => (
         <>
-          <Title level={3} key={index}>
-            {item.category}
-          </Title>
-          <p>
-            <Checkbox onChange={onChange} />
-            <Text key={index}>{item.description}</Text>
-          </p>
-          <div className="comment__container">
-            <App />
-          </div>
-          <ButtonReview text="Полностью" handleClick={() => console.log('100')} />
-          <ButtonReview text="Частично" handleClick={() => console.log('50')} />
-          <ButtonReview text="Не выполнено" handleClick={() => console.log('0')} />
+          <Subtask item={item} index={index} onChange={onChange} />
         </>
       ))}
     </div>
