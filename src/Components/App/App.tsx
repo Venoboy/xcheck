@@ -10,6 +10,7 @@ import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
 import SelectingTask from '../SelectingTask/SelectingTask';
 import DisputeSelector from '../Dispute/DisputeSelector/DisputeSelector';
+import { Selfcheck } from '../Selfcheck/Selfcheck';
 
 const App: React.FC = () => {
   return (
@@ -26,11 +27,13 @@ const App: React.FC = () => {
           <Route path="/task-review">
             <TaskReview />
           </Route>
-          <Route path="/submit-task" component={SelectingTask} />
-          <Route path="/task-create">
+          <Route path="/" component={Main} />
+          <Route path="/selfcheck">
+            <Selfcheck />
+          </Route>
+          <Route path="/tasks-creator">
             <TasksCreator />
           </Route>
-          <Route exact path="/" component={Main} />
         </Switch>
       </Router>
     </div>
