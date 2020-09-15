@@ -62,7 +62,7 @@ export const TasksList: React.FC<TasksListProps> = ({
       {
         title: 'Author',
         dataIndex: 'author',
-        filters: tasks.map(el => ({
+        filters: tasks.map((el) => ({
           text: el.author,
           value: el.author,
         })),
@@ -73,7 +73,7 @@ export const TasksList: React.FC<TasksListProps> = ({
       {
         title: 'State',
         dataIndex: 'state',
-        filters: tasks.map(el => ({
+        filters: tasks.map((el) => ({
           text: el.state,
           value: el.state,
         })),
@@ -89,7 +89,7 @@ export const TasksList: React.FC<TasksListProps> = ({
       {
         title: 'Author',
         dataIndex: 'author',
-        filters: reviewRequests.map(request => ({
+        filters: reviewRequests.map((request) => ({
           text: request.author,
           value: request.author,
         })),
@@ -109,7 +109,7 @@ export const TasksList: React.FC<TasksListProps> = ({
       {
         title: 'State',
         dataIndex: 'state',
-        filters: reviewRequests.map(request => ({
+        filters: reviewRequests.map((request) => ({
           text: request.state,
           value: request.state,
         })),

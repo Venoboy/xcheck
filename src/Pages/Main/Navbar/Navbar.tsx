@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
       <List
         bordered
         dataSource={data}
-        renderItem={item => (
+        renderItem={(item) => (
           <List.Item onClick={() => history.push(item.path)}>
             <Text>
               {item.icon}

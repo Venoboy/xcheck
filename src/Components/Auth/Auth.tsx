@@ -19,9 +19,9 @@ const Auth: React.FC<any> = (props: AuthType) => {
 
   const renderSelectOptions = () => {
     return roles.map((text: any, index: number) => {
-      const num = index;
       return (
-        <Option key={num} value={text}>
+        // eslint-disable-next-line react/no-array-index-key
+        <Option key={index} value={text}>
           {text}
         </Option>
       );
