@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography, Checkbox } from 'antd';
 import Header from '../Header/Header';
 import { ButtonReview } from './ components/buttons/buttonReview';
-import { App } from './ components/comment/comment';
+import { App } from '../comment/comment';
 import './Selfcheck.scss';
 
 const { Text, Title } = Typography;
@@ -20,7 +20,7 @@ const task = {
       maxScore: 20,
       category: 'Basic Scope',
       title: 'Basic things',
-      description: 'You need to make things right, not wrong'
+      description: 'You need to make things right, not wrong',
     },
     {
       id: 'extra_p1',
@@ -28,7 +28,7 @@ const task = {
       maxScore: 30,
       category: 'Extra Scope',
       title: 'More awesome things',
-      description: 'Be creative and make up some more awesome things'
+      description: 'Be creative and make up some more awesome things',
     },
     {
       id: 'fines_p1',
@@ -36,9 +36,9 @@ const task = {
       maxScore: 0,
       category: 'Fines',
       title: 'App crashes',
-      description: 'App causes BSoD!'
-    }
-  ]
+      description: 'App causes BSoD!',
+    },
+  ],
 };
 
 export const Selfcheck = () => {
