@@ -7,6 +7,7 @@ import Auth from '../Auth/Auth';
 import { TasksList } from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
 import Main from '../../Pages/Main/Main';
+import TasksCreator from '../TasksCreator/TasksCreator';
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/" component={Main} />
         </Switch>
       </Router>
+      <TasksCreator />
     </div>
   );
 };
