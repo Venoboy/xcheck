@@ -125,6 +125,8 @@ export type Dispute = {
   suggestedScore: number;
 };
 
+export type AuthSuccessAction = Action & { user: User };
+
 const initialState: stateType = {
   loaded: false,
   user: {
@@ -134,8 +136,8 @@ const initialState: stateType = {
   },
 };
 
-const reducer = (state = initialState, action: Action) => {
-  const { user }: any = action;
+const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
+  const { user } = action as AuthSuccessAction;
   switch (action.type) {
     case 'REQUESTS':
       return {

@@ -5,20 +5,18 @@ import { Button, Select } from 'antd';
 import { authGithub, getAccessCode } from '../../Actions/authGithub';
 import classes from './Auth.module.scss';
 
-const { Option }: any = Select;
+const { Option } = Select;
 
 interface AuthType {
-  isActive: boolean;
   auth: Function;
 }
 
 const Auth: React.FC<any> = (props: AuthType) => {
-  const { isActive } = props;
   const roles = ['Author', 'Student', 'Supervisor', 'Course manager'];
   const history = useHistory();
 
   const renderSelectOptions = () => {
-    return roles.map((text: any, index: number) => {
+    return roles.map((text: string, index: number) => {
       const num = index;
       return (
         <Option key={num} value={text}>
@@ -28,7 +26,7 @@ const Auth: React.FC<any> = (props: AuthType) => {
     });
   };
 
-  const handleSelectOptions = (value: any) => {
+  const handleSelectOptions = (value: string) => {
     localStorage.setItem('role', value);
   };
 
@@ -36,8 +34,6 @@ const Auth: React.FC<any> = (props: AuthType) => {
     localStorage.setItem('wasRedirected', 'no');
     localStorage.setItem('role', 'Student');
   }
-
-  if (!isActive) return null;
 
   if (localStorage.getItem('wasRedirected') === 'no') {
     return (
@@ -61,7 +57,7 @@ const Auth: React.FC<any> = (props: AuthType) => {
 
   if (localStorage.getItem('wasRedirected') === 'yes') {
     const { auth } = props;
-    const role = localStorage.getItem('role');
+    const userRole = localStorage.getItem('role');
     return (
       <div className={classes.Auth}>
         <p className={classes.Auth__Text}>Press button to complite Authorization</p>
@@ -69,7 +65,7 @@ const Auth: React.FC<any> = (props: AuthType) => {
           className={classes.Auth__Button}
           type="primary"
           onClick={() => {
-            auth(role);
+            auth(userRole);
             history.push('/');
           }}
         >
@@ -82,9 +78,9 @@ const Auth: React.FC<any> = (props: AuthType) => {
   return null;
 };
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Function) {
   return {
-    auth: (role: any) => dispatch(authGithub(role)),
+    auth: (userRole: string) => dispatch(authGithub(userRole)),
   };
 }
 
