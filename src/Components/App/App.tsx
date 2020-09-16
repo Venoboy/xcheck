@@ -7,7 +7,7 @@ import Auth from '../Auth/Auth';
 import { TasksList } from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
 import Main from '../../Pages/Main/Main';
-import TasksCreator from '../TasksCreator/TasksCreator';
+import AllTasks from '../AllTasks/AllTasks';
 
 const App: React.FC = () => {
   return (
@@ -26,8 +26,8 @@ const App: React.FC = () => {
           <Route path="/task-review">
             <TaskReview />
           </Route>
-          <Route path="/task-create">
-            <TasksCreator editTask />
+          <Route path="/all-tasks">
+            <AllTasks />
           </Route>
           <Route path="/" component={Main} />
         </Switch>

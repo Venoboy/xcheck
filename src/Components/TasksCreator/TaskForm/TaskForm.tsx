@@ -21,7 +21,6 @@ const TaskForm: React.FC<TasksFormProps> = (props) => {
   const { service, editTaskMode, editTaskName } = props;
   const [form] = Form.useForm();
   const [importTaskMode, setImportTaskMode] = useState(false);
-  setImportTaskMode(true); // delete need
   const [task, setTask] = useState({
     name: '',
     author: '',
@@ -37,17 +36,20 @@ const TaskForm: React.FC<TasksFormProps> = (props) => {
   };
 
   useEffect(() => {
+    setImportTaskMode(false); // delete
     if (editTaskMode && editTaskName) {
       service.getTask(editTaskName).then((e: any) => setTask(e));
     }
-  }, [editTaskMode, service]);
+  }, [editTaskMode, editTaskName, service]);
 
   const onFinish = (values: { [key: string]: any }) => {
     console.log('Success:');
     const description = valueMde.value();
     const taskEssence = createEssence(values, description);
     console.log(taskEssence);
-    if (!editTaskMode) {
+    if (editTaskMode) {
+      service.putTask(taskEssence, editTaskName).then((e: any) => console.log(e));
+    } else {
       service.postNewTask(taskEssence).then((e: any) => console.log(e));
     }
   };

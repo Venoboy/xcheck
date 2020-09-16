@@ -12,6 +12,18 @@ export default class Service {
     return res.json();
   };
 
+  putTask = async (data: any = {}, taskName: string) => {
+    const url = `https://cors-anywhere.herokuapp.com/https://x-check-9d19c.firebaseio.com/tasks/${taskName}.json`;
+    const res: any = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  };
+
   getTask = async (taskName: any) => {
     const url = `https://x-check-9d19c.firebaseio.com/tasks/${taskName}.json`;
     try {

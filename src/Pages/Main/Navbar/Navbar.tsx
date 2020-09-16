@@ -32,8 +32,8 @@ const data = [
     icon: <FrownTwoTone twoToneColor="rgb(137, 184, 44)" />,
   },
   {
-    name: 'Create Task',
-    path: '/task-create',
+    name: 'All Tasks',
+    path: '/all-tasks',
     icon: <FormOutlined twoToneColor="rgb(137, 184, 44)" />,
   },
 ];
