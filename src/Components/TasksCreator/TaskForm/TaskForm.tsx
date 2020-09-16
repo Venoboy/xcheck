@@ -11,8 +11,17 @@ import classes from './TaskForm.module.scss';
 import 'antd/dist/antd.css';
 import './easymde.min.css';
 
-const TaskForm = (props: any) => {
-  const { service, taskName } = props;
+interface TasksFormProps {
+  editTaskMode: boolean;
+  editTaskName: string;
+  service: any;
+}
+
+const TaskForm: React.FC<TasksFormProps> = (props) => {
+  const { service, editTaskMode, editTaskName } = props;
+  const [form] = Form.useForm();
+  const [importTaskMode, setImportTaskMode] = useState(false);
+  setImportTaskMode(true); // delete need
   const [task, setTask] = useState({
     name: '',
     author: '',
@@ -21,29 +30,44 @@ const TaskForm = (props: any) => {
     description: '',
   });
   const [valueMde, setValueMde] = useState({ value: () => {} });
+  console.log(task);
 
   const getInstans = (instance: any) => {
     setValueMde(instance);
   };
 
   useEffect(() => {
-    service.getTask(taskName).then((e: any) => setTask(e));
-  }, [taskName, service]);
+    if (editTaskMode && editTaskName) {
+      service.getTask(editTaskName).then((e: any) => setTask(e));
+    }
+  }, [editTaskMode, service]);
 
   const onFinish = (values: { [key: string]: any }) => {
     console.log('Success:');
     const description = valueMde.value();
     const taskEssence = createEssence(values, description);
-    service.postNewTask(taskEssence).then((e: any) => console.log(e));
-    console.log(JSON.stringify(taskEssence));
+    console.log(taskEssence);
+    if (!editTaskMode) {
+      service.postNewTask(taskEssence).then((e: any) => console.log(e));
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
+  if (editTaskMode || importTaskMode) {
+    form.setFieldsValue({
+      taskName: task.name,
+      authorName: task.author,
+      typeState: task.state,
+      tasks: task.subTasks,
+    });
+  }
+
   return (
     <Form
+      form={form}
       className={classes.taskForm}
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 24 }}
@@ -52,9 +76,9 @@ const TaskForm = (props: any) => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <TaskMainInfo taskName={task.name} taskAuthor={task.author} taskState={task.state} />
-      <TaskDescription getInstans={getInstans} taskDescription={task.description} />
-      <TaskSubTasks taskSubtasks={task.subTasks} />
+      <TaskMainInfo />
+      <TaskDescription getInstans={getInstans} description={task.description} />
+      <TaskSubTasks />
       <TaskSubmitButton />
     </Form>
   );

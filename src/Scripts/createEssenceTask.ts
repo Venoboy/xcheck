@@ -10,11 +10,11 @@ const createEssence = (valueForm: any, description: any) => {
   const subTasks = valueForm.tasks.map((task: any, index: number) => {
     const formatTask: any = {
       id: index,
-      title: task.nameSubtask,
-      category: task.typeTask,
+      title: task.title,
+      category: task.category,
       mentorCheck: task.mentorCheck,
-      description: task.descSubtask,
-      score: Number(task.costSubtask),
+      description: task.description,
+      score: Number(task.score),
     };
     return formatTask;
   });

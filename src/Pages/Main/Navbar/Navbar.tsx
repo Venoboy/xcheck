@@ -1,7 +1,13 @@
 import React from 'react';
 import { List, Typography } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { CalendarTwoTone, CodeTwoTone, CheckCircleTwoTone, FrownTwoTone } from '@ant-design/icons';
+import {
+  CalendarTwoTone,
+  CodeTwoTone,
+  CheckCircleTwoTone,
+  FrownTwoTone,
+  FormOutlined,
+} from '@ant-design/icons';
 import './Navbar.scss';
 
 const data = [
@@ -24,6 +30,11 @@ const data = [
     name: 'Dispute',
     path: '/dispute',
     icon: <FrownTwoTone twoToneColor="rgb(137, 184, 44)" />,
+  },
+  {
+    name: 'Create Task',
+    path: '/task-create',
+    icon: <FormOutlined twoToneColor="rgb(137, 184, 44)" />,
   },
 ];
 

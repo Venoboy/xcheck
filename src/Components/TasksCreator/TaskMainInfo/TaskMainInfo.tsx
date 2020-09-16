@@ -3,8 +3,12 @@ import { Button, Col, Form, Input, Row, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons/lib';
 import { connect } from 'react-redux';
 
-const TaskMainInfo = (props: any) => {
-  const { userName, taskName, taskAuthor, taskState } = props;
+interface TasksMainInfoProps {
+  userName: string | null;
+}
+
+const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
+  const { userName } = props;
   const { Option } = Select;
   const taskStates = ['DRAFT', 'PUBLISHED', 'ARCHIVED'];
 
@@ -15,7 +19,6 @@ const TaskMainInfo = (props: any) => {
           label="Task Name"
           name="taskName"
           rules={[{ required: true, message: 'Please enter Task Name' }]}
-          initialValue={taskName}
         >
           <Input placeholder="Enter Task Name" suffix={<EditOutlined />} />
         </Form.Item>
@@ -23,7 +26,7 @@ const TaskMainInfo = (props: any) => {
           label="Author"
           name="authorName"
           rules={[{ required: true }]}
-          initialValue={taskAuthor || userName}
+          initialValue={userName}
         >
           <Input placeholder="Author" suffix={<EditOutlined />} />
         </Form.Item>
@@ -31,7 +34,7 @@ const TaskMainInfo = (props: any) => {
           name="typeState"
           rules={[{ required: true, message: 'Missing State Task' }]}
           label="State Task"
-          initialValue={taskState}
+          initialValue="DRAFT"
         >
           <Select showSearch placeholder="Select Type Task" optionFilterProp="children">
             {taskStates.map((state) => (

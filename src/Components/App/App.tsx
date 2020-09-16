@@ -26,10 +26,12 @@ const App: React.FC = () => {
           <Route path="/task-review">
             <TaskReview />
           </Route>
+          <Route path="/task-create">
+            <TasksCreator editTask />
+          </Route>
           <Route path="/" component={Main} />
         </Switch>
       </Router>
-      <TasksCreator />
     </div>
   );
 };

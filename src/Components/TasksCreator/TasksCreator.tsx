@@ -3,11 +3,17 @@ import Header from '../Header/Header';
 import TaskForm from './TaskForm/TaskForm';
 import classes from './TasksCreator.module.scss';
 
-const TasksCreator: React.FC = ({ taskName }: any) => {
+interface TasksCreatorProps {
+  editTask: boolean;
+}
+
+const TasksCreator: React.FC<TasksCreatorProps> = (props) => {
+  const { editTask } = props;
+  const editTaskName = '-MHKgO1kKjrl-xacp4bc';
   return (
     <div className={classes.tasksCreator}>
       <Header />
-      <TaskForm taskName={taskName} />
+      <TaskForm editTaskMode={editTask} editTaskName={editTaskName} />
     </div>
   );
 };
