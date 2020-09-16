@@ -14,4 +14,17 @@ export default class Service {
   //   const res: any = await fetch(url);
   //   return await res.json()
   // }
+
+  postNewUser = async (user: any = {}) => {
+    const url =
+      'https://cors-anywhere.herokuapp.com/https://x-check-9d19c.firebaseio.com/users.json';
+    const res: any = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    return res.json();
+  };
 }
