@@ -3,6 +3,7 @@ import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography }
 import { connect } from 'react-redux';
 
 import classes from './Dispute.module.scss';
+import activeBtnHandler from './activeBtnHadler';
 // import getFromBD from '../../Service/getFromBD';
 import CommentList from '../CommentList/CommentList';
 import getAsyncInfo from './getAsyncInfo';
@@ -18,16 +19,21 @@ const Dispute = (props: any) => {
   const { user, taskId } = props;
   const [task, setTask] = useState([] as any);
   const [isAddingComment, setIsAddingComment] = useState([] as any);
+  const [activeButtons, setActiveButtons] = useState([] as any);
 
   if (!task.subTasks) {
     getAsyncInfo(setTask, taskId);
   }
 
+  if (activeButtons.length === 0) {
+    activeBtnHandler(setActiveButtons, taskId).then(() => {
+      console.log(activeButtons);
+    });
+  }
+
   if (task.subTasks && task.subTasks.length > 0 && isAddingComment.length === 0) {
     setIsAddingComment(new Array(task.subTasks.length).fill(false));
   }
-
-  console.log('dispute');
 
   let subTasks = null;
 
@@ -60,6 +66,7 @@ const Dispute = (props: any) => {
           <Col span={6} className={classes.scoreSection}>
             <Statistic title="Score" value={10} suffix="/ 20" />
             <Button
+              disabled={!activeButtons[index]}
               danger
               className={classes.argueBtn}
               onClick={() => commentButtonHandler(index, true)}

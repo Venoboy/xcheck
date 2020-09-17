@@ -13,7 +13,6 @@ const CommentList = (props: any) => {
   const commentsArray: any = [];
 
   if (taskScore && taskScore.subTasks.length > 0 && taskScore.subTasks[subTaskIndex]) {
-    console.log(subTaskIndex, taskScore.subTasks);
     const selfText = taskScore.subTasks[subTaskIndex].comments.self;
     const reviewerText = taskScore.subTasks[subTaskIndex].comments.reviewer;
     const disputeText = taskScore.subTasks[subTaskIndex].comments.dispute;

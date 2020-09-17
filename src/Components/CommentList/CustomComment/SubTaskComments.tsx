@@ -1,11 +1,9 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useState } from 'react';
-import { Avatar, Button, Comment, Form, Input, List } from 'antd';
+import { Avatar, Comment, List } from 'antd';
 
 import classes from './SubTaskComments.module.scss';
-
-const { TextArea } = Input;
-// const { Paragraph } = Typography;
+import NewComment from './NewComment';
 
 const CustomList = ({ comments }: any) => (
   <List
@@ -13,19 +11,6 @@ const CustomList = ({ comments }: any) => (
     itemLayout="horizontal"
     renderItem={(props: any) => <Comment {...props} />}
   />
-);
-
-const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
-  <>
-    <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value} />
-    </Form.Item>
-    <Form.Item>
-      <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-        Add Comment
-      </Button>
-    </Form.Item>
-  </>
 );
 
 export const SubTaskComments = (props: any) => {
@@ -83,7 +68,7 @@ export const SubTaskComments = (props: any) => {
             />
           }
           content={
-            <Editor
+            <NewComment
               onChange={handleChange}
               onSubmit={handleSubmit}
               submitting={submitting}
