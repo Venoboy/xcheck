@@ -4,14 +4,19 @@ import TaskForm from './TaskForm/TaskForm';
 import classes from './TasksCreator.module.scss';
 
 const TasksCreator: React.FC = () => {
-  const editTaskName = 'MH6LY96FSOLrKaoKE';
+  let editTaskName: string | boolean = false;
+  let editTaskMode: boolean = false;
+
+  if (window.location.pathname !== '/task-create') {
+    const taskUrlSplit = window.location.pathname.split('/');
+    editTaskName = taskUrlSplit[taskUrlSplit.length - 1];
+    editTaskMode = true;
+  }
+
   return (
     <div className={classes.tasksCreator}>
       <Header />
-      <TaskForm
-        editTaskMode={window.location.href === 'http://localhost:3000/task-create'}
-        editTaskName={editTaskName}
-      />
+      <TaskForm editTaskMode={editTaskMode} editTaskName={editTaskName} />
     </div>
   );
 };

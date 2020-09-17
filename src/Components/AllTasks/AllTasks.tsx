@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { List } from 'antd';
+import { Table, Tag, Button } from 'antd';
+import { Link } from 'react-router-dom';
 import Hoc from '../Hoc/Hoc';
 import Header from '../Header/Header';
-import TasksCreator from '../TasksCreator/TasksCreator';
-
 import classes from './AllTasks.module.scss';
 
 interface allTasksType {
@@ -28,17 +27,83 @@ const AllTasks: React.FC<allTasksType> = (props) => {
   console.log(allTasks);
 
   const ListTasks = () => {
+    const columns = [
+      {
+        title: 'Name Task',
+        dataIndex: 'name',
+        key: 'name',
+        render: (text: any) => text,
+      },
+      {
+        title: 'Author',
+        dataIndex: 'author',
+        key: 'author',
+        sorter: (a: any, b: any) => a.author - b.author,
+      },
+      {
+        title: 'Score',
+        dataIndex: 'subTasks',
+        key: 'subTasks',
+        render: (subTasks: string | any[]) => {
+          let score = 0;
+          if (typeof subTasks !== 'string') {
+            for (let i: any = 0; i < subTasks.length; i++) {
+              if (subTasks[i].score > 0) {
+                score += subTasks[i].score;
+              }
+            }
+          }
+          return <p key={subTasks.length}>{score}</p>;
+        },
+      },
+      {
+        title: 'State',
+        key: 'state',
+        dataIndex: 'state',
+        render: (tags: any) => {
+          let color = tags.length > 5 ? 'green' : 'geekblue';
+          if (tags === 'ARCHIVED') {
+            color = 'volcano';
+          }
+          return (
+            <Tag key={tags} color={color}>
+              {tags.toUpperCase()}
+            </Tag>
+          );
+        },
+        sorter: (a: any, b: any) => a.state.length - b.state.length,
+      },
+      {
+        title: 'Edit',
+        key: 'edit',
+        render: (text: any, record: any) => (
+          <Link to={`/task-create/${record.taskId}`}>
+            <Button size="small" type="primary" key={text}>
+              Edit
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        title: 'Delete',
+        key: 'delete',
+        render: (text: any) => (
+          <Button size="small" key={text} type="primary" danger>
+            Delete
+          </Button>
+        ),
+      },
+    ];
     return (
-      <List
-        itemLayout="horizontal"
-        size="small"
-        pagination={{ pageSize: 10 }}
+      <Table
+        columns={columns}
         dataSource={allTasks}
-        renderItem={(item: any) => (
-          <List.Item key={item.taskId}>
-            <List.Item.Meta title={item.name} description={item.author} />
-            <p>Edit</p>
-          </List.Item>
+        footer={() => (
+          <Link to="/task-create">
+            <Button type="primary" size="large">
+              Create Task
+            </Button>
+          </Link>
         )}
       />
     );
@@ -48,7 +113,6 @@ const AllTasks: React.FC<allTasksType> = (props) => {
     <div className={classes.allTasks}>
       <Header />
       <ListTasks />
-      <TasksCreator />
     </div>
   );
 };

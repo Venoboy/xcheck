@@ -6,6 +6,7 @@ import Dispute from '../Dispute/Dispute';
 import Auth from '../Auth/Auth';
 import { TasksList } from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
+import TasksCreator from '../TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
 import AllTasks from '../AllTasks/AllTasks';
 
@@ -29,7 +30,10 @@ const App: React.FC = () => {
           <Route path="/all-tasks">
             <AllTasks />
           </Route>
-          <Route path="/" component={Main} />
+          <Route path="/task-create">
+            <TasksCreator />
+          </Route>
+          <Route exact path="/" component={Main} />
         </Switch>
       </Router>
     </div>
