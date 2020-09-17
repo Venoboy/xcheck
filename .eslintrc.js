@@ -11,12 +11,18 @@ module.exports = {
     'plugin:react/recommended',
   ],
   settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        paths: ['src'],
-      },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
     },
+    'import/resolver': {
+      'node': {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        paths: ['src']
+      },
+      'typescript': {
+        'alwaysTryTypes': true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      },
+    }
   },
   plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
@@ -37,14 +43,15 @@ module.exports = {
     'no-plusplus': 'off',
     'space-before-function-paren': 0,
     'import/prefer-default-export': 'off',
-    'import/no-unresolved': 'off',
+    'import/no-unresolved': 'error',
+    '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
     'import/no-extraneous-dependencies': [
       'off',
-      { devDependencies: false, optionalDependencies: false, peerDependencies: false },
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
     ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
-    'no-console': 'off',
+    'no-console': 'warn',
     'no-alert': 'error',
 
     'no-param-reassign': 'off',
@@ -74,7 +81,6 @@ module.exports = {
 
     'prettier/prettier': ['error'],
 
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
+    "no-unused-vars": "off",
   },
 };
