@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Tag, Button } from 'antd';
 import { Link } from 'react-router-dom';
+import { FormOutlined, DeleteOutlined, DiffOutlined } from '@ant-design/icons';
 import Hoc from '../Hoc/Hoc';
 import Header from '../Header/Header';
 import classes from './AllTasks.module.scss';
@@ -78,7 +79,7 @@ const AllTasks: React.FC<allTasksType> = (props) => {
         key: 'edit',
         render: (text: any, record: any) => (
           <Link to={`/task-create/${record.taskId}`}>
-            <Button size="small" type="primary" key={text}>
+            <Button size="small" type="primary" key={text} icon={<FormOutlined />}>
               Edit
             </Button>
           </Link>
@@ -88,7 +89,7 @@ const AllTasks: React.FC<allTasksType> = (props) => {
         title: 'Delete',
         key: 'delete',
         render: (text: any) => (
-          <Button size="small" key={text} type="primary" danger>
+          <Button size="small" key={text} type="primary" danger icon={<DeleteOutlined />}>
             Delete
           </Button>
         ),
@@ -100,7 +101,7 @@ const AllTasks: React.FC<allTasksType> = (props) => {
         dataSource={allTasks}
         footer={() => (
           <Link to="/task-create">
-            <Button type="primary" size="large">
+            <Button type="primary" size="large" icon={<DiffOutlined />}>
               Create Task
             </Button>
           </Link>

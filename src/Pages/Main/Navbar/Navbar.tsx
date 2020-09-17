@@ -6,7 +6,7 @@ import {
   CodeTwoTone,
   CheckCircleTwoTone,
   FrownTwoTone,
-  FormOutlined,
+  OrderedListOutlined,
 } from '@ant-design/icons';
 import './Navbar.scss';
 
@@ -34,7 +34,7 @@ const data = [
   {
     name: 'All Tasks',
     path: '/all-tasks',
-    icon: <FormOutlined twoToneColor="rgb(137, 184, 44)" />,
+    icon: <OrderedListOutlined twoToneColor="rgb(137, 184, 44)" />,
   },
 ];
 
