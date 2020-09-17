@@ -64,8 +64,8 @@ export const TaskReview: React.FC<TaskReviewProps> = ({
       [category]: [],
     };
   }, Object.create(null));
-  Object.keys(categories).forEach(category => {
-    categories[category] = task.items.filter(item => item.category === category);
+  Object.keys(categories).forEach((category) => {
+    categories[category] = task.items.filter((item) => item.category === category);
   });
 
   return (
@@ -77,7 +77,7 @@ export const TaskReview: React.FC<TaskReviewProps> = ({
       <Collapse>
         {Object.entries(categories).map(([category, items]) => (
           <Panel header={category} key={category}>
-            {(items as TaskItem[]).map(item => (
+            {(items as TaskItem[]).map((item) => (
               <div key={item.id}>
                 <Descriptions title={item.title}>
                   <Item label="Description">{item.description}</Item>
