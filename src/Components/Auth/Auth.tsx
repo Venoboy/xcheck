@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, Select } from 'antd';
+import { Button, Select, Spin, Space } from 'antd';
 import { authGithub, getAccessCode } from '../../Actions/authGithub';
+import { REQUESTS, STOP_LOADING } from '../../Actions/actionTypes';
 import classes from './Auth.module.scss';
 
 const { Option } = Select;
 
 interface AuthType {
   auth: Function;
+  startLoading: Function;
+  stopLoading: Function;
+  loaded: boolean;
 }
 
 const Auth: React.FC<any> = (props: AuthType) => {
@@ -56,21 +60,33 @@ const Auth: React.FC<any> = (props: AuthType) => {
   }
 
   if (localStorage.getItem('wasRedirected') === 'yes') {
-    const { auth } = props;
+    const { auth, loaded, startLoading, stopLoading } = props;
     const userRole = localStorage.getItem('role');
+
+    if (!loaded) {
+      return (
+        <div className={classes.Auth}>
+          <p className={classes.Auth__Text}>Press button to complite Authorization</p>
+          <Button
+            className={classes.Auth__Button}
+            type="primary"
+            onClick={async () => {
+              startLoading();
+              await auth(userRole);
+              stopLoading();
+              history.push('/');
+            }}
+          >
+            Finish
+          </Button>
+        </div>
+      );
+    }
     return (
       <div className={classes.Auth}>
-        <p className={classes.Auth__Text}>Press button to complite Authorization</p>
-        <Button
-          className={classes.Auth__Button}
-          type="primary"
-          onClick={() => {
-            auth(userRole);
-            history.push('/');
-          }}
-        >
-          Finish
-        </Button>
+        <Space size="middle">
+          <Spin size="large" />
+        </Space>
       </div>
     );
   }
@@ -78,10 +94,18 @@ const Auth: React.FC<any> = (props: AuthType) => {
   return null;
 };
 
-function mapDispatchToProps(dispatch: Function) {
+function mapStateToProps(state: any) {
   return {
-    auth: (userRole: string) => dispatch(authGithub(userRole)),
+    loaded: state.loaded,
   };
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+function mapDispatchToProps(dispatch: Function) {
+  return {
+    auth: (userRole: string) => dispatch(authGithub(userRole)),
+    startLoading: () => dispatch({ type: REQUESTS }),
+    stopLoading: () => dispatch({ type: STOP_LOADING }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

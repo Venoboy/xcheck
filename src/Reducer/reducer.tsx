@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { AUTH_GITHUB_SUCCESS } from '../Actions/actionTypes';
+import { AUTH_GITHUB_SUCCESS, STOP_LOADING, REQUESTS } from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
@@ -139,7 +139,7 @@ const initialState: stateType = {
 const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
   const { user } = action as AuthSuccessAction;
   switch (action.type) {
-    case 'REQUESTS':
+    case REQUESTS:
       return {
         ...state,
         loaded: true,
@@ -148,6 +148,11 @@ const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
       return {
         ...state,
         user,
+      };
+    case STOP_LOADING:
+      return {
+        ...state,
+        loaded: false,
       };
 
     default:
