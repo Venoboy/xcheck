@@ -6,6 +6,7 @@ import classes from './Dispute.module.scss';
 // import getFromBD from '../../Service/getFromBD';
 import CommentList from '../CommentList/CommentList';
 import getAsyncInfo from './getAsyncInfo';
+import stages from '../CommentList/stages';
 
 const { Title }: any = Typography;
 const { Content }: any = Layout;
@@ -16,8 +17,26 @@ const { TextArea }: any = Input;
 const Dispute = (props: any) => {
   const { user, taskId } = props;
   const [task, setTask] = useState([] as any);
-  getAsyncInfo(setTask, taskId);
+  const [isAddingComment, setIsAddingComment] = useState([] as any);
+
+  if (!task.subTasks) {
+    getAsyncInfo(setTask, taskId);
+  }
+
+  if (task.subTasks && task.subTasks.length > 0 && isAddingComment.length === 0) {
+    setIsAddingComment(new Array(task.subTasks.length).fill(false));
+  }
+
+  console.log('dispute');
+
   let subTasks = null;
+
+  const commentButtonHandler = (index: number, value: boolean) => {
+    const addingCommentCurrent = [...isAddingComment];
+    addingCommentCurrent[index] = value;
+    setIsAddingComment(addingCommentCurrent);
+  };
+
   if (Array.isArray(task.subTasks) && task.subTasks.length) {
     subTasks = task.subTasks.map((subtask: any, index: number) => (
       <div key={subtask.title}>
@@ -29,15 +48,22 @@ const Dispute = (props: any) => {
             <Row>{subtask.description}</Row>
             <Divider />
             <Row>
-              <CommentList user={user} subTaskIndex={index} taskId={task.id} />
-            </Row>
-            <Row>
-              <TextArea placeholder="Enter comment" autoSize />
+              <CommentList
+                user={user}
+                subTaskIndex={index}
+                taskId={taskId}
+                isAddingComment={isAddingComment}
+                stage={stages.disputeCheck}
+              />
             </Row>
           </Col>
           <Col span={6} className={classes.scoreSection}>
             <Statistic title="Score" value={10} suffix="/ 20" />
-            <Button danger className={classes.argueBtn}>
+            <Button
+              danger
+              className={classes.argueBtn}
+              onClick={() => commentButtonHandler(index, true)}
+            >
               Оспорить
             </Button>
           </Col>
@@ -45,7 +71,7 @@ const Dispute = (props: any) => {
       </div>
     ));
   }
-  const renderedComponent = (
+  return (
     <Content className={classes.content}>
       {subTasks}
       <Row>
@@ -57,9 +83,7 @@ const Dispute = (props: any) => {
       </Row>
     </Content>
   );
-  return renderedComponent;
 };
-
 const mapStateToProps = (state: any) => ({
   taskId: state.currentState.taskId,
   user: state.currentState.user,
