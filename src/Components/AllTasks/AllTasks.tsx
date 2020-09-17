@@ -25,8 +25,6 @@ const AllTasks: React.FC<allTasksType> = (props) => {
     });
   }, []);
 
-  console.log(allTasks);
-
   const ListTasks = () => {
     const columns = [
       {
@@ -39,7 +37,17 @@ const AllTasks: React.FC<allTasksType> = (props) => {
         title: 'Author',
         dataIndex: 'author',
         key: 'author',
-        sorter: (a: any, b: any) => a.author - b.author,
+        sorter: (a: any, b: any) => {
+          const wordA = a.author.toLowerCase();
+          const wordB = b.author.toLowerCase();
+          if (wordA < wordB) {
+            return -1;
+          }
+          if (wordA > wordB) {
+            return 1;
+          }
+          return 0;
+        },
       },
       {
         title: 'Score',
