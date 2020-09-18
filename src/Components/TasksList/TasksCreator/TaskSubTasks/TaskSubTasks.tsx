@@ -15,15 +15,11 @@ const TaskSubTasks: React.FC = () => {
             <Divider>Subtasks</Divider>
             <ol>
               {fields.map((field) => (
-<<<<<<< HEAD:src/Components/TaskSubTasks/TaskSubTasks.tsx
-                <li className="subtask-list-item" key={field.key}>
-=======
                 <li
                   className={classes.subtaskListItem}
                   key={field.key}
                   style={{ borderBottom: 'solid 1px grey', marginTop: '15px' }}
                 >
->>>>>>> e921de90012097c389cb2479d4a25f8e967e0ada:src/Components/TasksList/TasksCreator/TaskSubTasks/TaskSubTasks.tsx
                   <Form.Item
                     {...field}
                     wrapperCol={{ span: 22 }}
