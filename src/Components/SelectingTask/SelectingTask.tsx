@@ -15,19 +15,21 @@ const SelectingTask: React.FC = () => {
 
   const getTasks = async () => {
     const url = 'https://x-check-9d19c.firebaseio.com/';
-    const checkSessions = await (await fetch(`${url}checkSessions.json`)).json();
-    const fetchTasks = await (await fetch(`${url}tasks.json`)).json();
-    const fetchReviewRequests = await (await fetch(`${url}reviewRequests.json`)).json();
+    const checkSessions = (await (await fetch(`${url}checkSessions.json`)).json()) || [];
+    const fetchTasks = (await (await fetch(`${url}tasks.json`)).json()) || {};
+    const fetchReviewRequests = (await (await fetch(`${url}reviewRequests.json`)).json()) || {};
 
     setReviewRequests(fetchReviewRequests);
 
     const tempTasks: any[] = [];
     checkSessions.forEach((session: any) => {
       if (session.state !== 'DRAFT') {
-        tempTasks.push({
-          ...session,
-          name: fetchTasks[session.taskId].name,
-        });
+        if (fetchTasks[session.taskId]?.name) {
+          tempTasks.push({
+            ...session,
+            name: fetchTasks[session.taskId]?.name,
+          });
+        }
       }
     });
 
