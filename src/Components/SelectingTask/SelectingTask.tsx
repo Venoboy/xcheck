@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Menu, Dropdown, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import Header from '../Header/Header';
 import './SelectingTask.scss';
 
 const SelectingTask: React.FC = () => {
@@ -101,6 +102,7 @@ const SelectingTask: React.FC = () => {
 
   return (
     <div className="selecting-task">
+      <Header />
       <div className="selecting-task__info">
         <h3 className="selecting-task__task-name">
           <span className="star">*</span>
