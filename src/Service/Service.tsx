@@ -1,87 +1,39 @@
-import { message } from 'antd';
+import firebase from 'firebase';
+import { Task, User } from '../Reducer/reducer';
 
-export default class Service {
-  postNewTask = async (data: any = {}) => {
-    const url =
-      'https://cors-anywhere.herokuapp.com/https://x-check-9d19c.firebaseio.com/tasks.json';
-    try {
-      const res: any = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      message.success('Created New Task');
-      return res.json();
-    } catch (e) {
-      message.error('Ups cannot Created New Task');
-      return e;
-    }
+const API_KEY = 'AIzaSyDzqqVu_zSTm33lzJmSTRwgNyTbUib_B2w';
+const app = firebase.initializeApp({
+  apiKey: API_KEY,
+  databaseURL: 'https://x-check-9d19c.firebaseio.com/',
+});
+const db = app.database();
+
+export default class Services {
+  postNewTask = async (data: Task) => {
+    return db.ref('/tasks').push(data);
   };
 
-  putTask = async (data: any = {}, taskName: string) => {
-    const url = `https://cors-anywhere.herokuapp.com/https://x-check-9d19c.firebaseio.com/tasks/${taskName}.json`;
-    try {
-      const res: any = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      message.success('Save Change');
-      return res.json();
-    } catch (e) {
-      message.error('UPS Save Change');
-      return e;
-    }
+  putTask = async (data: Task, taskName: string) => {
+    return db.ref(`/tasks/${taskName}`).set(data);
   };
 
-  getTask = async (taskName: any) => {
-    const url = `https://x-check-9d19c.firebaseio.com/tasks/${taskName}.json`;
-    try {
-      const res: any = await fetch(url);
-      return res.ok ? res.json() : res;
-    } catch (e) {
-      return e;
-    }
-  };
-
-  delTask = async (taskName: string) => {
-    const url = `https://x-check-9d19c.firebaseio.com/tasks/${taskName}.json`;
-    try {
-      const res: any = await fetch(url, { method: 'DELETE' });
-      message.success('Task Deleted');
-      return res.ok ? res : res;
-    } catch (e) {
-      message.error('Task No Deleted');
-      return e;
-    }
+  getTask = async (taskName: string) => {
+    return new Promise((resolve) =>
+      db.ref(`/tasks/${taskName}`).on('value', (snapshot) => {
+        resolve(snapshot.toJSON());
+      })
+    );
   };
 
   getAllTasks = async () => {
-    const url = 'https://x-check-9d19c.firebaseio.com/tasks.json';
-    try {
-      const res: any = await fetch(url);
-      message.success('Received data from the server');
-      return res.ok ? res.json() : res;
-    } catch (e) {
-      message.error('Received data from the server');
-      return e;
-    }
+    return new Promise((resolve) =>
+      db.ref('/tasks').on('value', (snapshot) => {
+        resolve(snapshot.toJSON() || {});
+      })
+    );
   };
 
-  postNewUser = async (user: any = {}) => {
-    const url =
-      'https://cors-anywhere.herokuapp.com/https://x-check-9d19c.firebaseio.com/users.json';
-    const res: any = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-    return res.json();
+  postNewUser = async (user: User) => {
+    return db.ref(`/users`).push(user);
   };
 }

@@ -35,6 +35,7 @@ export type TaskItem = {
 };
 
 export type Task = {
+  taskId?: string;
   id: string;
   author: string;
   state: TaskStates;
