@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { AUTH_GITHUB_SUCCESS } from '../Actions/actionTypes';
+import { AUTH_GITHUB_SUCCESS, STOP_LOADING, REQUESTS } from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
@@ -125,6 +125,8 @@ export type Dispute = {
   suggestedScore: number;
 };
 
+export type AuthSuccessAction = Action & { user: User };
+
 const initialState: stateType = {
   loaded: false,
   user: {
@@ -134,10 +136,10 @@ const initialState: stateType = {
   },
 };
 
-const reducer = (state = initialState, action: Action) => {
-  const { user }: any = action;
+const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
+  const { user } = action as AuthSuccessAction;
   switch (action.type) {
-    case 'REQUESTS':
+    case REQUESTS:
       return {
         ...state,
         loaded: true,
@@ -146,6 +148,11 @@ const reducer = (state = initialState, action: Action) => {
       return {
         ...state,
         user,
+      };
+    case STOP_LOADING:
+      return {
+        ...state,
+        loaded: false,
       };
 
     default:

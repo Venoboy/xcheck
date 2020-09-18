@@ -12,17 +12,17 @@ module.exports = {
   ],
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx']
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/resolver': {
-      'node': {
+      node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        paths: ['src']
+        paths: ['src'],
       },
-      'typescript': {
-        'alwaysTryTypes': true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      typescript: {
+        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
       },
-    }
+    },
   },
   plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
@@ -47,7 +47,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
     'import/no-extraneous-dependencies': [
       'off',
-      { devDependencies: false, optionalDependencies: false, peerDependencies: false }
+      { devDependencies: false, optionalDependencies: false, peerDependencies: false },
     ],
     'no-underscore-dangle': ['error', { allow: ['id_', '_id'] }],
     'max-len': ['error', 100, 2, { ignoreUrls: true }],
@@ -81,6 +81,6 @@ module.exports = {
 
     'prettier/prettier': ['error'],
 
-    "no-unused-vars": "off",
+    'no-unused-vars': 'off',
   },
 };
