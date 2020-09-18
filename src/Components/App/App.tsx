@@ -4,8 +4,9 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Dispute from '../Dispute/Dispute';
 import Auth from '../Auth/Auth';
-import { TasksList } from '../TasksList/TasksList';
+import TasksList from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
+import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
 
 const App: React.FC = () => {
@@ -23,7 +24,10 @@ const App: React.FC = () => {
           <Route path="/task-review">
             <TaskReview />
           </Route>
-          <Route path="/" component={Main} />
+          <Route path="/task-create">
+            <TasksCreator />
+          </Route>
+          <Route exact path="/" component={Main} />
         </Switch>
       </Router>
     </div>

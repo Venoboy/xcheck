@@ -6,6 +6,7 @@
 .pnp.js
 prettier.config.js
 package-lock.json
+./src/react-app-env.d.ts
 
 # testing
 /coverage

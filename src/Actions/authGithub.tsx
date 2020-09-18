@@ -18,8 +18,7 @@ export function authGithubSuccess(user: Object) {
 
 export function getAccessCode() {
   localStorage.setItem('wasRedirected', 'yes');
-  const url = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}`;
-  window.location.href = url;
+  window.location.href = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}`;
 }
 
 export function authGithub(userRole: any) {

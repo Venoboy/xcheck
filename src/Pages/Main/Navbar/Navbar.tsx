@@ -1,14 +1,19 @@
 import React from 'react';
 import { List, Typography } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { CalendarTwoTone, CodeTwoTone, CheckCircleTwoTone, FrownTwoTone } from '@ant-design/icons';
+import {
+  CodeTwoTone,
+  CheckCircleTwoTone,
+  FrownTwoTone,
+  OrderedListOutlined,
+} from '@ant-design/icons';
 import './Navbar.scss';
 
 const data = [
   {
     name: 'Tasks List',
     path: '/tasks-list',
-    icon: <CalendarTwoTone twoToneColor="rgb(245, 97, 97)" />,
+    icon: <OrderedListOutlined twoToneColor="rgb(245, 97, 97)" />,
   },
   {
     name: 'Submit Task',
@@ -37,7 +42,7 @@ const Navbar: React.FC = () => {
       <List
         bordered
         dataSource={data}
-        renderItem={item => (
+        renderItem={(item) => (
           <List.Item onClick={() => history.push(item.path)}>
             <Text>
               {item.icon}
