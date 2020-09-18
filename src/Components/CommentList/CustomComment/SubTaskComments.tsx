@@ -20,6 +20,7 @@ export const SubTaskComments = (props: any) => {
   const [value, setValue] = useState('');
   // const [clicked, setClicked] = useState(false);
   // const [editableStr, setEditableStr] = useState(value);
+  console.log(comments);
 
   const handleSubmit = () => {
     if (!value) {

@@ -27,7 +27,7 @@ const Dispute = (props: any) => {
 
   if (activeButtons.length === 0) {
     activeBtnHandler(setActiveButtons, taskId).then(() => {
-      console.log(activeButtons);
+      // console.log(activeButtons);
     });
   }
 
