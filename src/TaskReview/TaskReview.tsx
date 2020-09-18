@@ -17,7 +17,7 @@ const taskStub = {
   author: 'cardamo',
   state: 'DRAFT',
   categoriesOrder: ['Basic Scope', 'Extra Scope', 'Fines'],
-  items: [
+  subTasks: [
     {
       id: 'basic_p1',
       minScore: 0,
@@ -65,7 +65,7 @@ export const TaskReview: React.FC<TaskReviewProps> = ({
     };
   }, Object.create(null));
   Object.keys(categories).forEach((category) => {
-    categories[category] = task.items.filter((item) => item.category === category);
+    categories[category] = task?.subTasks.filter((item) => item.category === category);
   });
 
   return (

@@ -40,7 +40,7 @@ export type Task = {
   author: string;
   state: TaskStates;
   categoriesOrder: string[];
-  items: TaskItem[];
+  subTasks: TaskItem[];
 };
 
 export type TaskScoreItem = {

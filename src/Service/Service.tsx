@@ -8,6 +8,12 @@ const app = firebase.initializeApp({
 });
 const db = app.database();
 
+function normalizeTask(task: Task) {
+  return {
+    ...task,
+    subTasks: Object.values(task.subTasks),
+  };
+}
 export default class Services {
   postNewTask = async (data: Task) => {
     return db.ref('/tasks').push(data);
@@ -20,7 +26,7 @@ export default class Services {
   getTask = async (taskName: string) => {
     return new Promise((resolve) =>
       db.ref(`/tasks/${taskName}`).on('value', (snapshot) => {
-        resolve(snapshot.toJSON());
+        resolve(normalizeTask(snapshot.toJSON() as Task));
       })
     );
   };
@@ -28,7 +34,11 @@ export default class Services {
   getAllTasks = async () => {
     return new Promise((resolve) =>
       db.ref('/tasks').on('value', (snapshot) => {
-        resolve(snapshot.toJSON() || {});
+        resolve(
+          Object.fromEntries(
+            Object.entries(snapshot.toJSON() || {}).map(([key, task]) => [key, normalizeTask(task)])
+          )
+        );
       })
     );
   };
