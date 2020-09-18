@@ -2,7 +2,6 @@ import React from 'react';
 import { List, Typography } from 'antd';
 import { useHistory } from 'react-router-dom';
 import {
-  CalendarTwoTone,
   CodeTwoTone,
   CheckCircleTwoTone,
   FrownTwoTone,
@@ -14,7 +13,7 @@ const data = [
   {
     name: 'Tasks List',
     path: '/tasks-list',
-    icon: <CalendarTwoTone twoToneColor="rgb(245, 97, 97)" />,
+    icon: <OrderedListOutlined twoToneColor="rgb(245, 97, 97)" />,
   },
   {
     name: 'Submit Task',
@@ -30,11 +29,6 @@ const data = [
     name: 'Dispute',
     path: '/dispute',
     icon: <FrownTwoTone twoToneColor="rgb(137, 184, 44)" />,
-  },
-  {
-    name: 'All Tasks',
-    path: '/all-tasks',
-    icon: <OrderedListOutlined twoToneColor="rgb(137, 184, 44)" />,
   },
 ];
 

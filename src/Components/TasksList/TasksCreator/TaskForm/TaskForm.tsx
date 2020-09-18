@@ -4,8 +4,8 @@ import TaskMainInfo from '../TaskMainInfo/TaskMainInfo';
 import TaskDescription from '../TaskDescription/TaskDescription';
 import TaskSubTasks from '../TaskSubTasks/TaskSubTasks';
 import TaskSubmitButton from '../TaskSubmitButton/TaskSubmitButton';
-import createEssence from '../../../Scripts/createEssenceTask';
-import Hoc from '../../Hoc/Hoc';
+import createEssence from '../../../../Scripts/createEssenceTask';
+import Hoc from '../../../Hoc/Hoc';
 
 import classes from './TaskForm.module.scss';
 import 'antd/dist/antd.css';
@@ -29,7 +29,6 @@ const TaskForm: React.FC<TasksFormProps> = (props) => {
     description: '',
   });
   const [valueMde, setValueMde] = useState({ value: () => {} });
-  console.log(task);
 
   const getInstans = (instance: any) => {
     setValueMde(instance);
@@ -43,19 +42,17 @@ const TaskForm: React.FC<TasksFormProps> = (props) => {
   }, [editTaskMode, editTaskName, service]);
 
   const onFinish = (values: { [key: string]: any }) => {
-    console.log('Success:');
     const description = valueMde.value();
     const taskEssence = createEssence(values, description);
-    console.log(taskEssence);
     if (editTaskMode) {
-      service.putTask(taskEssence, editTaskName).then((e: any) => console.log(e));
+      service.putTask(taskEssence, editTaskName);
     } else {
-      service.postNewTask(taskEssence).then((e: any) => console.log(e));
+      service.postNewTask(taskEssence);
     }
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    return errorInfo;
   };
 
   if (editTaskMode || importTaskMode) {

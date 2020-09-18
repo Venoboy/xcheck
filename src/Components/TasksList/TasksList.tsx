@@ -1,134 +1,129 @@
-import * as React from 'react';
-import { Table } from 'antd';
-import { SortOrder } from 'antd/es/table/interface';
-import { ReviewRequest, Task } from '../../Reducer/reducer';
-import './TasksList.scss';
+import React, { useState, useEffect } from 'react';
+import { Table, Tag, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { FormOutlined, DeleteOutlined, DiffOutlined } from '@ant-design/icons';
+import Hoc from '../Hoc/Hoc';
+import Header from '../Header/Header';
+import classes from './TasksList.module.scss';
 
-const reviewRequest = {
-  id: 'rev-req-1',
-  crossCheckSessionId: 'rss2020Q3react-xcheck',
-  author: 'cardamo',
-  task: 'simple-task-v1',
-  state: 'PUBLISHED',
-  selfGrade: {},
-} as ReviewRequest;
+interface allTasksType {
+  service: any;
+}
 
-const task = {
-  id: 'simple-task-v1',
-  author: 'cardamo',
-  state: 'DRAFT',
-  categoriesOrder: ['Basic Scope', 'Extra Scope', 'Fines'],
-  items: [
-    {
-      id: 'basic_p1',
-      minScore: 0,
-      maxScore: 20,
-      category: 'Basic Scope',
-      title: 'Basic things',
-      description: 'You need to make things right, not wrong',
-    },
-    {
-      id: 'extra_p1',
-      minScore: 0,
-      maxScore: 30,
-      category: 'Extra Scope',
-      title: 'More awesome things',
-      description: 'Be creative and make up some more awesome things',
-    },
-    {
-      id: 'fines_p1',
-      minScore: -10,
-      maxScore: 0,
-      category: 'Fines',
-      title: 'App crashes',
-      description: 'App causes BSoD!',
-    },
-  ],
-} as Task;
+const TasksList: React.FC<allTasksType> = (props) => {
+  const { service } = props;
+  const [allTasks, setAllTask] = useState();
 
-export type TasksListProps = {
-  tasks?: Task[];
-  reviewRequests?: ReviewRequest[];
-};
+  useEffect(() => {
+    service.getAllTasks().then((e: any) => {
+      const keys = Object.keys(e);
+      const arrTasks: any = keys.map((key) => {
+        e[key].taskId = key;
+        return e[key];
+      });
+      setAllTask(arrTasks);
+    });
+  }, [service]);
 
-type FilterValue = string | number | boolean;
-
-export const TasksList: React.FC<TasksListProps> = ({
-  tasks = [task],
-  reviewRequests = [reviewRequest],
-}) => {
-  const tasksTableData = {
-    columns: [
+  const TasksTable = () => {
+    const columns = [
+      {
+        title: 'Name Task',
+        dataIndex: 'name',
+        key: 'name',
+        render: (text: any) => text,
+      },
       {
         title: 'Author',
         dataIndex: 'author',
-        filters: tasks.map((el) => ({
-          text: el.author,
-          value: el.author,
-        })),
-        onFilter: (value: FilterValue, record: Task) => record.author.indexOf(String(value)) === 0,
-        sorter: (a: Task, b: Task) => a.author.length - b.author.length,
-        sortDirections: ['descend'] as SortOrder[],
+        key: 'author',
+        sorter: (a: any, b: any) => {
+          const wordA = a.author.toLowerCase();
+          const wordB = b.author.toLowerCase();
+          if (wordA < wordB) {
+            return -1;
+          }
+          if (wordA > wordB) {
+            return 1;
+          }
+          return 0;
+        },
+      },
+      {
+        title: 'Score',
+        dataIndex: 'subTasks',
+        key: 'subTasks',
+        render: (subTasks: string | any[]) => {
+          let score = 0;
+          if (typeof subTasks !== 'string') {
+            for (let i: any = 0; i < subTasks.length; i++) {
+              if (subTasks[i].score > 0) {
+                score += subTasks[i].score;
+              }
+            }
+          }
+          return <p key={subTasks.length}>{score}</p>;
+        },
       },
       {
         title: 'State',
+        key: 'state',
         dataIndex: 'state',
-        filters: tasks.map((el) => ({
-          text: el.state,
-          value: el.state,
-        })),
-        onFilter: (value: FilterValue, record: Task) => record.state.indexOf(String(value)) === 0,
-        sorter: (a: Task, b: Task) => a.state.length - b.state.length,
-        sortDirections: ['descend'] as SortOrder[],
-      },
-    ],
-    dataSource: tasks,
-  };
-  const reviewRequestsTableData = {
-    columns: [
-      {
-        title: 'Author',
-        dataIndex: 'author',
-        filters: reviewRequests.map((request) => ({
-          text: request.author,
-          value: request.author,
-        })),
-        onFilter: (value: FilterValue, record: ReviewRequest) =>
-          record.author.indexOf(String(value)) === 0,
-        sorter: (a: ReviewRequest, b: ReviewRequest) => a.author.length - b.author.length,
-        sortDirections: ['descend'] as SortOrder[],
+        render: (tags: any) => {
+          let color = tags.length > 5 ? 'green' : 'geekblue';
+          if (tags === 'ARCHIVED') {
+            color = 'volcano';
+          }
+          return (
+            <Tag key={tags} color={color}>
+              {tags.toUpperCase()}
+            </Tag>
+          );
+        },
+        sorter: (a: any, b: any) => a.state.length - b.state.length,
       },
       {
-        title: 'Task',
-        dataIndex: 'task',
-        onFilter: (value: FilterValue, record: ReviewRequest) =>
-          record.task.indexOf(String(value)) === 0,
-        sorter: (a: ReviewRequest, b: ReviewRequest) => a.task.length - b.task.length,
-        sortDirections: ['descend'] as SortOrder[],
+        title: 'Edit',
+        key: 'edit',
+        render: (text: any, record: any) => (
+          <Link to={`/task-create/${record.taskId}`}>
+            <Button size="small" type="primary" key={text} icon={<FormOutlined />}>
+              Edit
+            </Button>
+          </Link>
+        ),
       },
       {
-        title: 'State',
-        dataIndex: 'state',
-        filters: reviewRequests.map((request) => ({
-          text: request.state,
-          value: request.state,
-        })),
-        onFilter: (value: FilterValue, record: ReviewRequest) =>
-          record.state.indexOf(String(value)) === 0,
-        sorter: (a: ReviewRequest, b: ReviewRequest) => a.state.length - b.state.length,
-        sortDirections: ['descend'] as SortOrder[],
+        title: 'Delete',
+        key: 'delete',
+        render: (text: any) => (
+          <Button size="small" key={text} type="primary" danger icon={<DeleteOutlined />}>
+            Delete
+          </Button>
+        ),
       },
-    ],
-    dataSource: reviewRequests,
+    ];
+    return (
+      <Table
+        columns={columns}
+        dataSource={allTasks}
+        footer={() => (
+          <Link to="/task-create">
+            <Button type="primary" size="large" icon={<DiffOutlined />}>
+              Create Task
+            </Button>
+          </Link>
+        )}
+      />
+    );
   };
 
   return (
-    <div id="tasks-list">
-      <h1>Tasks</h1>
-      <Table {...tasksTableData} />
-
-      <h1>Review requests</h1>
-      <Table {...reviewRequestsTableData} />
+    <div className={classes.allTasks}>
+      <Header />
+      <TasksTable />
     </div>
   );
 };
+
+export default Hoc()(TasksList);

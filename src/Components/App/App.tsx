@@ -4,11 +4,10 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Dispute from '../Dispute/Dispute';
 import Auth from '../Auth/Auth';
-import { TasksList } from '../TasksList/TasksList';
+import TasksList from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
-import TasksCreator from '../TasksCreator/TasksCreator';
+import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
-import AllTasks from '../AllTasks/AllTasks';
 
 const App: React.FC = () => {
   return (
@@ -24,9 +23,6 @@ const App: React.FC = () => {
           </Route>
           <Route path="/task-review">
             <TaskReview />
-          </Route>
-          <Route path="/all-tasks">
-            <AllTasks />
           </Route>
           <Route path="/task-create">
             <TasksCreator />
