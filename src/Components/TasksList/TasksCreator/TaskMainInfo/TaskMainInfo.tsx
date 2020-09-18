@@ -72,6 +72,14 @@ const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
         >
           Import Json
         </Button>
+        <Button
+          size="small"
+          type="primary"
+          shape="round"
+          style={{ marginBottom: '14px', width: '200px' }}
+        >
+          Export Json
+        </Button>
       </Col>
     </Row>
   );
