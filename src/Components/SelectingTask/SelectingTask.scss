@@ -3,6 +3,11 @@
   width: 100%;
   padding: 10px 0 0 30px;
 
+  header {
+    height: 44px;
+    margin: 15px 15px 15px 0;
+  }
+
   .deadline {
     max-width: 600px;
     width: 100%;
@@ -83,5 +88,5 @@
 .overlay-selecting-task {
   width: 600px;
   left: 30px !important;
-  top: 74px !important;
+  top: 153px !important;
 }
