@@ -8,6 +8,7 @@ import TasksList from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
 import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
+import SelectingTask from '../SelectingTask/SelectingTask';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
           <Route path="/task-review">
             <TaskReview />
           </Route>
+          <Route path="/submit-task" component={SelectingTask} />
           <Route path="/task-create">
             <TasksCreator />
           </Route>
