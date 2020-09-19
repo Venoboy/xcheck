@@ -13,15 +13,13 @@ const { Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
-// getFromBD('tasks').then(console.log);
-
 const Dispute = (props: any) => {
   const { user, taskId } = props;
   const [task, setTask] = useState([] as any);
   const [isAddingComment, setIsAddingComment] = useState([] as any);
   const [activeButtons, setActiveButtons] = useState([] as any);
 
-  if (!task.subTasks) {
+  if (Array.isArray(task) && task.length === 0) {
     getAsyncInfo(setTask, taskId);
   }
 
@@ -31,7 +29,7 @@ const Dispute = (props: any) => {
     });
   }
 
-  if (task.subTasks && task.subTasks.length > 0 && isAddingComment.length === 0) {
+  if (task && task.subTasks && task.subTasks.length > 0 && isAddingComment.length === 0) {
     setIsAddingComment(new Array(task.subTasks.length).fill(false));
   }
 
@@ -43,7 +41,7 @@ const Dispute = (props: any) => {
     setIsAddingComment(addingCommentCurrent);
   };
 
-  if (Array.isArray(task.subTasks) && task.subTasks.length) {
+  if (task && Array.isArray(task.subTasks) && task.subTasks.length) {
     subTasks = task.subTasks.map((subtask: any, index: number) => (
       <div key={subtask.title}>
         <Row>

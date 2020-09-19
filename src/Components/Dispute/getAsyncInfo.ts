@@ -1,7 +1,9 @@
 import getFromBD from '../../Service/getFromBD';
 
 const getAsyncInfo = async (setFn: any, taskId: string) => {
-  setFn(await getFromBD(`/tasks/${taskId}`));
+  const result = await getFromBD(`tasks/${taskId}`);
+  // console.log(result);
+  setFn(result);
 };
 
 export default getAsyncInfo;
