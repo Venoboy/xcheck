@@ -1,8 +1,13 @@
 #task-review {
-  flex-basis: 80%;
+  align-self: flex-start;
+  margin: 0 15px;
 }
 
 .task-review-comment {
   border: 1px solid #eee;
   border-radius: 5px;
+}
+.task-review-select {
+  width: 200px;
+  margin-bottom: 10px;
 }

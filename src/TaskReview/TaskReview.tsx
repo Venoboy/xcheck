@@ -1,75 +1,60 @@
 import * as React from 'react';
-import { Descriptions, Collapse, Slider, InputNumber, Row, Col, Comment } from 'antd';
-
-import { Task, TaskItem, TaskScore } from '../Reducer/reducer';
+import { useCallback, useEffect, useState } from 'react';
+import { Descriptions, Collapse, Slider, InputNumber, Row, Col, Comment, Select } from 'antd';
+import { Task, TaskItem, Tasks, TaskStates } from '../Reducer/reducer';
 import './TaskReview.scss';
+import Header from '../Components/Header/Header';
+import Hoc from '../Components/Hoc/Hoc';
+import Service from '../Service/Service';
 
-export type TaskReviewProps = {
-  task?: Task;
-  taskScore?: TaskScore;
-};
-
+const { Option } = Select;
 const { Panel } = Collapse;
 const { Item } = Descriptions;
 
-const taskStub = {
-  id: 'simple-task-v1',
-  author: 'cardamo',
-  state: 'DRAFT',
-  categoriesOrder: ['Basic Scope', 'Extra Scope', 'Fines'],
-  subTasks: [
-    {
-      id: 'basic_p1',
-      minScore: 0,
-      maxScore: 20,
-      category: 'Basic Scope',
-      title: 'Basic things',
-      description: 'You need to make things right, not wrong',
-    },
-    {
-      id: 'extra_p1',
-      minScore: 0,
-      maxScore: 30,
-      category: 'Extra Scope',
-      title: 'More awesome things',
-      description: 'Be creative and make up some more awesome things',
-    },
-    {
-      id: 'fines_p1',
-      minScore: -10,
-      maxScore: 0,
-      category: 'Fines',
-      title: 'App crashes',
-      description: 'App causes BSoD!',
-    },
-  ],
-} as Task;
-
-const taskScoreStub = {
-  task: 'simple-task-v1',
-  items: {
-    basic_p1: { score: 20, comment: 'Well done!' },
-    extra_p1: { score: 15, comment: 'Some things are done, some are not' },
-    fines_p1: { score: 0, comment: 'No ticket today' },
-  },
-} as TaskScore;
-
-export const TaskReview: React.FC<TaskReviewProps> = ({
-  task = taskStub,
-  taskScore = taskScoreStub,
-}) => {
-  const categories = task.categoriesOrder.reduce((acc, category) => {
+export const TaskReview: React.FC = Hoc()(({ ...params }) => {
+  const [task, setTask] = useState<Task>({
+    name: '',
+    id: '',
+    author: '',
+    state: TaskStates.DRAFT,
+    categoriesOrder: [],
+    subTasks: [],
+  });
+  const { service } = params as { service: Service };
+  const categories = task.subTasks.reduce((acc, cur) => {
     return {
       ...acc,
-      [category]: [],
+      [cur.category]: [],
     };
   }, Object.create(null));
   Object.keys(categories).forEach((category) => {
     categories[category] = task?.subTasks.filter((item) => item.category === category);
   });
+  const [tasks, setTasks] = useState<Tasks>({});
+  useEffect(() => {
+    service.getAllTasks().then((response) => setTasks(response as Tasks));
+  }, []);
+  const onTaskSelect = useCallback(
+    (taskId: string) => {
+      setTask(tasks[taskId]);
+    },
+    [setTask, tasks]
+  );
 
   return (
     <div id="task-review">
+      <Header />
+
+      <Select className="task-review-select" onChange={onTaskSelect}>
+        {Object.entries(tasks).map(([key, el]) => {
+          return (
+            <Option key={key} value={key}>
+              {el.name}
+            </Option>
+          );
+        })}
+      </Select>
+
       <Descriptions title={task.id}>
         <Item label="Author">{task.author}</Item>
         <Item label="State">{task.state}</Item>
@@ -88,7 +73,7 @@ export const TaskReview: React.FC<TaskReviewProps> = ({
                       min={item.minScore}
                       max={item.maxScore}
                       onChange={console.log}
-                      value={taskScore.items[item.id].score}
+                      value={item.score}
                     />
                   </Col>
                   <Col span={4}>
@@ -96,15 +81,12 @@ export const TaskReview: React.FC<TaskReviewProps> = ({
                       min={item.minScore}
                       max={item.maxScore}
                       style={{ margin: '0 16px' }}
-                      value={taskScore.items[item.id].score}
+                      value={item.score}
                       onChange={console.log}
                     />
                   </Col>
                 </Row>
-                <Comment
-                  className="task-review-comment"
-                  content={taskScore.items[item.id].comment}
-                />
+                <Comment className="task-review-comment" content="item comment" />
               </div>
             ))}
           </Panel>
@@ -112,4 +94,4 @@ export const TaskReview: React.FC<TaskReviewProps> = ({
       </Collapse>
     </div>
   );
-};
+});

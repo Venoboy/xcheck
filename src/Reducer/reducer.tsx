@@ -27,6 +27,7 @@ export type User = {
 
 export type TaskItem = {
   id: string;
+  score: number;
   minScore: number;
   maxScore: number;
   category: string;
@@ -36,11 +37,16 @@ export type TaskItem = {
 
 export type Task = {
   taskId?: string;
+  name: string;
   id: string;
   author: string;
   state: TaskStates;
   categoriesOrder: string[];
   subTasks: TaskItem[];
+};
+
+export type Tasks = {
+  [fieldName: string]: Task;
 };
 
 export type TaskScoreItem = {
