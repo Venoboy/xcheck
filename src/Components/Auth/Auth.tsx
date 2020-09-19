@@ -15,7 +15,7 @@ interface AuthType {
   loaded: boolean;
 }
 
-const Auth: React.FC<any> = (props: AuthType) => {
+const Auth: React.FC<AuthType> = (props) => {
   const roles = ['Author', 'Student', 'Supervisor', 'Course manager'];
   const history = useHistory();
 

@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Task, User } from '../Reducer/reducer';
+import { Review, Task, TaskScore, User } from '../Reducer/reducer';
 
 const API_KEY = 'AIzaSyDzqqVu_zSTm33lzJmSTRwgNyTbUib_B2w';
 const app = firebase.initializeApp({
@@ -45,5 +45,13 @@ export default class Services {
 
   postNewUser = async (user: User) => {
     return db.ref(`/users`).push(user);
+  };
+
+  postTaskReview = async (review: Review) => {
+    return db.ref('/reviews').push(review);
+  };
+
+  postTaskScore = async (taskScore: TaskScore) => {
+    return db.ref('/taskScores').push(taskScore);
   };
 }
