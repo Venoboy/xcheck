@@ -41,20 +41,22 @@ const Auth: React.FC<any> = (props: AuthType) => {
 
   if (localStorage.getItem('wasRedirected') === 'no') {
     return (
-      <div className={classes.Auth}>
-        <h1>Welcome to OAuth</h1>
-        <Select
-          className={classes.Auth__Select}
-          mode="tags"
-          placeholder="Select your role"
-          onChange={handleSelectOptions}
-        >
-          {renderSelectOptions()}
-        </Select>
+      <div className={classes.Auth__Wrapper}>
+        <div className={classes.Auth}>
+          <h1>Welcome to OAuth</h1>
+          <Select
+            className={classes.Auth__Select}
+            mode="tags"
+            placeholder="Select your role"
+            onChange={handleSelectOptions}
+          >
+            {renderSelectOptions()}
+          </Select>
 
-        <Button className={classes.Auth__Button} type="primary" onClick={() => getAccessCode()}>
-          Sign up with Github
-        </Button>
+          <Button className={classes.Auth__Button} type="primary" onClick={() => getAccessCode()}>
+            Sign up with Github
+          </Button>
+        </div>
       </div>
     );
   }
@@ -65,28 +67,32 @@ const Auth: React.FC<any> = (props: AuthType) => {
 
     if (!loaded) {
       return (
-        <div className={classes.Auth}>
-          <p className={classes.Auth__Text}>Press button to complite Authorization</p>
-          <Button
-            className={classes.Auth__Button}
-            type="primary"
-            onClick={async () => {
-              startLoading();
-              await auth(userRole);
-              stopLoading();
-              history.push('/');
-            }}
-          >
-            Finish
-          </Button>
+        <div className={classes.Auth__Wrapper}>
+          <div className={classes.Auth}>
+            <p className={classes.Auth__Text}>Press button to complite Authorization</p>
+            <Button
+              className={classes.Auth__Button}
+              type="primary"
+              onClick={async () => {
+                startLoading();
+                await auth(userRole);
+                stopLoading();
+                history.push('/');
+              }}
+            >
+              Finish
+            </Button>
+          </div>
         </div>
       );
     }
     return (
-      <div className={classes.Auth}>
-        <Space size="middle">
-          <Spin size="large" />
-        </Space>
+      <div className={classes.Auth__Wrapper}>
+        <div className={classes.Auth}>
+          <Space size="middle">
+            <Spin size="large" />
+          </Space>
+        </div>
       </div>
     );
   }
