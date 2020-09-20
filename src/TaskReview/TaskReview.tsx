@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import {
-  Col,
   Collapse,
   Comment,
   Descriptions,
-  InputNumber,
-  Row,
   Select,
-  Slider,
   Button,
 } from 'antd';
 import { useSelector } from 'react-redux';
@@ -28,6 +24,7 @@ import Header from '../Components/Header/Header';
 import Hoc from '../Components/Hoc/Hoc';
 import Service from '../Service/Service';
 import { RootState } from '../Store/Store';
+import { SetTaskScore } from './SetScore';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -146,25 +143,11 @@ export const TaskReview: React.FC = Hoc()(({ ...params }) => {
                 <Descriptions title={item.title}>
                   <Item label="Description">{item.description}</Item>
                 </Descriptions>
-                <Row>
-                  <Col span={12}>
-                    <Slider
-                      min={0}
-                      max={item.maxScore}
-                      onChange={onScoreChange(item)}
-                      value={taskScore.items[item.id].score}
-                    />
-                  </Col>
-                  <Col span={4}>
-                    <InputNumber
-                      min={0}
-                      max={item.maxScore}
-                      style={{ margin: '0 16px' }}
-                      value={taskScore.items[item.id].score}
-                      onChange={onScoreChange(item)}
-                    />
-                  </Col>
-                </Row>
+                <SetTaskScore
+                  score={taskScore.items[item.id].score}
+                  maxScore={item.maxScore}
+                  onChange={onScoreChange(item)}
+                />
                 <Comment className="task-review-comment" content="item comment" />
               </div>
             ))}
