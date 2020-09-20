@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import {
-  Collapse,
-  Comment,
-  Descriptions,
-  Select,
-  Button,
-} from 'antd';
+import { Collapse, Comment, Descriptions, Select, Button } from 'antd';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import {
@@ -67,7 +61,7 @@ export const TaskReview: React.FC = Hoc()(({ ...params }) => {
   });
   useEffect(() => {
     service.getAllTasks().then((response) => setTasks(response as Tasks));
-  }, []);
+  }, [service]);
   const onTaskSelect = useCallback(
     (taskId: string) => {
       const selectedTask = tasks[taskId];
@@ -91,7 +85,7 @@ export const TaskReview: React.FC = Hoc()(({ ...params }) => {
         taskScoreId,
       });
     },
-    [setTask, tasks, setReview, setTaskScore]
+    [setTask, tasks, setReview, setTaskScore,review]
   );
   const onScoreChange = ({ id }: TaskItem) => (score: string | number | undefined) => {
     setTaskScore({
@@ -111,7 +105,7 @@ export const TaskReview: React.FC = Hoc()(({ ...params }) => {
     service.postTaskReview(review);
     service.postTaskScore(taskScore);
     history.push('/');
-  }, [taskScore, review]);
+  }, [taskScore, review, service, history]);
 
   return (
     <div id="task-review">
