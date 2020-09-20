@@ -1,59 +1,107 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Typography } from 'antd';
+/* eslint-disable react/jsx-wrap-multilines */
+import React, { useEffect, useState } from 'react';
+import { Comment, List } from 'antd';
+import { UserOutlined } from '@ant-design/icons/lib';
 
-import { SubTaskComments } from './CustomComment/SubTaskComments';
-import stages from './stages';
+import classes from './CommentsList.module.scss';
+import AddComment from './CustomComment/AddComment';
+import buildComments from './buildComments';
 
-const { Text } = Typography;
+const CustomList = ({ comments }: any) => (
+  <List
+    dataSource={comments}
+    itemLayout="horizontal"
+    renderItem={(props: any) => <Comment {...props} />}
+  />
+);
 
 const CommentList = (props: any) => {
-  const { user, taskScores, taskId, subTaskIndex, isAddingComment, stage } = props;
-  const taskScore = taskScores.find((elem: any) => elem.userId === user && elem.taskId === taskId);
-  const commentsArray: any = [];
+  const {
+    isAddingComment,
+    setIsAddingComment,
+    taskScore,
+    setTaskScore,
+    subTaskIndex,
+    stage,
+    setActiveButtons,
+  } = props;
 
-  if (taskScore && taskScore.subTasks.length > 0 && taskScore.subTasks[subTaskIndex]) {
-    const selfText = taskScore.subTasks[subTaskIndex].comments.self;
-    const reviewerText = taskScore.subTasks[subTaskIndex].comments.reviewer;
-    const disputeText = taskScore.subTasks[subTaskIndex].comments.dispute;
+  const [submitting, setSubmitting] = useState(false);
+  const [value, setValue] = useState('');
+  const [comments, setComments] = useState<any>([]);
 
-    const authorComment = {
-      author: 'Student',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: <Text editable={stage === stages.selfCheck}>{selfText}</Text>,
-    };
-    if (selfText) {
-      commentsArray.push(authorComment);
+  const setOnEdit = (string: string) => {
+    setTaskScore((oldTaskScore: any) => {
+      const newTaskScore = { ...oldTaskScore };
+      if (newTaskScore.index >= 0) {
+        newTaskScore.object.subTasks[subTaskIndex].comments = {
+          ...newTaskScore.object.subTasks[subTaskIndex].comments,
+          [stage]: string,
+        };
+      }
+      return newTaskScore;
+    });
+  };
+
+  const settings = { taskScore, subTaskIndex, stage, setOnEdit };
+
+  useEffect(() => {
+    if (Object.keys(taskScore.object).length > 0) {
+      setComments(buildComments(settings));
     }
-    const reviewerComment = {
-      author: 'Reviewer',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: <Text editable={stage === stages.reviewerCheck}>{reviewerText}</Text>,
-    };
-    if (reviewerText) {
-      commentsArray.push(reviewerComment);
+  }, [taskScore]); // eslint-disable-line
+
+  const handleSubmit = () => {
+    if (!value) {
+      return;
     }
-    const disputeComment = {
-      author: 'Student',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: <Text editable={stage === stages.disputeCheck}>{disputeText}</Text>,
-    };
-    if (disputeText) {
-      commentsArray.push(disputeComment);
-    }
-  }
+    setSubmitting(true);
+
+    setTaskScore((oldTaskScore: any) => {
+      const newTaskScore = {
+        ...oldTaskScore,
+      };
+      newTaskScore.object.subTasks[subTaskIndex].comments[stage] = value;
+      return newTaskScore;
+    });
+
+    setIsAddingComment((oldComments: any) => {
+      const newComments = [...oldComments];
+      newComments[subTaskIndex] = false;
+      return newComments;
+    });
+
+    setSubmitting(false);
+
+    setActiveButtons((prevActiveButtons: any) => {
+      const current = [...prevActiveButtons];
+      current[subTaskIndex] = value.length <= 0;
+      return current;
+    });
+  };
+
+  const handleChange = (e: any) => {
+    setValue(e.target.value);
+  };
 
   return (
-    <SubTaskComments
-      isAddingComment={isAddingComment}
-      initialComments={commentsArray}
-      subTaskIndex={subTaskIndex}
-    />
+    <div className={classes.commentsWrapper}>
+      {comments.length > 0 && <CustomList comments={comments} />}
+      {isAddingComment.length > 0 && isAddingComment[subTaskIndex] ? (
+        <Comment
+          avatar={<UserOutlined />}
+          content={
+            <AddComment
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+              submitting={submitting}
+              value={value}
+            />
+          }
+        />
+      ) : null}
+    </div>
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  taskScores: state.taskScores,
-});
-
-export default connect(mapStateToProps)(CommentList);
+export default CommentList;

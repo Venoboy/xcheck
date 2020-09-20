@@ -1,7 +1,7 @@
 const stages = {
-  selfCheck: 'selfCheck',
-  reviewerCheck: 'reviewerCheck',
-  disputeCheck: 'disputeCheck',
+  selfCheck: 'self',
+  reviewerCheck: 'reviewer',
+  disputeCheck: 'dispute',
 };
 
 export default stages;

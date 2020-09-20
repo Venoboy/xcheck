@@ -1,4 +1,4 @@
-import getFromBD from '../../Service/getFromBD';
+import getFromBD from '../../../Service/getFromBD';
 
 const activeBtnHandler = async (setActiveButtons: any, taskId: any) => {
   const taskScores = await getFromBD('/taskScores');

@@ -1,4 +1,4 @@
-import getFromBD from '../../Service/getFromBD';
+import getFromBD from '../../../Service/getFromBD';
 
 const getAsyncInfo = async (setFn: any, taskId: string) => {
   const result = await getFromBD(`tasks/${taskId}`);
