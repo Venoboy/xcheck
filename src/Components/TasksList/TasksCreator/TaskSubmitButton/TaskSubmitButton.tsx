@@ -1,7 +1,12 @@
 import React from 'react';
 import { Button, Form } from 'antd';
 
-const TaskSubmitButton = () => {
+interface taskSubmitButtonType {
+  editMode: boolean;
+}
+
+const TaskSubmitButton: React.FC<taskSubmitButtonType> = (props) => {
+  const { editMode } = props;
   return (
     <Form.Item wrapperCol={{ span: 24 }}>
       <Button
@@ -10,7 +15,7 @@ const TaskSubmitButton = () => {
         htmlType="submit"
         block
       >
-        Save Task
+        {editMode ? 'Save Changes' : 'Create Task'}
       </Button>
     </Form.Item>
   );
