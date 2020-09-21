@@ -42,10 +42,8 @@ export default class Service {
     const url = `https://x-check-9d19c.firebaseio.com/tasks/${taskName}.json`;
     try {
       const res: any = await fetch(url);
-      message.success('Received TASK from the server');
       return res.ok ? res.json() : res;
     } catch (e) {
-      message.error('UPS cannot Received TASK from the server');
       return e;
     }
   };

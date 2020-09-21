@@ -7,10 +7,12 @@ interface TasksMainInfoProps {
   userName: string | null;
   exportJson: any;
   importJson: any;
+  importMarkdown: any;
+  importRss: any;
 }
 
 const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
-  const { userName, exportJson, importJson } = props;
+  const { userName, exportJson, importJson, importMarkdown, importRss } = props;
   const { Option } = Select;
   const taskStates = ['DRAFT', 'PUBLISHED', 'ARCHIVED'];
 
@@ -53,6 +55,7 @@ const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
           type="dashed"
           shape="round"
           style={{ marginBottom: '14px', width: '300px' }}
+          onClick={() => importRss()}
         >
           Import RSS Checklist
         </Button>
@@ -62,6 +65,7 @@ const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
           type="dashed"
           shape="round"
           style={{ marginBottom: '14px', width: '300px' }}
+          onClick={() => importMarkdown()}
         >
           Import Markdown
         </Button>
