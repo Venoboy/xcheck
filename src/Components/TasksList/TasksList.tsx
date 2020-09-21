@@ -41,7 +41,7 @@ const TasksList: React.FC<allTasksType> = (props) => {
 
   useEffect(() => {
     onUpdateTaskList();
-  }, []);
+  }, [onUpdateTaskList]);
 
   const onDeleteTask: any = (taskName: any) => {
     confirm({

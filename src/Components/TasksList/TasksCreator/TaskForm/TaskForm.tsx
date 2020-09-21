@@ -56,7 +56,7 @@ const TaskForm: React.FC<TasksFormProps> = (props) => {
         });
       });
     }
-  }, [editMode, editName, service]);
+  }, [editMode, editName, service, form]);
 
   const onFinish = (values: { [key: string]: any }) => {
     confirm({
@@ -66,7 +66,6 @@ const TaskForm: React.FC<TasksFormProps> = (props) => {
       okText: 'Back to Tasks List',
       cancelText: 'Continue Editing',
       onOk() {
-        // @ts-ignore
         const description = valueMde.value();
         const taskEssence = createEssence(values, description);
         if (editMode) {
