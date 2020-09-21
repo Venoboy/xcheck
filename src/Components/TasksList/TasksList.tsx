@@ -37,11 +37,11 @@ const TasksList: React.FC<allTasksType> = (props) => {
         setAllTask(arrTasks);
       }
     });
-  }, []);
+  }, [service]);
 
   useEffect(() => {
     onUpdateTaskList();
-  }, []);
+  }, [onUpdateTaskList]);
 
   const onDeleteTask: any = (taskName: any) => {
     confirm({
