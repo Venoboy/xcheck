@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Table, Button, Tag, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import {
@@ -25,7 +25,7 @@ const TasksList: React.FC<allTasksType> = (props) => {
   const { service, userName, userRole } = props;
   const [allTasks, setAllTask] = useState();
 
-  const onUpdateTaskList = () => {
+  const onUpdateTaskList = useCallback(() => {
     service.getAllTasks().then((e: any) => {
       if (e) {
         const keys = Object.keys(e);
@@ -37,11 +37,11 @@ const TasksList: React.FC<allTasksType> = (props) => {
         setAllTask(arrTasks);
       }
     });
-  };
+  }, []);
 
   useEffect(() => {
     onUpdateTaskList();
-  }, [onUpdateTaskList]);
+  }, []);
 
   const onDeleteTask: any = (taskName: any) => {
     confirm({
