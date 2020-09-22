@@ -85,7 +85,7 @@ export const TaskReview: React.FC = Hoc()(({ ...params }) => {
         taskScoreId,
       });
     },
-    [setTask, tasks, setReview, setTaskScore,review]
+    [setTask, tasks, setReview, setTaskScore, review]
   );
   const onScoreChange = ({ id }: TaskItem) => (score: string | number | undefined) => {
     setTaskScore({
