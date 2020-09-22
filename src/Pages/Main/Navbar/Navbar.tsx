@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, Typography } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   CodeTwoTone,
   CheckCircleTwoTone,
@@ -32,7 +33,14 @@ const data = [
   },
 ];
 
-const Navbar: React.FC = () => {
+interface navBarType {
+  role: any;
+}
+
+const Navbar: React.FC<navBarType> = (props) => {
+  const { role } = props;
+  const isStudent = role.length === 1 && role.includes('Student');
+  const dataForStudent = data.filter((item) => item.name !== 'Tasks List');
   const { Text, Title } = Typography;
   const history = useHistory();
 
@@ -41,7 +49,7 @@ const Navbar: React.FC = () => {
       <Title level={1}>Navigation</Title>
       <List
         bordered
-        dataSource={data}
+        dataSource={isStudent ? dataForStudent : data}
         renderItem={(item) => (
           <List.Item onClick={() => history.push(item.path)}>
             <Text>
@@ -55,4 +63,10 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+const mapStatetoProps = (state: { user: { role: any } }) => {
+  return {
+    role: state.user.role,
+  };
+};
+
+export default connect(mapStatetoProps)(Navbar);
