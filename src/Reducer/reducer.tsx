@@ -136,7 +136,7 @@ export type AuthSuccessAction = Action & { user: User };
 const userPersistKey = 'user';
 function deserializeUser() {
   try {
-    return JSON.parse(String(localStorage.getItem(userPersistKey))) as User;
+    return JSON.parse(String(localStorage.getItem(userPersistKey) || undefined)) as User;
   } catch (e) {
     return {
       userName: null,

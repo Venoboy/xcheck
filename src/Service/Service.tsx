@@ -18,21 +18,29 @@ function normalizeTask(task: Task) {
 }
 export default class Services {
   postNewTask = async (data: Task) => {
-    return db.ref('/tasks').push(data).then(newTask => {
-      message.success('Created New Task');
-      return newTask
-    }).catch(() => {
-      message.error('Ups cannot Created New Task');
-    });
+    return db
+      .ref('/tasks')
+      .push(data)
+      .then((newTask) => {
+        message.success('Created New Task');
+        return newTask;
+      })
+      .catch(() => {
+        message.error('Ups cannot Created New Task');
+      });
   };
 
   putTask = async (data: Task, taskName: string) => {
-    return db.ref(`/tasks/${taskName}`).set(data).then(task => {
-      message.success('Save Change');
-      return task
-    }).catch(() => {
-      message.error('UPS Save Change');
-    });
+    return db
+      .ref(`/tasks/${taskName}`)
+      .set(data)
+      .then((task) => {
+        message.success('Save Change');
+        return task;
+      })
+      .catch(() => {
+        message.error('UPS Save Change');
+      });
   };
 
   getTask = async (taskName: string) => {
@@ -42,24 +50,32 @@ export default class Services {
       })
     );
   };
+
   delTask = async (taskName: string) => {
-    return db.ref(`/tasks/${taskName}`).remove().then(() => {
-      message.success('Task Deleted');
-    }).catch(() => message.error('Task No Deleted'))
-  }
+    return db
+      .ref(`/tasks/${taskName}`)
+      .remove()
+      .then(() => {
+        message.success('Task Deleted');
+      })
+      .catch(() => message.error('Task No Deleted'));
+  };
 
   getAllTasks = async () => {
-    return new Promise((resolve,reject) =>
+    return new Promise((resolve, reject) =>
       db.ref('/tasks').on('value', (snapshot) => {
-        if(snapshot.val()) {
+        if (snapshot.val()) {
           message.success('Received data from the server');
           resolve(
-              Object.fromEntries(
-                  Object.entries(snapshot.toJSON() || {}).map(([key, task]) => [key, normalizeTask(task)])
-              )
+            Object.fromEntries(
+              Object.entries(snapshot.toJSON() || {}).map(([key, task]) => [
+                key,
+                normalizeTask(task),
+              ])
+            )
           );
         } else {
-          reject(message.error('Received data from the server'))
+          reject(message.error('Received data from the server'));
         }
       })
     );
