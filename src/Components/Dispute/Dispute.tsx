@@ -159,10 +159,10 @@ const Dispute = (props: any) => {
   );
 };
 const mapStateToProps = (state: any) => ({
-  checkSessionId: state.currentState.checkSessionId,
-  taskScoreId: state.currentState.taskScoreId,
-  reviewId: state.currentState.reviewId,
-  disputeId: state.currentState.disputeId,
+  checkSessionId: state.testCheckSessionId,
+  taskScoreId: state.testTaskScoreId,
+  reviewId: state.testReviewId,
+  disputeId: state.testDisputeId,
 });
 
 export default connect(mapStateToProps)(Dispute);

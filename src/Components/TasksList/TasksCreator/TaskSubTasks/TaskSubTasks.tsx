@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Col, Divider, Form, Input, Row, Select } from 'antd';
+import { Button, Col, Divider, Form, Input, Row, Select, Checkbox } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons/lib';
 
-import './TaskSubTasks.scss';
+import classes from './TaskSubTasks.module.scss';
 
-const TaskSubTasks = () => {
+const TaskSubTasks: React.FC = () => {
   const { Option } = Select;
   const taskTypes = ['Basic', 'Advanced', 'Extra', 'Fine'];
   return (
@@ -15,7 +15,11 @@ const TaskSubTasks = () => {
             <Divider>Subtasks</Divider>
             <ol>
               {fields.map((field) => (
-                <li className="subtask-list-item" key={field.key}>
+                <li
+                  className={classes.subtaskListItem}
+                  key={field.key}
+                  style={{ borderBottom: 'solid 1px grey', marginTop: '15px' }}
+                >
                   <Form.Item
                     {...field}
                     wrapperCol={{ span: 22 }}
@@ -26,12 +30,19 @@ const TaskSubTasks = () => {
                     <Row justify="space-between">
                       <Col span={14} offset={1}>
                         <Form.Item
-                          name={[field.name, 'name-subtask']}
+                          name={[field.name, 'title']}
                           rules={[{ required: true, message: 'Missing Subtask' }]}
                           label="Subtask"
                         >
+                          <Input placeholder="Subtask" />
+                        </Form.Item>
+                        <Form.Item
+                          name={[field.name, 'description']}
+                          rules={[{ required: false }]}
+                          label="Description"
+                        >
                           <Input.TextArea
-                            placeholder="Subtask"
+                            placeholder="Description"
                             autoSize={{ minRows: 4, maxRows: 10 }}
                           />
                         </Form.Item>
@@ -39,7 +50,7 @@ const TaskSubTasks = () => {
                       <Col span={8}>
                         <Form.Item
                           style={{ marginLeft: '15px' }}
-                          name={[field.name, 'cost-subtask']}
+                          name={[field.name, 'score']}
                           rules={[{ required: true, message: 'Missing Cost' }]}
                           label="Cost Subtask"
                         >
@@ -47,7 +58,7 @@ const TaskSubTasks = () => {
                         </Form.Item>
                         <Form.Item
                           style={{ marginLeft: '15px' }}
-                          name={[field.name, 'type-task']}
+                          name={[field.name, 'category']}
                           rules={[{ required: true, message: 'Missing Type Task' }]}
                           label="Type Task"
                         >
@@ -63,6 +74,14 @@ const TaskSubTasks = () => {
                             ))}
                           </Select>
                         </Form.Item>
+                        <Form.Item
+                          style={{ marginLeft: '15px' }}
+                          valuePropName="checked"
+                          name={[field.name, 'mentorCheck']}
+                          initialValue={false}
+                        >
+                          <Checkbox>Only Mentor?</Checkbox>
+                        </Form.Item>
                       </Col>
                       <Col>
                         <MinusCircleOutlined
@@ -71,7 +90,7 @@ const TaskSubTasks = () => {
                           }}
                           style={{
                             marginLeft: '15px',
-                            marginTop: '35px',
+                            marginTop: '60px',
                             fontSize: '20px',
                             color: 'red',
                           }}
@@ -88,7 +107,6 @@ const TaskSubTasks = () => {
                 type="dashed"
                 onClick={() => {
                   add();
-                  // console.log(fields);
                 }}
                 block
               >
