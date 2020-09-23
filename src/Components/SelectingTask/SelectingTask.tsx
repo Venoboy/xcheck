@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Menu, Dropdown, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router';
 import Header from '../Header/Header';
 import './SelectingTask.scss';
 
 const SelectingTask: React.FC = () => {
+  const history = useHistory();
   const [githubId, setGithubId] = useState<string>('');
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<string>('');
@@ -57,12 +59,13 @@ const SelectingTask: React.FC = () => {
       setIsSubmit(true);
 
       const reviewRequest = {
-        id: field,
+        taskId: infoTask.taskId,
         checkSessionId: infoTask.id,
         author: githubId,
-        task: selectedTask,
-        state: 'PUBLISHED',
-        taskScoreId: '',
+        state:
+          reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'PUBLISHED'
+            ? 'PUBLISHED'
+            : 'DRAFT',
         solution: solutionUrl,
         date: new Date().toLocaleDateString(),
       };
