@@ -16,6 +16,7 @@ const TasksCreator: React.FC = () => {
   return (
     <div className={classes.tasksCreator}>
       <Header />
+      <h1 style={{ marginLeft: '15px', marginRight: '15px' }}>Task Creator</h1>
       <TaskForm editTaskMode={editTaskMode} editTaskName={editTaskName} />
     </div>
   );

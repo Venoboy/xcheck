@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 
 interface TasksMainInfoProps {
   userName: string | null;
+  exportJson: any;
+  importJson: any;
+  importMarkdown: any;
+  importRss: any;
 }
 
 const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
-  const { userName } = props;
+  const { userName, exportJson, importJson, importMarkdown, importRss } = props;
   const { Option } = Select;
   const taskStates = ['DRAFT', 'PUBLISHED', 'ARCHIVED'];
 
@@ -50,7 +54,8 @@ const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
           size="small"
           type="dashed"
           shape="round"
-          style={{ marginBottom: '14px', width: '200px' }}
+          style={{ marginBottom: '14px', width: '300px' }}
+          onClick={() => importRss()}
         >
           Import RSS Checklist
         </Button>
@@ -59,7 +64,8 @@ const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
           size="small"
           type="dashed"
           shape="round"
-          style={{ marginBottom: '14px', width: '200px' }}
+          style={{ marginBottom: '14px', width: '300px' }}
+          onClick={() => importMarkdown()}
         >
           Import Markdown
         </Button>
@@ -68,9 +74,19 @@ const TaskMainInfo: React.FC<TasksMainInfoProps> = (props) => {
           size="small"
           type="primary"
           shape="round"
-          style={{ marginBottom: '14px', width: '200px' }}
+          style={{ marginBottom: '14px', width: '300px' }}
+          onClick={() => importJson()}
         >
           Import Json
+        </Button>
+        <Button
+          size="small"
+          type="primary"
+          shape="round"
+          style={{ marginBottom: '14px', width: '300px' }}
+          onClick={() => exportJson()}
+        >
+          Export Json
         </Button>
       </Col>
     </Row>
