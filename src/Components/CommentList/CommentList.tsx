@@ -6,6 +6,7 @@ import { UserOutlined } from '@ant-design/icons/lib';
 import classes from './CommentsList.module.scss';
 import AddComment from './CustomComment/AddComment';
 import buildComments from './buildComments';
+import stages from './stages';
 
 const CustomList = ({ comments }: any) => (
   <List
@@ -21,6 +22,10 @@ const CommentList = (props: any) => {
     setIsAddingComment,
     taskScore,
     setTaskScore,
+    review,
+    setReview,
+    dispute,
+    setDispute,
     subTaskIndex,
     stage,
     setActiveButtons,
@@ -31,25 +36,46 @@ const CommentList = (props: any) => {
   const [comments, setComments] = useState<any>([]);
 
   const setOnEdit = (string: string) => {
-    setTaskScore((oldTaskScore: any) => {
-      const newTaskScore = { ...oldTaskScore };
-      if (newTaskScore.index >= 0) {
-        newTaskScore.object.subTasks[subTaskIndex].comments = {
-          ...newTaskScore.object.subTasks[subTaskIndex].comments,
-          [stage]: string,
-        };
-      }
-      return newTaskScore;
-    });
+    switch (stage) {
+      case stages.selfCheck:
+        setTaskScore((oldTaskScore: any) => {
+          const newTaskScore = { ...oldTaskScore };
+          newTaskScore.subTasks[subTaskIndex].comment = string;
+          return newTaskScore;
+        });
+        break;
+      case stages.reviewerCheck:
+        setReview((oldReview: any) => {
+          const newReview = { ...oldReview };
+          newReview.subTasks[subTaskIndex].comment = string;
+          return newReview;
+        });
+        break;
+      case stages.disputeCheck:
+        setDispute((oldDispute: any) => {
+          const newDispute = { ...oldDispute };
+          newDispute.subTasks[subTaskIndex].comment = string;
+          return newDispute;
+        });
+        break;
+      default:
+        return null;
+    }
+    if (string === '') {
+      setActiveButtons((oldButtons: any) => {
+        const newButtons = [...oldButtons];
+        newButtons[subTaskIndex] = true;
+        return newButtons;
+      });
+    }
+    return null;
   };
 
-  const settings = { taskScore, subTaskIndex, stage, setOnEdit };
+  const settings = { taskScore, review, dispute, subTaskIndex, stage, setOnEdit };
 
   useEffect(() => {
-    if (Object.keys(taskScore.object).length > 0) {
-      setComments(buildComments(settings));
-    }
-  }, [taskScore]); // eslint-disable-line
+    setComments(buildComments(settings));
+  }, [taskScore, review, dispute]); // eslint-disable-line
 
   const handleSubmit = () => {
     if (!value) {
@@ -57,13 +83,14 @@ const CommentList = (props: any) => {
     }
     setSubmitting(true);
 
-    setTaskScore((oldTaskScore: any) => {
-      const newTaskScore = {
-        ...oldTaskScore,
-      };
-      newTaskScore.object.subTasks[subTaskIndex].comments[stage] = value;
-      return newTaskScore;
-    });
+    setOnEdit(value);
+    // setTaskScore((oldTaskScore: any) => {
+    //   const newTaskScore = {
+    //     ...oldTaskScore,
+    //   };
+    //   newTaskScore.object.subTasks[subTaskIndex].comments[stage] = value;
+    //   return newTaskScore;
+    // });
 
     setIsAddingComment((oldComments: any) => {
       const newComments = [...oldComments];

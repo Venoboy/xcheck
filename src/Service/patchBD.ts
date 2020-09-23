@@ -1,8 +1,8 @@
-const putToBD = async (path: string, data: any) => {
+const patchBD = async (path: string, data: any) => {
   try {
     const url = `https://x-check-9d19c.firebaseio.com/${path}.json`;
     const res: any = await fetch(url, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -15,4 +15,4 @@ const putToBD = async (path: string, data: any) => {
   return null;
 };
 
-export default putToBD;
+export default patchBD;

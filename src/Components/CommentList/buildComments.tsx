@@ -5,17 +5,13 @@ import stages from './stages';
 import singleComment from './CustomComment/singleComment';
 
 const buildComments = (settings: any) => {
-  const { taskScore, subTaskIndex, stage, setOnEdit } = settings;
+  const { taskScore, review, dispute, subTaskIndex, stage, setOnEdit } = settings;
   const commentsArray: any = [];
 
-  if (
-    taskScore.object &&
-    taskScore.object.subTasks.length > 0 &&
-    taskScore.object.subTasks[subTaskIndex]
-  ) {
-    const selfText = taskScore.object.subTasks[subTaskIndex].comments.self;
-    const reviewerText = taskScore.object.subTasks[subTaskIndex].comments.reviewer;
-    const disputeText = taskScore.object.subTasks[subTaskIndex].comments.dispute;
+  if (taskScore.subTasks && review.subTasks && dispute.subTasks) {
+    const selfText = taskScore.subTasks[subTaskIndex].comment;
+    const reviewerText = review.subTasks[subTaskIndex].comment;
+    const disputeText = dispute.subTasks[subTaskIndex].comment;
 
     const authorComment = singleComment({
       value: selfText,
