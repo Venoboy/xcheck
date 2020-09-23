@@ -158,8 +158,24 @@ const SelectingTask: React.FC = () => {
             Solution URL
           </h3>
           <input type="text" className="selecting-task__enter" ref={solutionInputRef} />
-          <Button type="primary" size="middle" onClick={submitSolution} loading={isSubmit}>
+          <Button
+            className="submit"
+            type="primary"
+            size="middle"
+            onClick={submitSolution}
+            loading={isSubmit}
+          >
             Submit
+          </Button>
+          <Button
+            className="self"
+            type="primary"
+            size="middle"
+            onClick={() => history.push('/self-check')}
+          >
+            {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
+              ? 'Add self-check'
+              : 'Change self-check'}
           </Button>
         </div>
       )}
