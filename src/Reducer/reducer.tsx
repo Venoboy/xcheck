@@ -4,6 +4,12 @@ import { AUTH_GITHUB_SUCCESS, STOP_LOADING, REQUESTS } from '../Actions/actionTy
 type stateType = {
   loaded: boolean;
   user: User;
+  testUser: User;
+  testTaskId: string;
+  testCheckSessionId: string;
+  testReviewId: string;
+  testDisputeId: string;
+  testTaskScoreId: string;
 };
 
 export enum UserRoles {
@@ -20,7 +26,7 @@ export enum TaskStates {
 }
 
 export type User = {
-  githubId: string | null;
+  githubId: null | number;
   role: UserRoles[];
   userName: string | null;
 };
@@ -149,6 +155,16 @@ function deserializeUser() {
 const initialState: stateType = {
   loaded: false,
   user: deserializeUser(),
+  testUser: {
+    userName: 'alex',
+    githubId: 11111,
+    role: [UserRoles.Student, UserRoles.Author, UserRoles.Supervisor],
+  },
+  testTaskId: '-MHYG_Mmt_L2D5QLQtep',
+  testCheckSessionId: 'rss2020Q3react-xcheck',
+  testReviewId: '-MHcD-pT20-yloyBYANX',
+  testDisputeId: '-MHpfV9SG3s-mXj14Ba5',
+  testTaskScoreId: '-MHl3FwbPLf_tCzl3dFn',
 };
 
 const reducer = (state = initialState, action: Action | AuthSuccessAction) => {

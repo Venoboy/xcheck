@@ -2,18 +2,15 @@ const defaultTasks1 = {
   name: 'xCheck',
   author: 'aliaksandrtseliuk',
   description: '# Ай яй яй↵# Проверка',
-  id: 1,
   subTasks: [
     {
       category: 'Basic',
       description: 'Минимальная ширина, при которой приложение отображается корректно – 320 рх',
-      id: 'a0',
       mentorCheck: false,
       score: 100,
       title: 'Проверка 1',
     },
     {
-      id: 'b1',
       title: 'Проверка 2',
       category: 'Fine',
       mentorCheck: true,
@@ -32,19 +29,16 @@ const defaultTasks1 = {
 const defaultTasks2 = {
   name: 'Songbird',
   author: 'aliaksandrtseliuk',
-  description: '# Ай яй яй↵# Проверка',
-  id: 2,
+  description: '# Ай яй яй# Проверка 2',
   subTasks: [
     {
       category: 'Basic',
       description: 'Минимальная ширина, при которой приложение отображается корректно – 320 рх',
-      id: 'a1',
       mentorCheck: false,
       score: 100,
       title: 'Проверка 1',
     },
     {
-      id: 'b2',
       title: 'Проверка 2',
       category: 'Fine',
       mentorCheck: true,
@@ -60,6 +54,9 @@ const defaultTasks2 = {
   state: 'Draft',
 };
 
-const tasks = [defaultTasks1, defaultTasks2];
+const tasks = {
+  MH6LY96FSOLrKaoKE: defaultTasks1,
+  MH6LnTePa2cTDVQjx: defaultTasks2,
+};
 
 export default tasks;
