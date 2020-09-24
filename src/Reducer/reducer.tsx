@@ -26,14 +26,14 @@ export enum TaskStates {
 }
 
 export type User = {
-  githubId: string | null | number;
+  githubId: null | number;
   role: UserRoles[];
   userName: string | null;
 };
 
 export type TaskItem = {
   id: string;
-  minScore: number;
+  score: number;
   maxScore: number;
   category: string;
   title: string;
@@ -41,11 +41,16 @@ export type TaskItem = {
 };
 
 export type Task = {
-  id: string;
+  taskId: string;
+  name: string;
   author: string;
   state: TaskStates;
   categoriesOrder: string[];
-  items: TaskItem[];
+  subTasks: TaskItem[];
+};
+
+export type Tasks = {
+  [fieldName: string]: Task;
 };
 
 export type TaskScoreItem = {
@@ -54,6 +59,7 @@ export type TaskScoreItem = {
 };
 
 export type TaskScore = {
+  id: string;
   task: string;
   items: {
     [index: string]: TaskScoreItem;
@@ -114,7 +120,7 @@ export type Review = {
   requestId: string;
   author: string;
   state: ReviewStates;
-  grade: TaskScore;
+  taskScoreId: string;
 };
 
 export enum DisputeStates {
@@ -133,13 +139,22 @@ export type Dispute = {
 
 export type AuthSuccessAction = Action & { user: User };
 
+const userPersistKey = 'user';
+function deserializeUser() {
+  try {
+    return JSON.parse(String(localStorage.getItem(userPersistKey) || undefined)) as User;
+  } catch (e) {
+    return {
+      userName: null,
+      githubId: null,
+      role: [UserRoles.Student],
+    } as User;
+  }
+}
+
 const initialState: stateType = {
   loaded: false,
-  user: {
-    userName: null,
-    githubId: null,
-    role: [UserRoles.Student],
-  },
+  user: deserializeUser(),
   testUser: {
     userName: 'alex',
     githubId: 11111,
@@ -161,6 +176,7 @@ const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
         loaded: true,
       };
     case AUTH_GITHUB_SUCCESS:
+      localStorage.setItem(userPersistKey, JSON.stringify(user));
       return {
         ...state,
         user,
