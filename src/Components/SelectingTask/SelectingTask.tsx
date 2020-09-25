@@ -47,7 +47,7 @@ const SelectingTask: React.FC = () => {
       if (task.name === item) {
         setInfoTask(tasks[index]);
         setSelectedTask(item);
-        dispatch(changeSelectedTaskId(task.taskId));
+        dispatch(changeSelectedTaskId({ selectedTaskId: task.taskId, checkSessionId: task.id }));
       }
     });
 
