@@ -17,7 +17,7 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/authorization" component={Auth} />
           <Route path="/dispute">
-            <Dispute isActive={false} />
+            <Dispute />
           </Route>
           <Route path="/tasks-list">
             <TasksList />

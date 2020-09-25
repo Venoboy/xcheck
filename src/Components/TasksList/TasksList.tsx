@@ -52,7 +52,7 @@ const TasksList: React.FC<allTasksType> = (props) => {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        service.delTask(taskName).then(setTimeout(() => onUpdateTaskList(), 1500));
+        service.delTask(taskName).then(() => setTimeout(() => onUpdateTaskList(), 1500));
       },
     });
   };

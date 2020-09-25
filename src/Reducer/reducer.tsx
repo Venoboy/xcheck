@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { TaskInfo } from '../Actions/Actions';
+import { SelectedTaskAction } from '../Actions/Actions';
 import {
   AUTH_GITHUB_SUCCESS,
   STOP_LOADING,
@@ -12,6 +12,12 @@ type stateType = {
   user: User;
   selectedTaskId: null | string;
   checkSessionId: null | string;
+  testUser: User;
+  testTaskId: string;
+  testCheckSessionId: string;
+  testReviewId: string;
+  testDisputeId: string;
+  testTaskScoreId: string;
 };
 
 export enum UserRoles {
@@ -28,14 +34,14 @@ export enum TaskStates {
 }
 
 export type User = {
-  githubId: string | null;
+  githubId: null | number;
   role: UserRoles[];
   userName: string | null;
 };
 
 export type TaskItem = {
   id: string;
-  minScore: number;
+  score: number;
   maxScore: number;
   category: string;
   title: string;
@@ -43,11 +49,16 @@ export type TaskItem = {
 };
 
 export type Task = {
-  id: string;
+  taskId: string;
+  name: string;
   author: string;
   state: TaskStates;
   categoriesOrder: string[];
-  items: TaskItem[];
+  subTasks: TaskItem[];
+};
+
+export type Tasks = {
+  [fieldName: string]: Task;
 };
 
 export type TaskScoreItem = {
@@ -56,6 +67,7 @@ export type TaskScoreItem = {
 };
 
 export type TaskScore = {
+  id: string;
   task: string;
   items: {
     [index: string]: TaskScoreItem;
@@ -116,7 +128,7 @@ export type Review = {
   requestId: string;
   author: string;
   state: ReviewStates;
-  grade: TaskScore;
+  taskScoreId: string;
 };
 
 export enum DisputeStates {
@@ -134,20 +146,38 @@ export type Dispute = {
 };
 
 export type AuthSuccessAction = Action & { user: User };
-export type TasksAction = Action & { payload: TaskInfo };
+
+const userPersistKey = 'user';
+function deserializeUser() {
+  try {
+    return JSON.parse(String(localStorage.getItem(userPersistKey) || undefined)) as User;
+  } catch (e) {
+    return {
+      userName: null,
+      githubId: null,
+      role: [UserRoles.Student],
+    } as User;
+  }
+}
 
 const initialState: stateType = {
   loaded: false,
-  user: {
-    userName: null,
-    githubId: null,
-    role: [UserRoles.Student],
+  user: deserializeUser(),
+  testUser: {
+    userName: 'alex',
+    githubId: 11111,
+    role: [UserRoles.Student, UserRoles.Author, UserRoles.Supervisor],
   },
   selectedTaskId: null,
   checkSessionId: null,
+  testTaskId: '-MHYG_Mmt_L2D5QLQtep',
+  testCheckSessionId: 'rss2020Q3react-xcheck',
+  testReviewId: '-MHcD-pT20-yloyBYANX',
+  testDisputeId: '-MHpfV9SG3s-mXj14Ba5',
+  testTaskScoreId: '-MHl3FwbPLf_tCzl3dFn',
 };
 
-type XCheckActions = Action | AuthSuccessAction | TasksAction;
+type XCheckActions = Action | AuthSuccessAction | SelectedTaskAction;
 
 const reducer = (state = initialState, action: XCheckActions) => {
   const { user } = action as AuthSuccessAction;
@@ -159,6 +189,7 @@ const reducer = (state = initialState, action: XCheckActions) => {
         loaded: true,
       };
     case AUTH_GITHUB_SUCCESS:
+      localStorage.setItem(userPersistKey, JSON.stringify(user));
       return {
         ...state,
         user,
@@ -169,7 +200,7 @@ const reducer = (state = initialState, action: XCheckActions) => {
         loaded: false,
       };
     case CHANGE_SELECTED_TASK_INFO: {
-      const { checkSessionId, selectedTaskId } = (action as TasksAction).payload;
+      const { checkSessionId, selectedTaskId } = (action as SelectedTaskAction).payload;
       return {
         ...state,
         selectedTaskId,

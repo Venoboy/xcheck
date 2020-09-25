@@ -1,6 +1,6 @@
 const taskScore1: any = {
   userId: 11111,
-  taskId: 1,
+  taskId: '-MHYG_Mmt_L2D5QLQtep',
   taskScoreId: 1,
   subTasks: [
     {
@@ -44,7 +44,7 @@ const taskScore1: any = {
 
 const taskScore2: any = {
   userId: 22222,
-  taskId: 2,
+  taskId: 'MH6LnTePa2cTDVQjx',
   taskScoreId: 2,
   subTasks: [
     {
