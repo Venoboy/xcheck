@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Button, Menu, Dropdown, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import Header from '../Header/Header';
+import { changeSelectedTaskId } from '../../Actions/Actions';
 import './SelectingTask.scss';
 
 const SelectingTask: React.FC = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [githubId, setGithubId] = useState<string>('');
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
@@ -44,6 +47,7 @@ const SelectingTask: React.FC = () => {
       if (task.name === item) {
         setInfoTask(tasks[index]);
         setSelectedTask(item);
+        dispatch(changeSelectedTaskId(task.taskId));
       }
     });
 
