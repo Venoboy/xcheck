@@ -28,7 +28,9 @@ const SelectingTask: React.FC = () => {
     setReviewRequests(fetchReviewRequests);
 
     const tempTasks: any[] = [];
-    checkSessions.forEach((session: any) => {
+
+    Object.keys(checkSessions).forEach((key) => {
+      const session = checkSessions[key];
       if (session.state !== 'DRAFT') {
         if (fetchTasks[session.taskId]?.name) {
           tempTasks.push({
@@ -97,7 +99,7 @@ const SelectingTask: React.FC = () => {
   const menu = () => (
     <Menu onClick={({ item }: { item: any }) => dropdownClick(item.node.textContent as string)}>
       {tasks.map((task: any) => (
-        <Menu.Item key={task.id}>{task.name}</Menu.Item>
+        <Menu.Item key={task.taskId}>{task.name}</Menu.Item>
       ))}
     </Menu>
   );
