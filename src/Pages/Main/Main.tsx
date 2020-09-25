@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Auth from '../../Components/Auth/Auth';
 import Navbar from './Navbar/Navbar';
+import Header from '../../Components/Header/Header';
 import './Main.scss';
 
 const Main: React.FC = (state) => {
@@ -12,6 +13,7 @@ const Main: React.FC = (state) => {
   }
   return (
     <div className="main">
+      <Header />
       <div className="main-content">
         <div className="ant-row" style={{ margin: '0 -12px' }}>
           <div

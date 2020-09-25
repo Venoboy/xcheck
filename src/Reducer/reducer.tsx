@@ -1,9 +1,17 @@
 import { Action } from 'redux';
-import { AUTH_GITHUB_SUCCESS, STOP_LOADING, REQUESTS } from '../Actions/actionTypes';
+import { SelectedTaskAction } from '../Actions/Actions';
+import {
+  AUTH_GITHUB_SUCCESS,
+  STOP_LOADING,
+  REQUESTS,
+  CHANGE_SELECTED_TASK_INFO,
+} from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
   user: User;
+  selectedTaskId: null | string;
+  checkSessionId: null | string;
   testUser: User;
   testTaskId: string;
   testCheckSessionId: string;
@@ -160,6 +168,8 @@ const initialState: stateType = {
     githubId: 11111,
     role: [UserRoles.Student, UserRoles.Author, UserRoles.Supervisor],
   },
+  selectedTaskId: null,
+  checkSessionId: null,
   testTaskId: '-MHYG_Mmt_L2D5QLQtep',
   testCheckSessionId: 'rss2020Q3react-xcheck',
   testReviewId: '-MHcD-pT20-yloyBYANX',
@@ -167,8 +177,11 @@ const initialState: stateType = {
   testTaskScoreId: '-MHl3FwbPLf_tCzl3dFn',
 };
 
-const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
+type XCheckActions = Action | AuthSuccessAction | SelectedTaskAction;
+
+const reducer = (state = initialState, action: XCheckActions) => {
   const { user } = action as AuthSuccessAction;
+
   switch (action.type) {
     case REQUESTS:
       return {
@@ -186,6 +199,14 @@ const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
         ...state,
         loaded: false,
       };
+    case CHANGE_SELECTED_TASK_INFO: {
+      const { checkSessionId, selectedTaskId } = (action as SelectedTaskAction).payload;
+      return {
+        ...state,
+        selectedTaskId,
+        checkSessionId,
+      };
+    }
 
     default:
       return {
