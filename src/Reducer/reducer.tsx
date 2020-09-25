@@ -1,9 +1,15 @@
 import { Action } from 'redux';
-import { AUTH_GITHUB_SUCCESS, STOP_LOADING, REQUESTS } from '../Actions/actionTypes';
+import {
+  AUTH_GITHUB_SUCCESS,
+  STOP_LOADING,
+  REQUESTS,
+  CHANGE_SELECTED_TASK_ID,
+} from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
   user: User;
+  selectedTaskId: null | string;
 };
 
 export enum UserRoles {
@@ -126,6 +132,7 @@ export type Dispute = {
 };
 
 export type AuthSuccessAction = Action & { user: User };
+export type TasksAction = Action & { payload: string };
 
 const initialState: stateType = {
   loaded: false,
@@ -134,10 +141,14 @@ const initialState: stateType = {
     githubId: null,
     role: [UserRoles.Student],
   },
+  selectedTaskId: null,
 };
 
-const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
+type XCheckActions = Action | AuthSuccessAction | TasksAction;
+
+const reducer = (state = initialState, action: XCheckActions) => {
   const { user } = action as AuthSuccessAction;
+
   switch (action.type) {
     case REQUESTS:
       return {
@@ -153,6 +164,11 @@ const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
       return {
         ...state,
         loaded: false,
+      };
+    case CHANGE_SELECTED_TASK_ID:
+      return {
+        ...state,
+        selectedTaskId: (action as TasksAction).payload,
       };
 
     default:
