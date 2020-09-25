@@ -21,7 +21,7 @@ const SelectingTask: React.FC = () => {
 
   const getTasks = async () => {
     const url = 'https://x-check-9d19c.firebaseio.com/';
-    const checkSessions = (await (await fetch(`${url}checkSessions.json`)).json()) || [];
+    const checkSessions = (await (await fetch(`${url}checkSessions.json`)).json()) || {};
     const fetchTasks = (await (await fetch(`${url}tasks.json`)).json()) || {};
     const fetchReviewRequests = (await (await fetch(`${url}reviewRequests.json`)).json()) || {};
 
