@@ -1,15 +1,17 @@
 import { Action } from 'redux';
+import { TaskInfo } from '../Actions/Actions';
 import {
   AUTH_GITHUB_SUCCESS,
   STOP_LOADING,
   REQUESTS,
-  CHANGE_SELECTED_TASK_ID,
+  CHANGE_SELECTED_TASK_INFO,
 } from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
   user: User;
   selectedTaskId: null | string;
+  checkSessionId: null | string;
 };
 
 export enum UserRoles {
@@ -132,7 +134,7 @@ export type Dispute = {
 };
 
 export type AuthSuccessAction = Action & { user: User };
-export type TasksAction = Action & { payload: string };
+export type TasksAction = Action & { payload: TaskInfo };
 
 const initialState: stateType = {
   loaded: false,
@@ -142,6 +144,7 @@ const initialState: stateType = {
     role: [UserRoles.Student],
   },
   selectedTaskId: null,
+  checkSessionId: null,
 };
 
 type XCheckActions = Action | AuthSuccessAction | TasksAction;
@@ -165,11 +168,14 @@ const reducer = (state = initialState, action: XCheckActions) => {
         ...state,
         loaded: false,
       };
-    case CHANGE_SELECTED_TASK_ID:
+    case CHANGE_SELECTED_TASK_INFO: {
+      const { checkSessionId, selectedTaskId } = (action as TasksAction).payload;
       return {
         ...state,
-        selectedTaskId: (action as TasksAction).payload,
+        selectedTaskId,
+        checkSessionId,
       };
+    }
 
     default:
       return {
