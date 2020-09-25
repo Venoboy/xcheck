@@ -36,6 +36,7 @@ const SelectingTask: React.FC = () => {
           tempTasks.push({
             ...session,
             name: fetchTasks[session.taskId]?.name,
+            id: key,
           });
         }
       }
