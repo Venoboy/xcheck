@@ -60,7 +60,8 @@ const DisputeSelector = (props: any) => {
     if (checkSessionId === 'item_0') return;
     const taskId = checkSessions[checkSessionId].taskId;
     const reviewRequestId = Object.keys(reviewRequests).find(
-      (id) => reviewRequests[id].checkSessionId === checkSessionId
+      (id) =>
+        reviewRequests[id].checkSessionId === checkSessionId && +reviewRequests[id].author === user
     );
     const taskScoreId = Object.keys(taskScores).find((id) => {
       return taskScores[id].reviewRequestId === reviewRequestId;
