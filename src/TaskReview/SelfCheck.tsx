@@ -37,7 +37,7 @@ export const SelfCheck: React.FC = Hoc()(({ service }: { service: Service }) => 
           setTaskScore(taskScoreFromBD as TaskScore);
         });
       });
-  }, [service, reviewRequestId, taskId, taskScore]);
+  }, []);
 
   const categories = getTaskCategories(task, taskScore);
 
