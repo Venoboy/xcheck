@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Button, message } from 'antd';
-import Hoc from '../Components/Hoc/Hoc';
-import Service from '../Service/Service';
-import { Task, TaskItem, TaskScore } from '../Reducer/reducer';
+import Hoc from '../Hoc/Hoc';
+import Service from '../../Service/Service';
+import { Task, TaskItem, TaskScore } from '../../Reducer/reducer';
 import { TaskReviewForm } from './TaskForm';
 import { getTaskCategories } from './getTaskCategories';
-import Header from '../Components/Header/Header';
+import Header from '../Header/Header';
 
 export const SelfCheck: React.FC = Hoc()(({ service }: { service: Service }) => {
   const { taskId, reviewRequestId } = useParams();
@@ -37,6 +37,7 @@ export const SelfCheck: React.FC = Hoc()(({ service }: { service: Service }) => 
           setTaskScore(taskScoreFromBD as TaskScore);
         });
       });
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const categories = getTaskCategories(task, taskScore);

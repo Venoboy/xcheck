@@ -14,12 +14,12 @@ import {
   TaskScore,
   TaskStates,
   User,
-} from '../Reducer/reducer';
+} from '../../Reducer/reducer';
 import './TaskReview.scss';
-import Header from '../Components/Header/Header';
-import Hoc from '../Components/Hoc/Hoc';
-import Service from '../Service/Service';
-import { RootState } from '../Store/Store';
+import Header from '../Header/Header';
+import Hoc from '../Hoc/Hoc';
+import Service from '../../Service/Service';
+import { RootState } from '../../Store/Store';
 import { TaskReviewForm } from './TaskForm';
 import { getTaskCategories } from './getTaskCategories';
 

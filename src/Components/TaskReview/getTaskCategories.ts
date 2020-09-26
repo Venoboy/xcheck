@@ -1,4 +1,4 @@
-import { Task, TaskScoreItem } from '../Reducer/reducer';
+import { Task, TaskScoreItem } from '../../Reducer/reducer';
 
 export function getTaskCategories(task: Task, taskScore?: { subTasks: TaskScoreItem[] }) {
   const categories = task.subTasks.reduce((acc, cur) => {

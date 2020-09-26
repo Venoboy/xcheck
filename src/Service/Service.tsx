@@ -31,12 +31,12 @@ function normalizeReview(review: Review) {
 }
 
 function normalizeCheckSession(session: CrossCheckSession) {
-  if (session.crossCheck) {
+  if (session.crossCheck instanceof Object) {
     return {
       ...session,
       crossCheck: {
         ...session.crossCheck,
-        attendees: Object.values(session.crossCheck.attendees),
+        attendees: Object.values(session.crossCheck.attendees || {}),
       },
     };
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Collapse, Descriptions } from 'antd';
-import { TaskItem } from '../Reducer/reducer';
+import { TaskItem } from '../../Reducer/reducer';
 import { SetTaskScore } from './SetScore';
 
 const { Panel } = Collapse;
