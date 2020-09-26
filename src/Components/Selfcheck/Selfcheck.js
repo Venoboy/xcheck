@@ -1,85 +1,48 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import { Typography } from 'antd';
 import { Subtask } from './ components/subtask/subtask';
 import { putToBD, getFromBD, postToBD } from './helpers';
 import { ButtonSelfcheck } from './ components/buttons/buttonReview';
-import { Typography } from 'antd';
-import Header from '../Header/Header';
 import './Selfcheck.scss';
 
 const { Title } = Typography;
 
 class Selfcheck extends React.Component {
   constructor(props) {
+    console.log(1);
     super(props);
-    const { reviewRequestId, userId } = this.props;
+    const { reviewRequestId } = this.props;
     this.state = {
       task: null,
       taskScore: {
         subTasks: [],
-        reviewRequestId: reviewRequestId,
+        reviewRequestId,
       },
       isTaskScoreExist: false,
       reviewRequest: {},
       taskId: 1,
-      taskScores: {},
     };
-    this.createSubTaskScoreObject = this.createSubTaskScoreObject.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.getTaskScore = this.getTaskScore.bind(this);
-  }
-
-  handleSubmit() {
-    postToBD('taskScores/', this.state.taskScore);
-    if (!this.state.isTaskScoreExist) {
-      this.setState(
-        (prevState) => ({
-          reviewRequest: {
-            ...prevState.reviewRequest,
-            state: 'PUBLISHED',
-          },
-        }),
-        putToBD(`reviewRequests/${this.state.taskScore.reviewRequestId}`, this.state.reviewRequest)
-      );
-    }
-  }
-
-  getTaskScore() {
-    let taskScores = getFromBD('taskScores');
-    taskScores.then((res) => {
-      let currentTaskScore;
-      for (let key in res) {
-        if (res[key].reviewRequestId === this.state.taskScore.reviewRequestId) {
-          currentTaskScore = res[key];
-        }
-      }
-      this.setState({
-        taskScore: this.state.isTaskScoreExist
-          ? currentTaskScore
-          : {
-              taskScoreId: `${this.state.taskId}`,
-              reviewRequestId: this.state.taskScore.reviewRequestId,
-              subTasks: this.state.task?.subTasks.map((el) => (el = { score: 0, comment: '' })),
-            },
-      });
-    });
   }
 
   componentDidMount() {
-    let reviewRequest = getFromBD(`reviewRequests/${this.state.taskScore.reviewRequestId}`);
-    reviewRequest.then((res) => {
+    const { taskScore } = this.state;
+    const reviewRequestFromBD = getFromBD(`reviewRequests/${taskScore.reviewRequestId}`);
+    reviewRequestFromBD.then((resRequest) => {
       this.setState(
         {
-          isTaskScoreExist: res?.state === 'DRAFT' ? false : true,
-          taskId: res?.taskId,
-          reviewRequest: res,
+          isTaskScoreExist: resRequest?.state === 'DRAFT',
+          taskId: resRequest?.taskId,
+          reviewRequest: resRequest,
         },
         () => {
-          let task = getFromBD(`tasks/${this.state.reviewRequest.taskId}`);
-          task.then((res) => {
+          const { taskId } = this.state;
+          const task = getFromBD(`tasks/${taskId}`);
+          task.then((resTask) => {
             this.setState(
               {
-                task: res,
+                task: resTask,
               },
               () => this.getTaskScore()
             );
@@ -88,6 +51,44 @@ class Selfcheck extends React.Component {
       );
     });
   }
+
+  handleSubmit = () => {
+    const { taskScore, reviewRequest, isTaskScoreExist } = this.state;
+    postToBD('taskScores/', taskScore);
+    if (!isTaskScoreExist) {
+      this.setState(
+        (prevState) => ({
+          reviewRequest: {
+            ...prevState.reviewRequest,
+            state: 'PUBLISHED',
+          },
+        }),
+        putToBD(`reviewRequests/${taskScore.reviewRequestId}`, reviewRequest)
+      );
+    }
+  };
+
+  getTaskScore = () => {
+    const { taskScore, isTaskScoreExist, taskId, task } = this.state;
+    const taskScoresBD = getFromBD('taskScores');
+    taskScoresBD.then((res) => {
+      let currentTaskScore;
+      for (const key in res) {
+        if (res[key].reviewRequestId === taskScore.reviewRequestId) {
+          currentTaskScore = res[key];
+        }
+      }
+      this.setState({
+        taskScore: isTaskScoreExist
+          ? currentTaskScore
+          : {
+              taskScoreId: `${taskId}`,
+              reviewRequestId: taskScore.reviewRequestId,
+              subTasks: task?.subTasks.map((el) => ({ score: 0, comment: '' })),
+            },
+      });
+    });
+  };
 
   createSubTaskScoreObject(index, key, value) {
     this.setState((prevState) => {
@@ -103,14 +104,14 @@ class Selfcheck extends React.Component {
   }
 
   render() {
-    return this.state.task !== null ? (
+    const { task, taskScore } = this.state;
+    return task !== null ? (
       <div className="selfcheck_container">
-        {/* <Header /> */}
         <Title level={1} key={1}>
-          {this.state.task.name}
+          {task.name}
         </Title>
-        {this.state.task?.subTasks.map((item, index) => {
-          let prevCategory = this.state.task.subTasks[index === 0 ? 0 : index - 1].category;
+        {task?.subTasks.map((item, index) => {
+          const prevCategory = task.subTasks[index === 0 ? 0 : index - 1].category;
           let shouldShowCategory = true;
           if (item.category === prevCategory && index !== 0) {
             shouldShowCategory = false;
@@ -125,7 +126,7 @@ class Selfcheck extends React.Component {
                 onChange={this.onChange}
                 createSubTaskScoreObject={this.createSubTaskScoreObject}
                 shouldShowCategory={shouldShowCategory}
-                taskScore={this.state.taskScore}
+                taskScore={taskScore}
               />
             </>
           );

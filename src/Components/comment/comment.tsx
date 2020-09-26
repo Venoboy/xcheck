@@ -29,7 +29,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
   </>
 );
 
-export const App = ({ createSubTaskScoreObject, index }: any) => {
+export const CommentComponent = ({ createSubTaskScoreObject, index }: any) => {
   const [comments, setComments] = useState<any>([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');

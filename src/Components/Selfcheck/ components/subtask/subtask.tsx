@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Typography, Checkbox, InputNumber } from 'antd';
+import React from 'react';
+import { Typography, Checkbox } from 'antd';
 import { ButtonSelfcheck } from '../buttons/buttonReview';
-import { App } from '../../../comment/comment';
+import { CommentComponent } from '../../../comment/comment';
 import './subtask.scss';
 
 const { Text, Title } = Typography;
@@ -9,7 +9,7 @@ type SubtaskTypes = {
   item: any;
   onChange: any;
   index: any;
-  taskScore: any;
+  // taskScore: any;
   createSubTaskScoreObject: (index: number, key: string, value: string | number) => void;
   shouldShowCategory: boolean;
 };
@@ -33,7 +33,7 @@ export const Subtask = ({
         <Text key={index}>{item.description}</Text>
       </p>
       <div className="comment__container">
-        <App createSubTaskScoreObject={createSubTaskScoreObject} index={index} />
+        <CommentComponent createSubTaskScoreObject={createSubTaskScoreObject} index={index} />
       </div>
       <div className="buttons_for_review">
         <ButtonSelfcheck
