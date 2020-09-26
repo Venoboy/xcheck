@@ -112,6 +112,9 @@ const SelectingTask: React.FC = () => {
     getTasks();
   }, []);
 
+  const openSelfCheck = () =>
+      history.push(`/self-check/${infoTask.taskId}/${infoTask.id}-${githubId}`)
+
   return (
     <div className="selecting-task">
       <Header />
@@ -179,12 +182,13 @@ const SelectingTask: React.FC = () => {
           >
             Submit
           </Button>
-          {reviewRequests[`${infoTask.id}-${githubId}`] && (
+
+{reviewRequests[`${infoTask.id}-${githubId}`] && (
             <Button
               className="self"
               type="primary"
               size="middle"
-              onClick={() => history.push('/self-check')}
+              onClick={openSelfCheck}
             >
               {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
                 ? 'Add self-check'

@@ -36,6 +36,10 @@ export type User = {
   userName: string | null;
 };
 
+export type Users = {
+  [index: string]: User;
+};
+
 export type TaskItem = {
   id: string;
   score: number;
@@ -59,16 +63,15 @@ export type Tasks = {
 };
 
 export type TaskScoreItem = {
+  id?: number | string;
   score: number;
   comment: string;
 };
 
 export type TaskScore = {
-  id: string;
-  task: string;
-  items: {
-    [index: string]: TaskScoreItem;
-  };
+  id?: string;
+  reviewRequestId: string;
+  subTasks: TaskScoreItem[];
 };
 
 export enum CrossCheckSessionStates {
@@ -84,17 +87,23 @@ export type Attendee = {
 };
 
 export type CrossCheckSession = {
-  id: string;
+  name: string;
   state: CrossCheckSessionStates;
   taskId: string;
   coefficient: number;
   startDate: string;
   endDate: string;
-  discardMinScore: boolean;
-  discardMaxScore: boolean;
-  minReviewsAmount: number;
-  desiredReviewersAmount: number;
-  attendees: Attendee[];
+  crossCheck: {
+    discardMinScore: boolean;
+    discardMaxScore: boolean;
+    minReviewsAmount: number;
+    desiredReviewersAmount: number;
+    attendees: Attendee[];
+  };
+};
+
+export type CrossCheckSessions = {
+  [index: string]: CrossCheckSession;
 };
 
 export enum ReviewRequestStates {
@@ -121,11 +130,11 @@ export enum ReviewStates {
 }
 
 export type Review = {
-  id: string;
-  requestId: string;
+  id?: string;
   author: string;
   state: ReviewStates;
   taskScoreId: string;
+  subTasks: TaskScoreItem[];
 };
 
 export enum DisputeStates {
