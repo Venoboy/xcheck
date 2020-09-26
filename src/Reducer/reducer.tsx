@@ -1,6 +1,8 @@
 import { Action } from 'redux';
+import { SelectedTaskAction } from '../Actions/Actions';
 import {
   AUTH_GITHUB_SUCCESS,
+  CHANGE_SELECTED_TASK_INFO,
   DISPUTE_SELECT,
   REQUESTS,
   STOP_LOADING,
@@ -9,6 +11,8 @@ import {
 type stateType = {
   loaded: boolean;
   user: User;
+  selectedTaskId: null | string;
+  checkSessionId: null | string;
 };
 
 export enum UserRoles {
@@ -155,10 +159,15 @@ function deserializeUser() {
 const initialState: stateType = {
   loaded: false,
   user: deserializeUser(),
+  selectedTaskId: null,
+  checkSessionId: null,
 };
+
+type XCheckActions = Action | AuthSuccessAction | SelectedTaskAction;
 
 const reducer = (state = initialState, action: any) => {
   const { user } = action as AuthSuccessAction;
+
   switch (action.type) {
     case REQUESTS:
       return {
@@ -176,6 +185,14 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         loaded: false,
       };
+    case CHANGE_SELECTED_TASK_INFO: {
+      const { checkSessionId, selectedTaskId } = (action as SelectedTaskAction).payload;
+      return {
+        ...state,
+        selectedTaskId,
+        checkSessionId,
+      };
+    }
 
     case DISPUTE_SELECT:
       return {

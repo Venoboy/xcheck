@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Menu, Dropdown, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import Header from '../Header/Header';
+import { changeSelectedTaskId } from '../../Actions/Actions';
 import './SelectingTask.scss';
 
 const SelectingTask: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [githubId, setGithubId] = useState<string>('');
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<string>('');
@@ -16,19 +21,22 @@ const SelectingTask: React.FC = () => {
 
   const getTasks = async () => {
     const url = 'https://x-check-9d19c.firebaseio.com/';
-    const checkSessions = (await (await fetch(`${url}checkSessions.json`)).json()) || [];
+    const checkSessions = (await (await fetch(`${url}checkSessions.json`)).json()) || {};
     const fetchTasks = (await (await fetch(`${url}tasks.json`)).json()) || {};
     const fetchReviewRequests = (await (await fetch(`${url}reviewRequests.json`)).json()) || {};
 
     setReviewRequests(fetchReviewRequests);
 
     const tempTasks: any[] = [];
-    checkSessions.forEach((session: any) => {
+
+    Object.keys(checkSessions).forEach((key) => {
+      const session = checkSessions[key];
       if (session.state !== 'DRAFT') {
         if (fetchTasks[session.taskId]?.name) {
           tempTasks.push({
             ...session,
             name: fetchTasks[session.taskId]?.name,
+            id: key,
           });
         }
       }
@@ -42,6 +50,7 @@ const SelectingTask: React.FC = () => {
       if (task.name === item) {
         setInfoTask(tasks[index]);
         setSelectedTask(item);
+        dispatch(changeSelectedTaskId({ selectedTaskId: task.taskId, checkSessionId: task.id }));
       }
     });
 
@@ -57,12 +66,13 @@ const SelectingTask: React.FC = () => {
       setIsSubmit(true);
 
       const reviewRequest = {
-        id: field,
+        taskId: infoTask.taskId,
         checkSessionId: infoTask.id,
         author: githubId,
-        task: selectedTask,
-        state: 'PUBLISHED',
-        taskScoreId: '',
+        state:
+          reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'PUBLISHED'
+            ? 'PUBLISHED'
+            : 'DRAFT',
         solution: solutionUrl,
         date: new Date().toLocaleDateString(),
       };
@@ -90,7 +100,7 @@ const SelectingTask: React.FC = () => {
   const menu = () => (
     <Menu onClick={({ item }: { item: any }) => dropdownClick(item.node.textContent as string)}>
       {tasks.map((task: any) => (
-        <Menu.Item key={task.id}>{task.name}</Menu.Item>
+        <Menu.Item key={task.taskId}>{task.name}</Menu.Item>
       ))}
     </Menu>
   );
@@ -158,8 +168,24 @@ const SelectingTask: React.FC = () => {
             Solution URL
           </h3>
           <input type="text" className="selecting-task__enter" ref={solutionInputRef} />
-          <Button type="primary" size="middle" onClick={submitSolution} loading={isSubmit}>
+          <Button
+            className="submit"
+            type="primary"
+            size="middle"
+            onClick={submitSolution}
+            loading={isSubmit}
+          >
             Submit
+          </Button>
+          <Button
+            className="self"
+            type="primary"
+            size="middle"
+            onClick={() => history.push('/self-check')}
+          >
+            {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
+              ? 'Add self-check'
+              : 'Change self-check'}
           </Button>
         </div>
       )}
