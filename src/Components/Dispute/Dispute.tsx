@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Divider, Input, Layout, Rate, Row, Statistic, Typography } from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  Layout,
+  Rate,
+  Row,
+  Statistic,
+  Typography,
+  message,
+} from 'antd';
 import { connect } from 'react-redux';
 
 import classes from './Dispute.module.scss';
 import CommentList from '../CommentList/CommentList';
 import stages from '../CommentList/stages';
-import getFromBD from '../../Service/getFromBD';
-import putToBD from '../../Service/putToBD';
+import getFromDB from '../../Service/getFromDB';
+import putToDB from '../../Service/putToDB';
 
 const { Title }: any = Typography;
 const { Content }: any = Layout;
 const { TextArea }: any = Input;
 
 const Dispute = (props: any) => {
-  const { checkSessionId, taskScoreId, reviewId, disputeId } = props;
+  const { taskId, taskScoreId, reviewId, disputeId, setDisputeSelectActive } = props;
   const [database, setDatabase] = useState({} as any);
   const [isAddingComment, setIsAddingComment] = useState([] as any);
   const [activeButtons, setActiveButtons] = useState([] as any);
@@ -22,16 +33,21 @@ const Dispute = (props: any) => {
   const [dispute, setDispute] = useState({} as any);
 
   const isDatabaseEmpty = Object.keys(database).length === 0;
-  const taskId = !isDatabaseEmpty
-    ? database.checkSessions.find((elem: any) => elem.id === checkSessionId).taskId
-    : false;
-
   const task = !isDatabaseEmpty ? database.tasks[taskId] : false;
   const stage = stages.disputeCheck;
+  const isMaxMarks = database.tasks && database.tasks[taskId] && database.tasks[taskId].subTasks;
+  const maxMarks = isMaxMarks
+    ? database.tasks[taskId].subTasks.map((subTask: any) => subTask.score)
+    : [];
+  const isReviewMarks =
+    database.reviews && database.reviews[reviewId] && database.reviews[reviewId].subTasks;
+  const reviewMarks = isReviewMarks
+    ? database.reviews[reviewId].subTasks.map((subTask: any) => subTask.score)
+    : [];
 
   useEffect(() => {
     const fetchDB = async () => {
-      setDatabase(await getFromBD(''));
+      setDatabase(await getFromDB(''));
     };
     if (isDatabaseEmpty) {
       fetchDB();
@@ -40,48 +56,58 @@ const Dispute = (props: any) => {
 
   useEffect(() => {
     if (!isDatabaseEmpty) {
-      if (stage === stages.selfCheck && taskScore.subTasks) {
+      if (stage === stages.selfCheck && taskScore && taskScore.subTasks) {
         setActiveButtons(taskScore.subTasks.map((elem: any) => elem.comment === ''));
       }
-      if (stage === stages.reviewerCheck && review.subTasks) {
+      if (stage === stages.reviewerCheck && review && review.subTasks) {
         setActiveButtons(review.subTasks.map((elem: any) => elem.comment === ''));
       }
-      if (stage === stages.disputeCheck && dispute.subTasks) {
+      if (stage === stages.disputeCheck && dispute && dispute.subTasks) {
         setActiveButtons(dispute.subTasks.map((elem: any) => elem.comment === ''));
       }
     }
   }, [isDatabaseEmpty, taskScore, review, dispute, stage]);
 
   useEffect(() => {
-    const isTaskScore = !isDatabaseEmpty && Object.keys(taskScore).length === 0;
+    const isTaskScore = !isDatabaseEmpty && taskScore && Object.keys(taskScore).length === 0;
     if (isTaskScore) {
       setTaskScore(database.taskScores[taskScoreId]);
     }
   }, [isDatabaseEmpty, taskScore, database, taskScoreId]);
 
   useEffect(() => {
-    const isReview = !isDatabaseEmpty && Object.keys(review).length === 0;
+    const isReview = !isDatabaseEmpty && review && Object.keys(review).length === 0;
     if (isReview) {
       setReview(database.reviews[reviewId]);
     }
   }, [isDatabaseEmpty, review, database, reviewId]);
 
   useEffect(() => {
-    const isDispute = !isDatabaseEmpty && Object.keys(dispute).length === 0;
+    const isDispute = !isDatabaseEmpty && dispute && Object.keys(dispute).length === 0;
     if (isDispute) {
       setDispute(database.disputes[disputeId]);
     }
   }, [isDatabaseEmpty, dispute, database, disputeId]);
 
   const sendCommentsToBD = () => {
+    const hide = message.loading('Action in progress..', 0);
     if (stage === stages.selfCheck) {
-      putToBD(`taskScores/${taskScoreId}`, taskScore);
+      putToDB(`taskScores/${taskScoreId}`, taskScore).then(() => {
+        hide();
+        setDisputeSelectActive(true);
+      });
     }
     if (stage === stages.reviewerCheck) {
-      putToBD(`reviews/${reviewId}`, review);
+      putToDB(`reviews/${reviewId}`, review).then(() => {
+        hide();
+        setDisputeSelectActive(true);
+      });
     }
     if (stage === stages.disputeCheck) {
-      putToBD(`disputes/${disputeId}`, dispute);
+      putToDB(`disputes/${disputeId}`, dispute).then(() => {
+        hide();
+        setDisputeSelectActive(true);
+      });
     }
   };
 
@@ -105,6 +131,9 @@ const Dispute = (props: any) => {
             <Row>
               <Title level={2}>{subtask.category}</Title>
             </Row>
+            <Row>
+              <Title level={4}>{subtask.title}</Title>
+            </Row>
             <Row>{subtask.description}</Row>
             <Divider />
             <Row>
@@ -124,14 +153,18 @@ const Dispute = (props: any) => {
             </Row>
           </Col>
           <Col span={6} className={classes.scoreSection}>
-            <Statistic title="Score" value={10} suffix="/ 20" />
+            <Statistic
+              title="Score"
+              value={reviewMarks[index] || 'No data'}
+              suffix={`/ ${maxMarks[index] || 'No data'}`}
+            />
             <Button
               disabled={!activeButtons[index]}
               danger
               className={classes.argueBtn}
               onClick={() => commentButtonHandler(index, true)}
             >
-              Оспорить
+              Dispute
             </Button>
           </Col>
         </Row>
@@ -159,10 +192,11 @@ const Dispute = (props: any) => {
   );
 };
 const mapStateToProps = (state: any) => ({
-  checkSessionId: state.testCheckSessionId,
-  taskScoreId: state.testTaskScoreId,
-  reviewId: state.testReviewId,
-  disputeId: state.testDisputeId,
+  taskId: state.taskId,
+  checkSessionId: state.checkSessionId,
+  taskScoreId: state.taskScoreId,
+  reviewId: state.reviewId,
+  disputeId: state.disputeId,
 });
 
 export default connect(mapStateToProps)(Dispute);

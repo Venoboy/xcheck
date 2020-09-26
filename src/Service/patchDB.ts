@@ -1,4 +1,4 @@
-const patchBD = async (path: string, data: any) => {
+const patchDB = async (path: string, data: any) => {
   try {
     const url = `https://x-check-9d19c.firebaseio.com/${path}.json`;
     const res: any = await fetch(url, {
@@ -15,4 +15,4 @@ const patchBD = async (path: string, data: any) => {
   return null;
 };
 
-export default patchBD;
+export default patchDB;
