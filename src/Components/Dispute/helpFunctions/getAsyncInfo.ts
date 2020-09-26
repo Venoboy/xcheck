@@ -1,7 +1,7 @@
-import getFromBD from '../../../Service/getFromBD';
+import getFromDB from '../../../Service/getFromDB';
 
 const getAsyncInfo = async (setFn: any, taskId: string) => {
-  const result = await getFromBD(`tasks/${taskId}`);
+  const result = await getFromDB(`tasks/${taskId}`);
   // console.log(result);
   setFn(result);
 };

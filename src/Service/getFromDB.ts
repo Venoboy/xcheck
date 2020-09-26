@@ -1,4 +1,4 @@
-const getFromBD = async (path: string) => {
+const getFromDB = async (path: string) => {
   try {
     const url = `https://x-check-9d19c.firebaseio.com/${path}.json`;
     const res: any = await fetch(url);
@@ -9,4 +9,4 @@ const getFromBD = async (path: string) => {
   return null;
 };
 
-export default getFromBD;
+export default getFromDB;

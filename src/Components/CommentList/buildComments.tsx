@@ -8,7 +8,7 @@ const buildComments = (settings: any) => {
   const { taskScore, review, dispute, subTaskIndex, stage, setOnEdit } = settings;
   const commentsArray: any = [];
 
-  if (taskScore.subTasks && review.subTasks && dispute.subTasks) {
+  if (taskScore && taskScore.subTasks && review && review.subTasks && dispute && dispute.subTasks) {
     const selfText = taskScore.subTasks[subTaskIndex].comment;
     const reviewerText = review.subTasks[subTaskIndex].comment;
     const disputeText = dispute.subTasks[subTaskIndex].comment;

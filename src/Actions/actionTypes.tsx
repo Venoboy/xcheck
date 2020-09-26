@@ -1,3 +1,4 @@
 export const AUTH_GITHUB_SUCCESS = 'AUTH_GITHUB_SUCCESS';
 export const REQUESTS = 'REQUESTS';
 export const STOP_LOADING = 'STOP_LOADING';
+export const DISPUTE_SELECT = 'DISPUTE_SELECT';

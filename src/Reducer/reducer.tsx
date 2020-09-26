@@ -1,15 +1,14 @@
 import { Action } from 'redux';
-import { AUTH_GITHUB_SUCCESS, STOP_LOADING, REQUESTS } from '../Actions/actionTypes';
+import {
+  AUTH_GITHUB_SUCCESS,
+  DISPUTE_SELECT,
+  REQUESTS,
+  STOP_LOADING,
+} from '../Actions/actionTypes';
 
 type stateType = {
   loaded: boolean;
   user: User;
-  testUser: User;
-  testTaskId: string;
-  testCheckSessionId: string;
-  testReviewId: string;
-  testDisputeId: string;
-  testTaskScoreId: string;
 };
 
 export enum UserRoles {
@@ -140,6 +139,7 @@ export type Dispute = {
 export type AuthSuccessAction = Action & { user: User };
 
 const userPersistKey = 'user';
+
 function deserializeUser() {
   try {
     return JSON.parse(String(localStorage.getItem(userPersistKey) || undefined)) as User;
@@ -155,19 +155,9 @@ function deserializeUser() {
 const initialState: stateType = {
   loaded: false,
   user: deserializeUser(),
-  testUser: {
-    userName: 'alex',
-    githubId: 11111,
-    role: [UserRoles.Student, UserRoles.Author, UserRoles.Supervisor],
-  },
-  testTaskId: '-MHYG_Mmt_L2D5QLQtep',
-  testCheckSessionId: 'rss2020Q3react-xcheck',
-  testReviewId: '-MHcD-pT20-yloyBYANX',
-  testDisputeId: '-MHpfV9SG3s-mXj14Ba5',
-  testTaskScoreId: '-MHl3FwbPLf_tCzl3dFn',
 };
 
-const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
+const reducer = (state = initialState, action: any) => {
   const { user } = action as AuthSuccessAction;
   switch (action.type) {
     case REQUESTS:
@@ -185,6 +175,12 @@ const reducer = (state = initialState, action: Action | AuthSuccessAction) => {
       return {
         ...state,
         loaded: false,
+      };
+
+    case DISPUTE_SELECT:
+      return {
+        ...state,
+        ...action.payload,
       };
 
     default:

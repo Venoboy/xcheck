@@ -44,10 +44,10 @@ export default class Services {
   };
 
   getTask = async (taskName: string) => {
-      const ref = db.ref(`/tasks/${taskName}`)
+    const ref = db.ref(`/tasks/${taskName}`);
     return new Promise((resolve) =>
       ref.on('value', function onTaskValue(snapshot) {
-          ref.off("value", onTaskValue)
+        ref.off('value', onTaskValue);
         resolve(normalizeTask(snapshot.toJSON() as Task));
       })
     );
@@ -64,12 +64,12 @@ export default class Services {
   };
 
   getAllTasks = async () => {
-      const ref = db.ref('/tasks')
+    const ref = db.ref('/tasks');
     return new Promise((resolve, reject) =>
       ref.on('value', function onAllTasks(snapshot) {
         if (snapshot.val()) {
           message.success('Received data from the server');
-          ref.off("value", onAllTasks)
+          ref.off('value', onAllTasks);
           resolve(
             Object.fromEntries(
               Object.entries(snapshot.toJSON() || {}).map(([key, task]) => [
