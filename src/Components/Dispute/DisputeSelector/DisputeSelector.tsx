@@ -24,10 +24,8 @@ const DisputeSelector = (props: any) => {
     const fetchDB = async () => {
       setDatabase(await getFromDB(''));
     };
-    if (isDatabaseEmpty) {
-      fetchDB();
-    }
-  });
+    fetchDB();
+  }, []);
 
   let userCheckSessionIds = [];
 
