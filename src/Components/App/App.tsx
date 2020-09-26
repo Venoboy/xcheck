@@ -17,7 +17,7 @@ const App: React.FC = () => {
     <div className="App">
       <Selfcheck reviewRequestId="rss2020Q3react-shedule-123456" />
       {/* <Router>
-        <Switch>ß
+        <Switch>
           <Route path="/authorization" component={Auth} />
           <Route path="/dispute">
             <DisputeSelector />
@@ -29,8 +29,8 @@ const App: React.FC = () => {
             <TaskReview />
           </Route>
           <Route path="/" component={Main} />
-          <Route path="/selfcheck">
-            <Selfcheck />
+          <Route exact path="/selfcheck">
+            <Selfcheck reviewRequestId="rss2020Q3react-shedule-123456" />
           </Route>
           <Route path="/tasks-creator">
             <TasksCreator />

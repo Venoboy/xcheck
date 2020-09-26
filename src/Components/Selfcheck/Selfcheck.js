@@ -105,7 +105,7 @@ class Selfcheck extends React.Component {
   render() {
     return this.state.task !== null ? (
       <div className="selfcheck_container">
-        <Header />
+        {/* <Header /> */}
         <Title level={1} key={1}>
           {this.state.task.name}
         </Title>
