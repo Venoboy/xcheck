@@ -29,7 +29,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
   </>
 );
 
-export const App = () => {
+export const App = ({ createSubTaskScoreObject, index }: any) => {
   const [comments, setComments] = useState<any>([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
@@ -50,10 +50,11 @@ export const App = () => {
           author: 'Han Solo',
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
           content: <p>{value}</p>,
-          datetime: moment().fromNow()
-        }
+          datetime: moment().fromNow(),
+        },
       ];
     });
+    createSubTaskScoreObject(index, 'comment', value);
     setSubmitting(false);
     setEditableStr(value);
   };

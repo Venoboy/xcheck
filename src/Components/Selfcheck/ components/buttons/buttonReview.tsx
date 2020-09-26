@@ -7,7 +7,7 @@ type PropTypes = {
   handleClick: () => void;
 };
 
-export const ButtonReview = ({ text, handleClick }: PropTypes) => {
+export const ButtonSelfcheck = ({ text, handleClick }: PropTypes) => {
   return (
     <Button type="primary" onClick={handleClick}>
       {text}

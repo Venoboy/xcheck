@@ -15,8 +15,9 @@ import { Selfcheck } from '../Selfcheck/Selfcheck';
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Router>
-        <Switch>
+      <Selfcheck reviewRequestId="rss2020Q3react-shedule-123456" />
+      {/* <Router>
+        <Switch>ß
           <Route path="/authorization" component={Auth} />
           <Route path="/dispute">
             <DisputeSelector />
@@ -35,7 +36,7 @@ const App: React.FC = () => {
             <TasksCreator />
           </Route>
         </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 };
