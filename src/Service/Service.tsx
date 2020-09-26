@@ -24,7 +24,8 @@ function normalizeTask(task: Task) {
       .map(normalizeSubTask)
       .map((el) => ({
         ...el,
-        maxScore: el.score,
+        maxScore: Math.abs(el.score),
+        minScore: Math.min(0, el.score)
       })),
   };
 }

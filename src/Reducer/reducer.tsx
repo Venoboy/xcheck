@@ -43,6 +43,7 @@ export type Users = {
 export type TaskItem = {
   id: string;
   score: number;
+  minScore: number;
   maxScore: number;
   category: string;
   title: string;

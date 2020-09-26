@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Button, Form, Input, message, Select } from 'antd';
 import uniqueBy from 'lodash/uniqBy';
-import Hoc from '../Components/Hoc/Hoc';
-import Service from '../Service/Service';
+import Hoc from '../Hoc/Hoc';
+import Service from '../../Service/Service';
 import {
   CrossCheckSession,
   CrossCheckSessionStates,
@@ -11,8 +11,8 @@ import {
   TaskStates,
   User,
   Users,
-} from '../Reducer/reducer';
-import Header from '../Components/Header/Header';
+} from '../../Reducer/reducer';
+import Header from '../Header/Header';
 import './CheckSession.scss';
 
 const DEFAULT_SESSION_DURATION_IN_DAYS = 14;

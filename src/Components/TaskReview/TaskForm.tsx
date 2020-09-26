@@ -30,6 +30,7 @@ export const TaskReviewForm: React.FC<{
                 <SetTaskScore
                   score={item.score}
                   maxScore={item.maxScore}
+                  minScore={item.minScore}
                   onChange={(value) => onScoreChange(item.id, value as number, category)}
                 />
               </div>
