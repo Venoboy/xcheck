@@ -10,23 +10,35 @@ const app = firebase.initializeApp({
 });
 const db = app.database();
 
+function normalizeSubTask<T>(subTask: T, index: number) {
+  return {
+    ...subTask,
+    id: (subTask as { id?: number }).id || index,
+  };
+}
+
 function normalizeTask(task: Task) {
   return {
     ...task,
-    subTasks: Object.values(task.subTasks),
+    subTasks: Object.values(task.subTasks)
+      .map(normalizeSubTask)
+      .map((el) => ({
+        ...el,
+        maxScore: el.score,
+      })),
   };
 }
 
 function normalizeTaskScore(taskScore: TaskScore) {
   return {
     ...taskScore,
-    subTasks: Object.values(taskScore.subTasks),
+    subTasks: Object.values(taskScore.subTasks).map(normalizeSubTask),
   };
 }
 function normalizeReview(review: Review) {
   return {
     ...review,
-    subTasks: Object.values(review.subTasks),
+    subTasks: Object.values(review.subTasks).map(normalizeSubTask),
   };
 }
 
