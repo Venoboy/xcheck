@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography, Checkbox } from 'antd';
-import { ButtonSelfcheck } from '../buttons/buttonReview';
+import { Typography, Checkbox, Button } from 'antd';
 import { CommentComponent } from '../../../comment/comment';
 import './subtask.scss';
 
@@ -36,18 +35,18 @@ export const Subtask = ({
         <CommentComponent createSubTaskScoreObject={createSubTaskScoreObject} index={index} />
       </div>
       <div className="buttons_for_review">
-        <ButtonSelfcheck
-          text="Полностью"
-          handleClick={() => createSubTaskScoreObject(index, 'score', item.score)}
-        />
-        <ButtonSelfcheck
-          text="Частично"
-          handleClick={() => createSubTaskScoreObject(index, 'score', item.score / 2)}
-        />
-        <ButtonSelfcheck
-          text="Не выполнено"
-          handleClick={() => createSubTaskScoreObject(index, 'score', '0')}
-        />
+        <Button type="primary" onClick={() => createSubTaskScoreObject(index, 'score', item.score)}>
+          Полностью
+        </Button>
+        <Button
+          type="primary"
+          onClick={() => createSubTaskScoreObject(index, 'score', item.score / 2)}
+        >
+          Частично
+        </Button>
+        <Button type="primary" onClick={() => createSubTaskScoreObject(index, 'score', '0')}>
+          Не выполнено
+        </Button>
       </div>
     </div>
   );

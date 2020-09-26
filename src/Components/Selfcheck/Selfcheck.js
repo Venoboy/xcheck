@@ -1,17 +1,15 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { Typography } from 'antd';
+import { Typography, Button } from 'antd';
 import { Subtask } from './ components/subtask/subtask';
 import { putToBD, getFromBD, postToBD } from './helpers';
-import { ButtonSelfcheck } from './ components/buttons/buttonReview';
 import './Selfcheck.scss';
 
 const { Title } = Typography;
 
 class Selfcheck extends React.Component {
   constructor(props) {
-    console.log(1);
     super(props);
     const { reviewRequestId } = this.props;
     this.state = {
@@ -84,13 +82,13 @@ class Selfcheck extends React.Component {
           : {
               taskScoreId: `${taskId}`,
               reviewRequestId: taskScore.reviewRequestId,
-              subTasks: task?.subTasks.map((el) => ({ score: 0, comment: '' })),
+              subTasks: task?.subTasks.map(() => ({ score: 0, comment: '' })),
             },
       });
     });
   };
 
-  createSubTaskScoreObject(index, key, value) {
+  createSubTaskScoreObject = (index, key, value) => {
     this.setState((prevState) => {
       const newArray = [...prevState.taskScore.subTasks];
       newArray[index] = { ...newArray[index], [key]: value };
@@ -101,7 +99,7 @@ class Selfcheck extends React.Component {
         },
       };
     });
-  }
+  };
 
   render() {
     const { task, taskScore } = this.state;
@@ -132,7 +130,9 @@ class Selfcheck extends React.Component {
           );
         })}
         <div className="button_submit__container">
-          <ButtonSelfcheck text="Отправить на проверку" handleClick={this.handleSubmit} />
+          <Button type="primary" onClick={this.handleSubmit}>
+            Отправить на проверку
+          </Button>
         </div>
       </div>
     ) : null;
