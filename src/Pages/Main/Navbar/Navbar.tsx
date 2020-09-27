@@ -7,6 +7,8 @@ import {
   CheckCircleTwoTone,
   FrownTwoTone,
   OrderedListOutlined,
+  SnippetsTwoTone,
+  TrophyTwoTone,
 } from '@ant-design/icons';
 import './Navbar.scss';
 
@@ -30,6 +32,16 @@ const data = [
     name: 'Dispute',
     path: '/dispute',
     icon: <FrownTwoTone twoToneColor="rgb(137, 184, 44)" />,
+  },
+  {
+    name: 'Score',
+    path: '/score',
+    icon: <TrophyTwoTone twoToneColor="rgb(255, 18, 18)" />,
+  },
+  {
+    name: 'Review Requests',
+    path: '/review-requests',
+    icon: <SnippetsTwoTone twoToneColor="#3ff4a1" />,
   },
 ];
 
