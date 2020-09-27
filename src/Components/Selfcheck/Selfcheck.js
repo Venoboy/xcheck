@@ -95,14 +95,12 @@ class Selfcheck extends React.Component {
     taskScoresBD.then((res) => {
       let currentTaskScore;
       let currentTaskScoreId;
-
       Object.keys(res).forEach((el) => {
         if (res[el].reviewRequestId === taskScore.reviewRequestId) {
           currentTaskScore = res[el];
           currentTaskScoreId = el;
         }
       });
-
       this.setState({
         currentTaskScoreId: isTaskScoreExist ? currentTaskScoreId : '',
         isCanBeSubmitted: isTaskScoreExist,
