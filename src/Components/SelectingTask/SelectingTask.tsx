@@ -98,9 +98,11 @@ const SelectingTask: React.FC = () => {
   };
 
   const menu = () => (
-    <Menu onClick={({ item }: { item: any }) => dropdownClick(item.node.textContent as string)}>
+    <Menu>
       {tasks.map((task: any) => (
-        <Menu.Item key={task.taskId}>{task.name}</Menu.Item>
+        <Menu.Item key={task.id} onClick={() => dropdownClick(task)}>
+          {task.name}
+        </Menu.Item>
       ))}
     </Menu>
   );
