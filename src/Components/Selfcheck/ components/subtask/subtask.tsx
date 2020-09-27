@@ -10,6 +10,7 @@ type SubtaskTypes = {
   taskScore: { subTasks: Array<{ score: string; comment: string }> };
   createSubTaskScoreObject: (index: number, key: string, value: string | number) => void;
   shouldShowCategory: boolean;
+  updateIsCanBeSubmitted: any;
 };
 
 export const Subtask = ({
@@ -18,10 +19,15 @@ export const Subtask = ({
   createSubTaskScoreObject,
   shouldShowCategory,
   taskScore,
+  updateIsCanBeSubmitted,
 }: SubtaskTypes) => {
   const [score, setScore] = useState(0);
   useEffect(() => {
     setScore(+taskScore?.subTasks[index]?.score);
+    const isComplited = taskScore?.subTasks.every((el) => el.score !== null);
+    if (isComplited) {
+      updateIsCanBeSubmitted(true);
+    }
   }, [taskScore, index]);
   return (
     <div className="subtask__container">
@@ -40,7 +46,7 @@ export const Subtask = ({
             max={item.score < 0 ? 0 : item.score}
             onChange={(value: any) => {
               setScore(value);
-              createSubTaskScoreObject(index, 'score', score);
+              createSubTaskScoreObject(index, 'score', value);
             }}
             value={score}
           />
@@ -53,7 +59,7 @@ export const Subtask = ({
             value={score}
             onChange={(value: any) => {
               setScore(value);
-              createSubTaskScoreObject(index, 'score', score);
+              createSubTaskScoreObject(index, 'score', value);
             }}
           />
         </Col>

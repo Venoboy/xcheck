@@ -19,8 +19,10 @@ class Selfcheck extends React.Component {
         subTasks: [],
         reviewRequestId: '',
       },
+      currentTaskScoreId: '',
       currentCheckSessionId,
       isTaskScoreExist: false,
+      isCanBeSubmitted: false,
       reviewRequest: {},
       taskId: currentTaskId,
     };
@@ -65,15 +67,27 @@ class Selfcheck extends React.Component {
 
   handleSubmit = () => {
     const { history } = this.props;
-    postToBD('taskScores/', this.state.taskScore);
-    if (this.state.isTaskScoreExist === false) {
-      const newReview = { ...this.state.reviewRequest };
-      putToBD(`reviewRequests/${this.state.taskScore.reviewRequestId}`, {
-        ...newReview,
-        state: 'PUBLISHED',
-      });
+    const {
+      isTaskScoreExist,
+      taskScore,
+      reviewRequest,
+      isCanBeSubmitted,
+      currentTaskScoreId,
+    } = this.state;
+
+    if (isTaskScoreExist === false) {
+      if (isCanBeSubmitted === true) {
+        const newReview = { ...reviewRequest };
+        postToBD('taskScores/', taskScore);
+        putToBD(`reviewRequests/${taskScore.reviewRequestId}`, {
+          ...newReview,
+          state: 'PUBLISHED',
+        });
+      }
+    } else {
+      putToBD(`taskScores/${currentTaskScoreId}`, taskScore);
     }
-    history.push('/submit-task');
+    if (isCanBeSubmitted === true) history.push('/submit-task');
   };
 
   getTaskScore = () => {
@@ -81,19 +95,24 @@ class Selfcheck extends React.Component {
     const taskScoresBD = getFromBD('taskScores');
     taskScoresBD.then((res) => {
       let currentTaskScore;
+      let currentTaskScoreId;
+
       Object.keys(res).forEach((el) => {
         if (res[el].reviewRequestId === taskScore.reviewRequestId) {
           currentTaskScore = res[el];
+          currentTaskScoreId = el;
         }
       });
 
       this.setState({
+        currentTaskScoreId: isTaskScoreExist ? currentTaskScoreId : '',
+        isCanBeSubmitted: isTaskScoreExist,
         taskScore: isTaskScoreExist
           ? currentTaskScore
           : {
               taskScoreId: `${taskId}`,
               reviewRequestId: taskScore.reviewRequestId,
-              subTasks: task?.subTasks.map(() => ({ score: 0, comment: '' })),
+              subTasks: task?.subTasks.map(() => ({ score: null, comment: '' })),
             },
       });
     });
@@ -112,8 +131,12 @@ class Selfcheck extends React.Component {
     });
   };
 
+  updateIsCanBeSubmitted = (newValue) => {
+    this.setState({ isCanBeSubmitted: newValue });
+  };
+
   render() {
-    const { task, taskScore } = this.state;
+    const { task, taskScore, isCanBeSubmitted } = this.state;
     return task !== null ? (
       <div className="selfcheck_container">
         <Header />
@@ -140,12 +163,13 @@ class Selfcheck extends React.Component {
                 createSubTaskScoreObject={this.createSubTaskScoreObject}
                 shouldShowCategory={shouldShowCategory}
                 taskScore={taskScore}
+                updateIsCanBeSubmitted={this.updateIsCanBeSubmitted}
               />
             </>
           );
         })}
         <div className="button_submit__container">
-          <Button type={'' || 'primary'} onClick={this.handleSubmit}>
+          <Button type={isCanBeSubmitted ? 'primary' : ''} onClick={this.handleSubmit}>
             Отправить на проверку
           </Button>
         </div>
