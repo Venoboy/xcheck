@@ -10,27 +10,31 @@ import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
 import SelectingTask from '../SelectingTask/SelectingTask';
 import DisputeSelector from '../Dispute/DisputeSelector/DisputeSelector';
+import Selfcheck from '../Selfcheck/Selfcheck';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/authorization" component={Auth} />
           <Route path="/dispute">
             <DisputeSelector />
           </Route>
-          <Route path="/tasks-list">
+          <Route path="/submit-task">
+            <SelectingTask />
+          </Route>
+          <Route exact path="/tasks-list">
             <TasksList />
           </Route>
           <Route path="/task-review">
             <TaskReview />
           </Route>
-          <Route path="/submit-task" component={SelectingTask} />
-          <Route path="/task-create">
+          <Route path="/self-check" component={Selfcheck} />
+          <Route path="/tasks-creator">
             <TasksCreator />
           </Route>
-          <Route exact path="/" component={Main} />
+          <Route path="/authorization" component={Auth} />
+          <Route path="/" component={Main} />
         </Switch>
       </Router>
     </div>
