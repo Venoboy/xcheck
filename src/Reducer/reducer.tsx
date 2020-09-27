@@ -2,10 +2,11 @@ import { Action } from 'redux';
 import { SelectedTaskAction } from '../Actions/Actions';
 import {
   AUTH_GITHUB_SUCCESS,
-  STOP_LOADING,
-  REQUESTS,
   CHANGE_SELECTED_TASK_INFO,
   CHANGE_REVIEW,
+  DISPUTE_SELECT,
+  REQUESTS,
+  STOP_LOADING,
 } from '../Actions/actionTypes';
 
 type stateType = {
@@ -14,12 +15,6 @@ type stateType = {
   selectedTaskId: null | string;
   checkSessionId: null | string;
   review: any;
-  testUser: User;
-  testTaskId: string;
-  testCheckSessionId: string;
-  testReviewId: string;
-  testDisputeId: string;
-  testTaskScoreId: string;
 };
 
 export enum UserRoles {
@@ -150,6 +145,7 @@ export type Dispute = {
 export type AuthSuccessAction = Action & { user: User };
 
 const userPersistKey = 'user';
+
 function deserializeUser() {
   try {
     return JSON.parse(String(localStorage.getItem(userPersistKey) || undefined)) as User;
@@ -165,24 +161,14 @@ function deserializeUser() {
 const initialState: stateType = {
   loaded: false,
   user: deserializeUser(),
-  testUser: {
-    userName: 'alex',
-    githubId: 11111,
-    role: [UserRoles.Student, UserRoles.Author, UserRoles.Supervisor],
-  },
   selectedTaskId: null,
   checkSessionId: null,
   review: null,
-  testTaskId: '-MHYG_Mmt_L2D5QLQtep',
-  testCheckSessionId: 'rss2020Q3react-xcheck',
-  testReviewId: '-MHcD-pT20-yloyBYANX',
-  testDisputeId: '-MHpfV9SG3s-mXj14Ba5',
-  testTaskScoreId: '-MHl3FwbPLf_tCzl3dFn',
 };
 
 type XCheckActions = Action | AuthSuccessAction | SelectedTaskAction;
 
-const reducer = (state = initialState, action: XCheckActions) => {
+const reducer = (state = initialState, action: any) => {
   const { user } = action as AuthSuccessAction;
 
   switch (action.type) {
@@ -216,6 +202,12 @@ const reducer = (state = initialState, action: XCheckActions) => {
         review: (action as any).payload,
       };
     }
+
+    case DISPUTE_SELECT:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
     default:
       return {

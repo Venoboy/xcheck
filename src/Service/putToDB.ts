@@ -1,4 +1,4 @@
-const putToBD = async (path: string, data: any) => {
+const putToDB = async (path: string, data: any) => {
   try {
     const url = `https://x-check-9d19c.firebaseio.com/${path}.json`;
     const res: any = await fetch(url, {
@@ -15,4 +15,4 @@ const putToBD = async (path: string, data: any) => {
   return null;
 };
 
-export default putToBD;
+export default putToDB;

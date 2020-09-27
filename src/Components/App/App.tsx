@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Dispute from '../Dispute/Dispute';
+
 import Auth from '../Auth/Auth';
 import TasksList from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
@@ -11,6 +11,7 @@ import Main from '../../Pages/Main/Main';
 import SelectingTask from '../SelectingTask/SelectingTask';
 import ReviewRequests from '../../Pages/ReviewRequests/ReviewRequests';
 import Score from '../../Pages/Score/Score';
+import DisputeSelector from '../Dispute/DisputeSelector/DisputeSelector';
 
 const App: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/authorization" component={Auth} />
           <Route path="/dispute">
-            <Dispute />
+            <DisputeSelector />
           </Route>
           <Route path="/tasks-list">
             <TasksList />
