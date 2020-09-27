@@ -56,8 +56,8 @@ interface navBarType {
 
 const Navbar: React.FC<navBarType> = (props) => {
   const { role } = props;
-  const isStudent = role.length === 1 && role.includes('student');
-  const isAuthor = role.includes('author');
+  const isStudent = role.length === 1 && role.includes('Student');
+  const isAuthor = role.includes('Author');
   const dataForStudent = data.filter(
     (item) => item.name !== 'Tasks List' && item.name !== 'Check Session'
   );
