@@ -31,14 +31,11 @@ export const Subtask = ({
   }, [taskScore, index, updateIsCanBeSubmitted]);
   return (
     <div className="subtask__container">
-      {shouldShowCategory ? (
-        <Title level={3} key={index}>
-          {item.category}
-        </Title>
-      ) : null}
-      <p>
-        <Text key={index}>{item.description}</Text>
-      </p>
+      {shouldShowCategory ? <Title level={3}>{item.category}</Title> : null}
+      <Title level={4} key={`a${index}`}>
+        {item.title}
+      </Title>
+      <Text key={`b${index}`}>{item.description}</Text>
       <Row>
         <Col span={12}>
           <Slider
@@ -48,7 +45,7 @@ export const Subtask = ({
               setScore(value);
               createSubTaskScoreObject(index, 'score', value);
             }}
-            value={score}
+            value={!score ? 0 : score}
           />
         </Col>
         <Col span={4}>
@@ -56,7 +53,7 @@ export const Subtask = ({
             min={item.score < 0 ? item.score : 0}
             max={item.score < 0 ? 0 : item.score}
             style={{ margin: '0 16px' }}
-            value={score}
+            value={!score ? 0 : score}
             onChange={(value: any) => {
               setScore(value);
               createSubTaskScoreObject(index, 'score', value);
@@ -76,6 +73,7 @@ export const Subtask = ({
       </div>
       <div className="buttons_for_review">
         <Button
+          key={`c${index}`}
           type="primary"
           onClick={() => {
             setScore(item.score);
@@ -85,6 +83,7 @@ export const Subtask = ({
           Полностью
         </Button>
         <Button
+          key={`d${index}`}
           type="primary"
           onClick={() => {
             setScore(item.score / 2);
@@ -94,6 +93,7 @@ export const Subtask = ({
           Частично
         </Button>
         <Button
+          key={`e${index}`}
           type="primary"
           onClick={() => {
             setScore(0);

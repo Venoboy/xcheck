@@ -16,13 +16,19 @@ const CommentList = ({ comments }: any) => (
   />
 );
 
-const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
+const Editor = ({ onChange, onSubmit, submitting, value, index }: any) => (
   <>
     <Form.Item>
       <TextArea rows={4} onChange={onChange} value={value} />
     </Form.Item>
     <Form.Item>
-      <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+      <Button
+        key={`z${index}`}
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
         Add Comment
       </Button>
     </Form.Item>
@@ -74,12 +80,15 @@ export const CommentComponent = ({ createSubTaskScoreObject, index, clickedBefor
   };
   return clicked || clickedBefore ? (
     <>
-      <Paragraph editable={{ onChange: setEditableStr }}>{editableStr}</Paragraph>
+      <Paragraph key={`f${index}`} editable={{ onChange: setEditableStr }}>
+        {editableStr}
+      </Paragraph>
     </>
   ) : (
     <>
       {comments.length > 0 && <CommentList comments={comments} />}
       <Comment
+        key={`g${index}`}
         avatar={
           <Avatar
             src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -88,6 +97,8 @@ export const CommentComponent = ({ createSubTaskScoreObject, index, clickedBefor
         }
         content={
           <Editor
+            key={`h${index}`}
+            index={index}
             onChange={handleChange}
             onSubmit={handleSubmit}
             submitting={submitting}

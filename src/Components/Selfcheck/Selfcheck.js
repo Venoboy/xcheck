@@ -112,7 +112,12 @@ class Selfcheck extends React.Component {
           : {
               taskScoreId: `${taskId}`,
               reviewRequestId: taskScore.reviewRequestId,
-              subTasks: task?.subTasks.map(() => ({ score: null, comment: '' })),
+              subTasks: task?.subTasks.map((el) => {
+                return {
+                  score: el.category === 'Fine' ? 0 : null,
+                  comment: '',
+                };
+              }),
             },
       });
     });
@@ -140,12 +145,8 @@ class Selfcheck extends React.Component {
     return task !== null ? (
       <div className="selfcheck_container">
         <Header />
-        <Title level={1} key={1}>
-          {task.name}
-        </Title>
-        <Title level={5} key={1}>
-          Все подпункты должны быть оценены
-        </Title>
+        <Title level={1}>{task.name}</Title>
+        <Title level={5}>Все подпункты должны быть оценены</Title>
         {task?.subTasks.map((item, index) => {
           const prevCategory = task.subTasks[index === 0 ? 0 : index - 1].category;
           let shouldShowCategory = true;
