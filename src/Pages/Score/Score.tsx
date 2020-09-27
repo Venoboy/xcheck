@@ -102,13 +102,13 @@ const Score: React.FC = () => {
       tempData.push({
         key: item.id,
         name:
-          fetchTasks[fetchReviewRequests[fetchTaskScores[item.taskScoreId].reviewRequestId].taskId]
-            .name,
+          fetchTasks[fetchReviewRequests[fetchTaskScores[item?.taskScoreId].reviewRequestId].taskId]
+            ?.name,
         state: item.state,
         score: item.score,
         taskauthor:
-          fetchTasks[fetchReviewRequests[fetchTaskScores[item.taskScoreId].reviewRequestId].taskId]
-            .author,
+          fetchTasks[fetchReviewRequests[fetchTaskScores[item?.taskScoreId].reviewRequestId].taskId]
+            ?.author,
         reviewauthor: item.author,
         details: <Button onClick={() => toDetails(item.id)}>Details</Button>,
       });
