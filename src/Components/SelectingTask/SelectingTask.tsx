@@ -179,16 +179,18 @@ const SelectingTask: React.FC = () => {
           >
             Submit
           </Button>
-          <Button
-            className="self"
-            type="primary"
-            size="middle"
-            onClick={() => history.push('/self-check')}
-          >
-            {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
-              ? 'Add self-check'
-              : 'Change self-check'}
-          </Button>
+          {reviewRequests[`${infoTask.id}-${githubId}`] && (
+            <Button
+              className="self"
+              type="primary"
+              size="middle"
+              onClick={() => history.push('/self-check')}
+            >
+              {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
+                ? 'Add self-check'
+                : 'Change self-check'}
+            </Button>
+          )}
         </div>
       )}
 
