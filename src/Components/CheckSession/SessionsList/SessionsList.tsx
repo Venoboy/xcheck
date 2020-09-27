@@ -3,9 +3,9 @@ import { Button, Card, DatePicker, Form, InputNumber, Modal, Radio, Switch } fro
 import { useHistory } from 'react-router-dom';
 import Header from '../../Header/Header';
 import Hoc from '../../Hoc/Hoc';
-import getFromBD from '../../../Service/getFromBD';
+import getFromBD from '../../../Service/getFromDB';
 import classes from '../CheckSession.module.scss';
-import patchBD from '../../../Service/patchBD';
+import patchBD from '../../../Service/patchDB';
 import getNewDateFormat from '../helperFunc';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }: any) => {
