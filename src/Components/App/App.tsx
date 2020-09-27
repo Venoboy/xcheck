@@ -13,7 +13,7 @@ import SelectingTask from '../SelectingTask/SelectingTask';
 import ReviewRequests from '../../Pages/ReviewRequests/ReviewRequests';
 import Score from '../../Pages/Score/Score';
 import DisputeSelector from '../Dispute/DisputeSelector/DisputeSelector';
-// import Selfcheck from '../Selfcheck/Selfcheck';
+import Selfcheck from '../Selfcheck/Selfcheck';
 
 const App: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <Route path="/tasks-list">
             <TasksList />
           </Route>
-          {/* <Route path="/self-check" component={Selfcheck} /> */}
+          <Route path="/self-check" component={Selfcheck} />
           <Route path="/task-review">
             <TaskReview />
           </Route>
