@@ -19,4 +19,11 @@ const changeSelectedTaskId = (taskInfo: TaskInfoPayload): SelectedTaskAction => 
   };
 };
 
-export { requests, changeSelectedTaskId };
+const changeReview = (currentReview: any) => {
+  return {
+    type: 'CHANGE_REVIEW',
+    payload: currentReview,
+  };
+};
+
+export { requests, changeSelectedTaskId, changeReview };
