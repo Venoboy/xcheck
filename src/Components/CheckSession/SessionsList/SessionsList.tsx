@@ -6,6 +6,7 @@ import Hoc from '../../Hoc/Hoc';
 import getFromBD from '../../../Service/getFromBD';
 import classes from '../CheckSession.module.scss';
 import patchBD from '../../../Service/patchBD';
+import getNewDateFormat from '../helperFunc';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }: any) => {
   const [form] = Form.useForm();
@@ -141,14 +142,6 @@ const SessionsList = () => {
   const [allSessions, setAllSessions] = useState([] as any);
   const [currentSession, setCurrentSessionKey] = useState('' as string);
 
-  const getNewDateFormat = (date: string) => {
-    const newDate = new Date(date);
-    const year = newDate.getFullYear();
-    const month = `0${newDate.getMonth() + 1}`;
-    const day = `0${newDate.getDate()}`;
-    return `${year}/${month.substr(-2)}/${day.substr(-2)}`;
-  };
-
   const onCreate = async (values: any) => {
     setVisible(false);
     // eslint-disable-next-line no-underscore-dangle
@@ -221,15 +214,15 @@ const SessionsList = () => {
     patchBD(`checkSessions/${currentSession}`, sessionData);
   };
 
+  const getSessionList = async () => {
+    const sessionsData = await getFromBD('checkSessions');
+    const sessions = Object.entries(sessionsData);
+
+    return setAllSessions(sessions);
+  };
+
   useEffect(() => {
     if (allSessions.length === 0) {
-      const getSessionList = async () => {
-        const sessionsData = await getFromBD('checkSessions');
-        const sessions = Object.entries(sessionsData);
-
-        return setAllSessions(sessions);
-      };
-
       getSessionList();
     }
   });
@@ -285,13 +278,16 @@ const SessionsList = () => {
     <div className={classes.CrossCheck}>
       <Header className={classes.CrossCheck__Header} />
       <div className={classes.CrossCheck__List}>{renderCards()}</div>
-      <Button
-        type="primary"
-        onClick={() => history.push('/checksession')}
-        style={{ width: '25%', alignSelf: 'center', marginTop: '25px' }}
-      >
-        Back
-      </Button>
+
+      <div className={classes.CrossCheck__Buttons}>
+        <Button type="primary" onClick={() => getSessionList()}>
+          Refresh session list
+        </Button>
+        <Button type="primary" onClick={() => history.push('/checksession')}>
+          Back
+        </Button>
+      </div>
+
       <CollectionCreateForm
         visible={visible}
         onCreate={onCreate}

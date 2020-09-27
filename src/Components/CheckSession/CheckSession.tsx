@@ -6,6 +6,7 @@ import Hoc from '../Hoc/Hoc';
 import getFromDB from '../../Service/getFromBD';
 import classes from './CheckSession.module.scss';
 import postToBD from '../../Service/postToBD';
+import getNewDateFormat from './helperFunc';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }: any) => {
   const [form] = Form.useForm();
@@ -97,7 +98,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }: any) => {
   );
 };
 
-const CrossCheck: React.FC = (props: any) => {
+const CrossCheck: React.FC = () => {
   const { Option } = Select;
   const history = useHistory();
 
@@ -106,14 +107,6 @@ const CrossCheck: React.FC = (props: any) => {
   const [isCreateButtonDisabled, toggleStatusButton] = useState(true as boolean);
   const [sessionName, changeSessionName] = useState('' as string);
   const [taskId, setTaskId] = useState('' as string);
-
-  const getNewDateFormat = (date: string) => {
-    const newDate = new Date(date);
-    const year = newDate.getFullYear();
-    const month = `0${newDate.getMonth() + 1}`;
-    const day = `0${newDate.getDate()}`;
-    return `${year}/${month.substr(-2)}/${day.substr(-2)}`;
-  };
 
   const onCreate = async (values: any) => {
     // eslint-disable-next-line no-underscore-dangle
