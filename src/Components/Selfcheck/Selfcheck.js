@@ -183,5 +183,4 @@ const mapStatetoProps = ({ checkSessionId, selectedTaskId }) => {
     currentTaskId: selectedTaskId,
   };
 };
-// export default Selfcheck;
 export default connect(mapStatetoProps)(Selfcheck);

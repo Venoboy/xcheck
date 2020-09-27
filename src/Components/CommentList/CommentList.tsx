@@ -123,6 +123,7 @@ const CommentList = (props: any) => {
               onSubmit={handleSubmit}
               submitting={submitting}
               value={value}
+              isComment
             />
           }
         />

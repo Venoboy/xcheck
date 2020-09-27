@@ -3,6 +3,8 @@ import 'antd/dist/antd.css';
 import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Auth from '../Auth/Auth';
+import CheckSession from '../CheckSession/CheckSession';
+import SessionsList from '../CheckSession/SessionsList/SessionsList';
 import TasksList from '../TasksList/TasksList';
 import { TaskReview } from '../../TaskReview/TaskReview';
 import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
@@ -17,6 +19,8 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route path="/authorization" component={Auth} />
+          <Route exact path="/checksession/list" component={SessionsList} />
+          <Route path="/checksession" component={CheckSession} />
           <Route path="/dispute">
             <DisputeSelector />
           </Route>

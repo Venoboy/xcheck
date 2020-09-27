@@ -3,6 +3,7 @@ import { Typography, Button, Col, InputNumber, Row, Slider, Divider } from 'antd
 import { CommentComponent } from './comment';
 import './subtasks.scss';
 
+
 const { Text, Title } = Typography;
 type SubtaskTypes = {
   item: any;
