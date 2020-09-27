@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Button, Col, InputNumber, Row, Slider } from 'antd';
-import { CommentComponent } from '../../../comment/comment';
-import './subtask.scss';
+import { CommentComponent } from './comment';
+import './subtasks.scss';
 
 const { Text, Title } = Typography;
 type SubtaskTypes = {
