@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 import { message } from 'antd';
-import { Review, Task, TaskScore, User } from '../Reducer/reducer';
+import { CrossCheckSession, Review, Task, TaskScore, User } from '../Reducer/reducer';
 
 const API_KEY = 'AIzaSyDzqqVu_zSTm33lzJmSTRwgNyTbUib_B2w';
 const app = firebase.initializeApp({
@@ -10,12 +10,52 @@ const app = firebase.initializeApp({
 });
 const db = app.database();
 
+function normalizeSubTask<T>(subTask: T, index: number) {
+  return {
+    ...subTask,
+    id: (subTask as { id?: number }).id || index,
+  };
+}
+
 function normalizeTask(task: Task) {
   return {
     ...task,
-    subTasks: Object.values(task.subTasks),
+    subTasks: Object.values(task.subTasks)
+      .map(normalizeSubTask)
+      .map((el) => ({
+        ...el,
+        maxScore: el.score < 0 ? 0 : el.score,
+        minScore: Math.min(0, el.score),
+      })),
   };
 }
+
+function normalizeTaskScore(taskScore: TaskScore) {
+  return {
+    ...taskScore,
+    subTasks: Object.values(taskScore.subTasks).map(normalizeSubTask),
+  };
+}
+function normalizeReview(review: Review) {
+  return {
+    ...review,
+    subTasks: Object.values(review.subTasks).map(normalizeSubTask),
+  };
+}
+
+function normalizeCheckSession(session: CrossCheckSession) {
+  if (session.crossCheck instanceof Object) {
+    return {
+      ...session,
+      crossCheck: {
+        ...session.crossCheck,
+        attendees: Object.values(session.crossCheck.attendees || {}),
+      },
+    };
+  }
+  return session;
+}
+
 export default class Services {
   postNewTask = async (data: Task) => {
     return db
@@ -53,6 +93,77 @@ export default class Services {
     );
   };
 
+  getTaskScoreByRequestId = (requestId: string) => {
+    const ref = db.ref('/taskScores');
+    return new Promise((resolve) => {
+      ref
+        .orderByChild('reviewRequestId')
+        .equalTo(requestId)
+        .on('child_added', function onChildTaskScore(snapshot) {
+          ref.off('child_added', onChildTaskScore);
+          resolve(normalizeTaskScore({ ...snapshot.toJSON(), id: snapshot.key } as TaskScore));
+        });
+    });
+  };
+
+  getReviewRequestBySessionId = (checkSessionId: string) => {
+    const ref = db.ref('/reviewRequests');
+    return new Promise((resolve) => {
+      ref
+        .orderByChild('checkSessionId')
+        .equalTo(checkSessionId)
+        .on('child_added', function onChildReviewRequest(snapshot) {
+          ref.off('child_added', onChildReviewRequest);
+          resolve({
+            ...snapshot.toJSON(),
+            id: snapshot.key,
+          });
+        });
+    });
+  };
+
+  getReviewByTaskScoreId = (taskScoreId: string) => {
+    const ref = db.ref('/reviews');
+    return new Promise((resolve) => {
+      ref
+        .orderByChild('taskScoreId')
+        .equalTo(taskScoreId)
+        .on('child_added', function onChildReview(snapshot) {
+          ref.off('child_added', onChildReview);
+          resolve(
+            normalizeReview({
+              ...(snapshot.toJSON() as Review),
+              id: String(snapshot.key),
+            })
+          );
+        });
+    });
+  };
+
+  putTaskScore = (id: string, taskScore: TaskScore) => {
+    return db.ref(`/taskScores/${id}`).set(taskScore);
+  };
+
+  getCheckSession = (sessionId: string) => {
+    const ref = db.ref(`/checkSessions/${sessionId}`);
+    return new Promise((resolve) => {
+      ref.on('value', function onCheckSessionValue(snapshot) {
+        ref.off('value', onCheckSessionValue);
+        resolve(normalizeCheckSession(snapshot.toJSON() as CrossCheckSession));
+      });
+    });
+  };
+
+  getAllUsers = () => {
+    const ref = db.ref('/users');
+    return new Promise((resolve) => {
+      ref.on('value', function onAllUsers(snapshot) {
+        ref.off('value', onAllUsers);
+        resolve(snapshot.toJSON());
+      });
+    });
+  };
+
   delTask = async (taskName: string) => {
     return db
       .ref(`/tasks/${taskName}`)
@@ -85,6 +196,23 @@ export default class Services {
     );
   };
 
+  getAllCheckSessions = () => {
+    return new Promise((resolve) => {
+      const ref = db.ref('/checkSessions');
+      ref.on('value', function onAllCheckSessions(snapshot) {
+        ref.off('value', onAllCheckSessions);
+        resolve(
+          Object.fromEntries(
+            Object.entries(snapshot.toJSON() || {}).map(([key, checkSession]) => [
+              key,
+              normalizeCheckSession(checkSession),
+            ])
+          )
+        );
+      });
+    });
+  };
+
   postNewUser = async (user: User) => {
     return db.ref(`/users`).push(user);
   };
@@ -93,7 +221,19 @@ export default class Services {
     return db.ref('/reviews').push(review);
   };
 
+  putTaskReview = (id: string, review: Review) => {
+    return db.ref(`/reviews/${id}`).set(review);
+  };
+
   postTaskScore = async (taskScore: TaskScore) => {
     return db.ref('/taskScores').push(taskScore);
+  };
+
+  postCheckSession = (session: CrossCheckSession) => {
+    return db.ref('/checkSessions').push(session);
+  };
+
+  putCheckSession = (sessionId: string, session: CrossCheckSession) => {
+    return db.ref(`/checkSessions/${sessionId}`).set(session);
   };
 }

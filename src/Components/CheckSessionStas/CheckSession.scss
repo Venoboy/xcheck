@@ -1,0 +1,18 @@
+#check-session {
+  width: 90%;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#check-session header {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+#check-session-form {
+  margin-top: 50px;
+  width: 40%;
+}
