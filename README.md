@@ -29,7 +29,7 @@
 - npm start
 - Заменить ссылку в REDIRECT_URL, которая находится в src/Actions/authGithub.tsx, с ссылки на хостинге на http://localhost:3000
 
-**Инструкции для деплоя продакшн версии**:
+**Инструкция для деплоя продакшн версии**:
 
 - npm run build
 - Заменить ссылку в REDIRECT_URL, которая находится в src/Actions/authGithub.tsx, с http://localhost:3000 на ссылку на хостинге
