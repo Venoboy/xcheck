@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Table } from 'antd';
 import Header from '../../Components/Header/Header';
 import './ReviewRequests.scss';
@@ -25,7 +25,7 @@ const ReviewRequests: React.FC = () => {
   const [userId, setUserId] = useState<null | string>(null);
   const [data, setData] = useState<any>();
 
-  const getInfo = async () => {
+  const getInfo = useCallback(async () => {
     const url = 'https://x-check-9d19c.firebaseio.com/';
     const fetchReviewRequests = (await (await fetch(`${url}reviewRequests.json`)).json()) || {};
     const fetchTasks = (await (await fetch(`${url}tasks.json`)).json()) || {};
@@ -52,7 +52,7 @@ const ReviewRequests: React.FC = () => {
     });
 
     setData(tempData);
-  };
+  }, [userId]);
 
   useEffect(() => {
     setUserId(localStorage.getItem('githubId') as string);
@@ -62,7 +62,7 @@ const ReviewRequests: React.FC = () => {
     if (userId) {
       getInfo();
     }
-  }, [userId]);
+  }, [userId, getInfo]);
 
   const columns = [
     {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Table, Button } from 'antd';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
@@ -48,14 +48,17 @@ const Score: React.FC = () => {
     },
   ];
 
-  const toDetails = async (id: string) => {
-    const url = 'https://x-check-9d19c.firebaseio.com/';
-    const fetchReviews = (await (await fetch(`${url}reviews.json`)).json()) || {};
-    dispatch(changeReview(fetchReviews[id]));
-    history.push('/task-review');
-  };
+  const toDetails = useCallback(
+    async (id: string) => {
+      const url = 'https://x-check-9d19c.firebaseio.com/';
+      const fetchReviews = (await (await fetch(`${url}reviews.json`)).json()) || {};
+      dispatch(changeReview(fetchReviews[id]));
+      history.push('/task-review');
+    },
+    [dispatch, history]
+  );
 
-  const getInfo = async () => {
+  const getInfo = useCallback(async () => {
     const url = 'https://x-check-9d19c.firebaseio.com/';
     const fetchReviewRequests = (await (await fetch(`${url}reviewRequests.json`)).json()) || {};
     const fetchReviews = (await (await fetch(`${url}reviews.json`)).json()) || {};
@@ -115,7 +118,7 @@ const Score: React.FC = () => {
     });
 
     setData(tempData);
-  };
+  }, [toDetails, userId]);
 
   useEffect(() => {
     setUserId(localStorage.getItem('githubId') as string);
@@ -125,7 +128,7 @@ const Score: React.FC = () => {
     if (userId) {
       getInfo();
     }
-  }, [userId]);
+  }, [userId, getInfo]);
 
   return (
     <div className="score">
