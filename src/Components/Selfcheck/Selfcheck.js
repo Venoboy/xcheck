@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -33,12 +32,15 @@ class Selfcheck extends React.Component {
     reviewRequestsFromBD.then((resRequests) => {
       let currentReviewRequest;
       let currentReviewRequestId;
-      for (const key in resRequests) {
-        if (resRequests[key].checkSessionId === currentCheckSessionId) {
-          currentReviewRequest = resRequests[key];
-          currentReviewRequestId = key;
+      Object.keys(resRequests).forEach((el) => {
+        if (resRequests[el].checkSessionId === currentCheckSessionId) {
+          currentReviewRequest = resRequests[el];
+          currentReviewRequestId = el;
         }
-      }
+      });
+      console.log(' currentReviewRequest', currentReviewRequest);
+      console.log(' currentReviewRequestId ', currentReviewRequestId);
+
       this.setState(
         (prevState) => ({
           ...prevState,
@@ -63,6 +65,10 @@ class Selfcheck extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    console.log('state', this.state);
+  }
+
   handleSubmit = () => {
     const { history } = this.props;
     postToBD('taskScores/', this.state.taskScore);
@@ -81,11 +87,13 @@ class Selfcheck extends React.Component {
     const taskScoresBD = getFromBD('taskScores');
     taskScoresBD.then((res) => {
       let currentTaskScore;
-      for (const key in res) {
-        if (res[key].reviewRequestId === taskScore.reviewRequestId) {
-          currentTaskScore = res[key];
+      Object.keys(res).forEach((el) => {
+        if (res[el].reviewRequestId === taskScore.reviewRequestId) {
+          currentTaskScore = res[el];
         }
-      }
+      });
+      console.log('currentTaskScore', currentTaskScore);
+
       this.setState({
         taskScore: isTaskScoreExist
           ? currentTaskScore

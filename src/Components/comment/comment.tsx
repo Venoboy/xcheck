@@ -44,7 +44,7 @@ export const CommentComponent = ({ createSubTaskScoreObject, index, clickedBefor
     if (clickedBefore) {
       createSubTaskScoreObject(index, 'comment', editableStr);
     }
-  }, [editableStr]);
+  }, [editableStr, clickedBefore, index, createSubTaskScoreObject]);
 
   const handleSubmit = () => {
     if (!value) {

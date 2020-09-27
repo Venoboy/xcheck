@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Button, Col, InputNumber, Row, Slider } from 'antd';
 import { CommentComponent } from '../../../comment/comment';
 import './subtask.scss';
@@ -19,7 +19,11 @@ export const Subtask = ({
   shouldShowCategory,
   taskScore,
 }: SubtaskTypes) => {
+  console.log('taskScore in SUBTASK', taskScore);
   const [score, setScore] = useState(0);
+  useEffect(() => {
+    setScore(+taskScore?.subTasks[index]?.score);
+  }, [taskScore, index]);
   return (
     <div className="subtask__container">
       {shouldShowCategory ? (
