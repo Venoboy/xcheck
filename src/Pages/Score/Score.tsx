@@ -83,9 +83,12 @@ const Score: React.FC = () => {
       let tempScore = 0;
 
       if (myScores.includes(review.taskScoreId)) {
-        review.subTasks.forEach((subTask: any) => {
-          tempScore += subTask.score;
-        });
+        if (review.subTasks && review.subTasks.length) {
+          review.subTasks.forEach((subTask: any) => {
+            tempScore += subTask.score;
+          });
+        }
+
         myReviews.push({
           ...review,
           score: tempScore,
