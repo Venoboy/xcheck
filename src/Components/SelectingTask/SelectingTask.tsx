@@ -45,12 +45,12 @@ const SelectingTask: React.FC = () => {
     setTasks(tempTasks);
   };
 
-  const dropdownClick = (item: string) => {
-    tasks.forEach((task: any, index: any) => {
-      if (task.name === item) {
-        setInfoTask(tasks[index]);
-        setSelectedTask(item);
-        dispatch(changeSelectedTaskId({ selectedTaskId: task.taskId, checkSessionId: task.id }));
+  const dropdownClick = (item: any) => {
+    tasks.forEach((task: any) => {
+      if (task.id === item.id) {
+        setInfoTask(task);
+        setSelectedTask(task.name);
+        dispatch(changeSelectedTaskId({ selectedTaskId: item.taskId, checkSessionId: item.id }));
       }
     });
 
