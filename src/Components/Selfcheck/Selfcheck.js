@@ -142,34 +142,36 @@ class Selfcheck extends React.Component {
     return task !== null ? (
       <div className="selfcheck_container">
         <Header />
-        <Title level={1}>{task.name}</Title>
-        <Title level={5}>Все подпункты должны быть оценены</Title>
-        {task?.subTasks.map((item, index) => {
-          const prevCategory = task.subTasks[index === 0 ? 0 : index - 1].category;
-          let shouldShowCategory = true;
-          if (item.category === prevCategory && index !== 0) {
-            shouldShowCategory = false;
-          } else {
-            shouldShowCategory = true;
-          }
-          return (
-            <>
-              <Subtask
-                item={item}
-                index={index}
-                onChange={this.onChange}
-                createSubTaskScoreObject={this.createSubTaskScoreObject}
-                shouldShowCategory={shouldShowCategory}
-                taskScore={taskScore}
-                updateIsCanBeSubmitted={this.updateIsCanBeSubmitted}
-              />
-            </>
-          );
-        })}
-        <div className="button_submit__container">
-          <Button type={isCanBeSubmitted ? 'primary' : ''} onClick={this.handleSubmit}>
-            Отправить на проверку
-          </Button>
+        <div className="info_selfcheck__container">
+          <Title level={1}>{task.name}</Title>
+          <Title level={5}>Все подпункты должны быть оценены</Title>
+          {task?.subTasks.map((item, index) => {
+            const prevCategory = task.subTasks[index === 0 ? 0 : index - 1].category;
+            let shouldShowCategory = true;
+            if (item.category === prevCategory && index !== 0) {
+              shouldShowCategory = false;
+            } else {
+              shouldShowCategory = true;
+            }
+            return (
+              <>
+                <Subtask
+                  item={item}
+                  index={index}
+                  onChange={this.onChange}
+                  createSubTaskScoreObject={this.createSubTaskScoreObject}
+                  shouldShowCategory={shouldShowCategory}
+                  taskScore={taskScore}
+                  updateIsCanBeSubmitted={this.updateIsCanBeSubmitted}
+                />
+              </>
+            );
+          })}
+          <div className="button_submit__container">
+            <Button type={isCanBeSubmitted ? 'primary' : ''} onClick={this.handleSubmit}>
+              Отправить на проверку
+            </Button>
+          </div>
         </div>
       </div>
     ) : null;
