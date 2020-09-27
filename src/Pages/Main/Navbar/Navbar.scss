@@ -1,0 +1,19 @@
+.navbar {
+  margin-top: 20px;
+
+  .ant-typography {
+    color: rgba(0, 231, 255, 1);
+  }
+
+  .ant-list-item {
+    .ant-typography {
+      font-size: 20px;
+      color: #1890ff;
+      cursor: pointer;
+
+      .anticon {
+        padding-right: 5px;
+      }
+    }
+  }
+}
