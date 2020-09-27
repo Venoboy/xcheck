@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Typography, Button } from 'antd';
