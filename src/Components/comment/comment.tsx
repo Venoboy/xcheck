@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Comment, Avatar, Form, Button, List, Input, Typography } from 'antd';
 import moment from 'moment';
@@ -29,12 +29,22 @@ const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
   </>
 );
 
-export const CommentComponent = ({ createSubTaskScoreObject, index }: any) => {
+export const CommentComponent = ({ createSubTaskScoreObject, index, clickedBefore, text }: any) => {
   const [comments, setComments] = useState<any>([]);
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(text);
   const [clicked, setClicked] = useState(false);
-  const [editableStr, setEditableStr] = useState(value);
+  const [editableStr, setEditableStr] = useState(text);
+
+  useEffect(() => {
+    setEditableStr(text);
+  }, [text]);
+
+  useEffect(() => {
+    if (clickedBefore) {
+      createSubTaskScoreObject(index, 'comment', editableStr);
+    }
+  }, [editableStr]);
 
   const handleSubmit = () => {
     if (!value) {
@@ -49,7 +59,7 @@ export const CommentComponent = ({ createSubTaskScoreObject, index }: any) => {
         {
           author: 'Han Solo',
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          content: <p>{value}</p>,
+          content: <span>{value}</span>,
           datetime: moment().fromNow(),
         },
       ];
@@ -62,12 +72,8 @@ export const CommentComponent = ({ createSubTaskScoreObject, index }: any) => {
   const handleChange = (e: any) => {
     setValue(e.target.value);
   };
-  return clicked ? (
+  return clicked || clickedBefore ? (
     <>
-      <Avatar
-        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-        alt="Han Solo"
-      />
       <Paragraph editable={{ onChange: setEditableStr }}>{editableStr}</Paragraph>
     </>
   ) : (

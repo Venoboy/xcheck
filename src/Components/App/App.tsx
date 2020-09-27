@@ -17,22 +17,23 @@ const App: React.FC = () => {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/authorization" component={Auth} />
           <Route path="/dispute">
             <DisputeSelector />
           </Route>
-          <Route path="/tasks-list">
+          <Route path="/submit-task">
+            <SelectingTask />
+          </Route>
+          <Route exact path="/tasks-list">
             <TasksList />
           </Route>
           <Route path="/task-review">
             <TaskReview />
           </Route>
-          <Route path="/selfcheck">
-            <Selfcheck reviewRequestId="rss2020Q3react-xcheck-14910204" />
-          </Route>
+          <Route path="/self-check" component={Selfcheck} />
           <Route path="/tasks-creator">
             <TasksCreator />
           </Route>
+          <Route path="/authorization" component={Auth} />
           <Route path="/" component={Main} />
         </Switch>
       </Router>
