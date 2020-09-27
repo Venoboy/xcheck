@@ -43,6 +43,11 @@ const data = [
     path: '/review-requests',
     icon: <SnippetsTwoTone twoToneColor="#3ff4a1" />,
   },
+  {
+    name: 'Check Session',
+    path: '/checksession',
+    icon: <SnippetsTwoTone twoToneColor="#4af81e" />,
+  },
 ];
 
 interface navBarType {
@@ -51,8 +56,12 @@ interface navBarType {
 
 const Navbar: React.FC<navBarType> = (props) => {
   const { role } = props;
-  const isStudent = role.length === 1 && role.includes('Student');
-  const dataForStudent = data.filter((item) => item.name !== 'Tasks List');
+  const isStudent = role.length === 1 && role.includes('student');
+  const isAuthor = role.includes('author');
+  const dataForStudent = data.filter(
+    (item) => item.name !== 'Tasks List' && item.name !== 'Check Session'
+  );
+  const dataWithCrossCheck = data.filter((item) => item.name !== 'Check Session');
   const { Text, Title } = Typography;
   const history = useHistory();
 
@@ -61,7 +70,7 @@ const Navbar: React.FC<navBarType> = (props) => {
       <Title level={1}>Navigation</Title>
       <List
         bordered
-        dataSource={isStudent ? dataForStudent : data}
+        dataSource={isStudent ? dataForStudent : isAuthor ? data : dataWithCrossCheck}
         renderItem={(item) => (
           <List.Item onClick={() => history.push(item.path)}>
             <Text>
