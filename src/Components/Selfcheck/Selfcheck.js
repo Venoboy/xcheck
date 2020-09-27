@@ -38,8 +38,6 @@ class Selfcheck extends React.Component {
           currentReviewRequestId = el;
         }
       });
-      console.log(' currentReviewRequest', currentReviewRequest);
-      console.log(' currentReviewRequestId ', currentReviewRequestId);
 
       this.setState(
         (prevState) => ({
@@ -65,10 +63,6 @@ class Selfcheck extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    console.log('state', this.state);
-  }
-
   handleSubmit = () => {
     const { history } = this.props;
     postToBD('taskScores/', this.state.taskScore);
@@ -92,7 +86,6 @@ class Selfcheck extends React.Component {
           currentTaskScore = res[el];
         }
       });
-      console.log('currentTaskScore', currentTaskScore);
 
       this.setState({
         taskScore: isTaskScoreExist

@@ -19,7 +19,6 @@ export const Subtask = ({
   shouldShowCategory,
   taskScore,
 }: SubtaskTypes) => {
-  console.log('taskScore in SUBTASK', taskScore);
   const [score, setScore] = useState(0);
   useEffect(() => {
     setScore(+taskScore?.subTasks[index]?.score);
