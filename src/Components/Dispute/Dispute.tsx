@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Col,
-  Divider,
-  Input,
-  Layout,
-  Rate,
-  Row,
-  Statistic,
-  Typography,
-  message,
-} from 'antd';
+import { Button, Col, Divider, Layout, Row, Statistic, Typography, message } from 'antd';
 import { connect } from 'react-redux';
 
 import classes from './Dispute.module.scss';
 import CommentList from '../CommentList/CommentList';
+import Feedback from './Feedback/Feedback';
 import stages from '../CommentList/stages';
 import getFromDB from '../../Service/getFromDB';
 import putToDB from '../../Service/putToDB';
 
 const { Title }: any = Typography;
 const { Content }: any = Layout;
-const { TextArea }: any = Input;
 
 const Dispute = (props: any) => {
   const { taskId, taskScoreId, reviewId, disputeId, setDisputeSelectActive } = props;
@@ -181,13 +170,7 @@ const Dispute = (props: any) => {
           </Button>
         </Col>
       </Row>
-      <Row>
-        <Col className={classes.review} span={18}>
-          <Title level={4}>Отзыв о проверяющем</Title>
-          <Rate className={classes.rate} />
-          <TextArea className={classes.textArea} placeholder="Add review" autoSize />
-        </Col>
-      </Row>
+      <Feedback feedbacks={database.feedbacks} />
     </Content>
   );
 };
