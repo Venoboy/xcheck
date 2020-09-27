@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Typography, Button } from 'antd';
@@ -15,6 +16,7 @@ class Selfcheck extends React.Component {
     this.state = {
       task: null,
       taskScore: {
+        state: 'DRAFT',
         subTasks: [],
         reviewRequestId: '',
       },
@@ -44,7 +46,7 @@ class Selfcheck extends React.Component {
         (prevState) => ({
           ...prevState,
           taskScore: { ...prevState.taskScore, reviewRequestId: currentReviewRequestId },
-          isTaskScoreExist: currentReviewRequest?.state !== 'DRAFT',
+          isPublished: currentReviewRequest?.state !== 'DRAFT',
           reviewRequest: currentReviewRequest,
         }),
         () => {
@@ -67,30 +69,38 @@ class Selfcheck extends React.Component {
   handleSubmit = () => {
     const { history } = this.props;
     const {
-      isTaskScoreExist,
+      isPublished,
       taskScore,
       reviewRequest,
       isCanBeSubmitted,
       currentTaskScoreId,
     } = this.state;
-
-    if (isTaskScoreExist === false) {
-      if (isCanBeSubmitted === true) {
-        const newReview = { ...reviewRequest };
-        postToBD('taskScores/', taskScore);
-        putToBD(`reviewRequests/${taskScore.reviewRequestId}`, {
-          ...newReview,
-          state: 'PUBLISHED',
-        });
+    if (currentTaskScoreId === '') {
+      if (!isPublished) {
+        if (isCanBeSubmitted === true) {
+          postToBD('taskScores/', { ...taskScore, state: 'PUBLISHED' });
+          const newReview = { ...reviewRequest };
+          putToBD(`reviewRequests/${taskScore.reviewRequestId}`, {
+            ...newReview,
+            state: 'PUBLISHED',
+          });
+        } else {
+          postToBD('taskScores/', taskScore);
+        }
       }
     } else {
-      putToBD(`taskScores/${currentTaskScoreId}`, taskScore);
+      if (isCanBeSubmitted === true) {
+        const newTaskScore = { ...taskScore };
+        putToBD(`taskScores/${currentTaskScoreId}`, { ...newTaskScore, state: 'PUBLISHED' });
+      } else {
+        putToBD(`taskScores/${currentTaskScoreId}`, taskScore);
+      }
     }
-    if (isCanBeSubmitted === true) history.push('/submit-task');
+    history.push('/submit-task');
   };
 
   getTaskScore = () => {
-    const { taskScore, isTaskScoreExist, taskId, task } = this.state;
+    const { taskScore, isPublished, taskId, task } = this.state;
     const taskScoresBD = getFromBD('taskScores');
     taskScoresBD.then((res) => {
       let currentTaskScore;
@@ -102,20 +112,20 @@ class Selfcheck extends React.Component {
         }
       });
       this.setState({
-        currentTaskScoreId: isTaskScoreExist ? currentTaskScoreId : '',
-        isCanBeSubmitted: isTaskScoreExist,
-        taskScore: isTaskScoreExist
-          ? currentTaskScore
-          : {
-              taskScoreId: `${taskId}`,
-              reviewRequestId: taskScore.reviewRequestId,
-              subTasks: task?.subTasks.map((el) => {
-                return {
-                  score: el.category === 'Fine' ? 0 : null,
-                  comment: '',
-                };
-              }),
-            },
+        isTaskScoreExist: !!currentTaskScore,
+        currentTaskScoreId: currentTaskScore ? currentTaskScoreId : '',
+        isCanBeSubmitted: isPublished,
+        taskScore: currentTaskScore || {
+          state: 'DRAFT',
+          taskScoreId: `${taskId}`,
+          reviewRequestId: taskScore.reviewRequestId,
+          subTasks: task?.subTasks.map((el) => {
+            return {
+              score: el.category === 'Fine' ? 0 : '',
+              comment: '',
+            };
+          }),
+        },
       });
     });
   };

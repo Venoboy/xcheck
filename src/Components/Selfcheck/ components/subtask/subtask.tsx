@@ -24,7 +24,7 @@ export const Subtask = ({
   const [score, setScore] = useState(0);
   useEffect(() => {
     setScore(+taskScore?.subTasks[index]?.score);
-    const isComplited = taskScore?.subTasks.every((el) => el.score !== null);
+    const isComplited = taskScore?.subTasks.every((el) => el.score !== '');
     if (isComplited) {
       updateIsCanBeSubmitted(true);
     }
