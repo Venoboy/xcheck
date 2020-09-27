@@ -70,6 +70,7 @@ const Navbar: React.FC<navBarType> = (props) => {
       <Title level={1}>Navigation</Title>
       <List
         bordered
+        // eslint-disable-next-line no-nested-ternary
         dataSource={isStudent ? dataForStudent : isAuthor ? data : dataWithCrossCheck}
         renderItem={(item) => (
           <List.Item onClick={() => history.push(item.path)}>
