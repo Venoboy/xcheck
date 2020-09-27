@@ -5,6 +5,7 @@ import {
   STOP_LOADING,
   REQUESTS,
   CHANGE_SELECTED_TASK_INFO,
+  CHANGE_REVIEW,
 } from '../Actions/actionTypes';
 
 type stateType = {
@@ -12,6 +13,7 @@ type stateType = {
   user: User;
   selectedTaskId: null | string;
   checkSessionId: null | string;
+  review: any;
   testUser: User;
   testTaskId: string;
   testCheckSessionId: string;
@@ -170,6 +172,7 @@ const initialState: stateType = {
   },
   selectedTaskId: null,
   checkSessionId: null,
+  review: null,
   testTaskId: '-MHYG_Mmt_L2D5QLQtep',
   testCheckSessionId: 'rss2020Q3react-xcheck',
   testReviewId: '-MHcD-pT20-yloyBYANX',
@@ -205,6 +208,12 @@ const reducer = (state = initialState, action: XCheckActions) => {
         ...state,
         selectedTaskId,
         checkSessionId,
+      };
+    }
+    case CHANGE_REVIEW: {
+      return {
+        ...state,
+        review: (action as any).payload,
       };
     }
 
