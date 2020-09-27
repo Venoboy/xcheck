@@ -11,6 +11,8 @@ import { TaskReview } from '../../TaskReview/TaskReview';
 import TasksCreator from '../TasksList/TasksCreator/TasksCreator';
 import Main from '../../Pages/Main/Main';
 import SelectingTask from '../SelectingTask/SelectingTask';
+import ReviewRequests from '../../Pages/ReviewRequests/ReviewRequests';
+import Score from '../../Pages/Score/Score';
 import DisputeSelector from '../Dispute/DisputeSelector/DisputeSelector';
 
 const App: React.FC = () => {
@@ -34,6 +36,8 @@ const App: React.FC = () => {
           <Route path="/task-create">
             <TasksCreator />
           </Route>
+          <Route path="/score" component={Score} />
+          <Route path="/review-requests" component={ReviewRequests} />
           <Route exact path="/" component={Main} />
         </Switch>
       </Router>

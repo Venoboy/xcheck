@@ -3,6 +3,7 @@ import { SelectedTaskAction } from '../Actions/Actions';
 import {
   AUTH_GITHUB_SUCCESS,
   CHANGE_SELECTED_TASK_INFO,
+  CHANGE_REVIEW,
   DISPUTE_SELECT,
   REQUESTS,
   STOP_LOADING,
@@ -13,6 +14,7 @@ type stateType = {
   user: User;
   selectedTaskId: null | string;
   checkSessionId: null | string;
+  review: any;
 };
 
 export enum UserRoles {
@@ -161,6 +163,7 @@ const initialState: stateType = {
   user: deserializeUser(),
   selectedTaskId: null,
   checkSessionId: null,
+  review: null,
 };
 
 type XCheckActions = Action | AuthSuccessAction | SelectedTaskAction;
@@ -191,6 +194,12 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         selectedTaskId,
         checkSessionId,
+      };
+    }
+    case CHANGE_REVIEW: {
+      return {
+        ...state,
+        review: (action as any).payload,
       };
     }
 

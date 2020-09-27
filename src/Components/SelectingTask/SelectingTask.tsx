@@ -45,12 +45,12 @@ const SelectingTask: React.FC = () => {
     setTasks(tempTasks);
   };
 
-  const dropdownClick = (item: string) => {
-    tasks.forEach((task: any, index: any) => {
-      if (task.name === item) {
-        setInfoTask(tasks[index]);
-        setSelectedTask(item);
-        dispatch(changeSelectedTaskId({ selectedTaskId: task.taskId, checkSessionId: task.id }));
+  const dropdownClick = (item: any) => {
+    tasks.forEach((task: any) => {
+      if (task.id === item.id) {
+        setInfoTask(task);
+        setSelectedTask(task.name);
+        dispatch(changeSelectedTaskId({ selectedTaskId: item.taskId, checkSessionId: item.id }));
       }
     });
 
@@ -98,9 +98,11 @@ const SelectingTask: React.FC = () => {
   };
 
   const menu = () => (
-    <Menu onClick={({ item }: { item: any }) => dropdownClick(item.node.textContent as string)}>
+    <Menu>
       {tasks.map((task: any) => (
-        <Menu.Item key={task.taskId}>{task.name}</Menu.Item>
+        <Menu.Item key={task.id} onClick={() => dropdownClick(task)}>
+          {task.name}
+        </Menu.Item>
       ))}
     </Menu>
   );
@@ -177,16 +179,18 @@ const SelectingTask: React.FC = () => {
           >
             Submit
           </Button>
-          <Button
-            className="self"
-            type="primary"
-            size="middle"
-            onClick={() => history.push('/self-check')}
-          >
-            {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
-              ? 'Add self-check'
-              : 'Change self-check'}
-          </Button>
+          {reviewRequests[`${infoTask.id}-${githubId}`] && (
+            <Button
+              className="self"
+              type="primary"
+              size="middle"
+              onClick={() => history.push('/self-check')}
+            >
+              {reviewRequests[`${infoTask.id}-${githubId}`]?.state === 'DRAFT'
+                ? 'Add self-check'
+                : 'Change self-check'}
+            </Button>
+          )}
         </div>
       )}
 
