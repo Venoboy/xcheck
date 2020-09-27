@@ -10,6 +10,7 @@ export const putToBD = async (path: string, data: any) => {
     });
     return res.ok ? res.json() : res;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
   return null;
@@ -20,6 +21,7 @@ export const getFromBD = async (path: string) => {
     const res = await fetch(url);
     return res.ok ? res.json() : res;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
   return null;
