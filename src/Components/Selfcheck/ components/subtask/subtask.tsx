@@ -28,7 +28,7 @@ export const Subtask = ({
     if (isComplited) {
       updateIsCanBeSubmitted(true);
     }
-  }, [taskScore, index]);
+  }, [taskScore, index, updateIsCanBeSubmitted]);
   return (
     <div className="subtask__container">
       {shouldShowCategory ? (
