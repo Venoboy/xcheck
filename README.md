@@ -1,44 +1,54 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## X Check App / RS Assessment Tool
 
-## Available Scripts
+**Перечень использованных технологий**.
 
-In the project directory, you can run:
+Проект создан с помощью create-react-app. Для разработки данного приложения были использованы следующие технологии:
 
-### `npm start`
+- React
+  - react-router
+  - react-router-dom
+- TypeScript
+- Redux
+  - react-redux
+  - redux-thunk
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Для поддержания качества кода использовались:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Prettier
+- Eslint airbnb
+- Husky pre-commit hook
 
-### `npm test`
+"Иные" технологии:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Firebase (используется в качестве сервера)
+- Ant Design (внешний вид приложения создан с использованием компонентов из данной библиотеки)
+- SimpleMDE Markdown Editor (для создания заданий)
 
-### `npm run build`
+**Инструкция для начала разработки**:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- npm start
+- Заменить ссылку в REDIRECT_URL, которая находится в src/Actions/authGithub.tsx, с ссылки на хостинге на http://localhost:3000
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Инструкция для деплоя продакшн версии**:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- npm run build
+- Заменить ссылку в REDIRECT_URL, которая находится в src/Actions/authGithub.tsx, с http://localhost:3000 на ссылку на хостинге
 
-### `npm run eject`
+**Дополнительный функционал**:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Header:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - отображение github имени пользователя после авторизации
+  - кнопка выхода из приложения (возврат на страницу авторизации)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- CrossCheck Sessions (создание кросс-чек сессии и список со всем кросс-чек сессиями):
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  - кнопка создания сессии активна только выбора опубликованного таска
+  - отдельная страница с созданием кросс-чек сессии
+  - навигация в блоке между страницами
+  - кнопка обновления данных об активных сессиях
 
-## Learn More
+- Dispute (оспаривание оценки):
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - отдельный модуль выбора спора из нескольких возможных сессий проверки.
+  - возможность оставить как текстовый отзыв о проверяющем, так и поставить от 1 до 5 звезд.
