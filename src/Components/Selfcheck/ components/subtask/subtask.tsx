@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Button, Col, InputNumber, Row, Slider } from 'antd';
-import { CommentComponent } from '../../../comment/comment';
-import './subtask.scss';
+import { Typography, Button, Col, InputNumber, Row, Slider, Divider } from 'antd';
+import { CommentComponent } from './comment';
+import './subtasks.scss';
 
 const { Text, Title } = Typography;
 type SubtaskTypes = {
@@ -31,7 +31,7 @@ export const Subtask = ({
   }, [taskScore, index, updateIsCanBeSubmitted]);
   return (
     <div className="subtask__container">
-      {shouldShowCategory ? <Title level={3}>{item.category}</Title> : null}
+      {shouldShowCategory ? <Divider>{item.category}</Divider> : null}
       <Title level={4} key={`a${index}`}>
         {item.title}
       </Title>
@@ -103,6 +103,7 @@ export const Subtask = ({
           Не выполнено
         </Button>
       </div>
+      <Divider />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Typography, Button } from 'antd';
@@ -96,14 +95,12 @@ class Selfcheck extends React.Component {
     taskScoresBD.then((res) => {
       let currentTaskScore;
       let currentTaskScoreId;
-
       Object.keys(res).forEach((el) => {
         if (res[el].reviewRequestId === taskScore.reviewRequestId) {
           currentTaskScore = res[el];
           currentTaskScoreId = el;
         }
       });
-
       this.setState({
         currentTaskScoreId: isTaskScoreExist ? currentTaskScoreId : '',
         isCanBeSubmitted: isTaskScoreExist,
@@ -145,34 +142,36 @@ class Selfcheck extends React.Component {
     return task !== null ? (
       <div className="selfcheck_container">
         <Header />
-        <Title level={1}>{task.name}</Title>
-        <Title level={5}>Все подпункты должны быть оценены</Title>
-        {task?.subTasks.map((item, index) => {
-          const prevCategory = task.subTasks[index === 0 ? 0 : index - 1].category;
-          let shouldShowCategory = true;
-          if (item.category === prevCategory && index !== 0) {
-            shouldShowCategory = false;
-          } else {
-            shouldShowCategory = true;
-          }
-          return (
-            <>
-              <Subtask
-                item={item}
-                index={index}
-                onChange={this.onChange}
-                createSubTaskScoreObject={this.createSubTaskScoreObject}
-                shouldShowCategory={shouldShowCategory}
-                taskScore={taskScore}
-                updateIsCanBeSubmitted={this.updateIsCanBeSubmitted}
-              />
-            </>
-          );
-        })}
-        <div className="button_submit__container">
-          <Button type={isCanBeSubmitted ? 'primary' : ''} onClick={this.handleSubmit}>
-            Отправить на проверку
-          </Button>
+        <div className="info_selfcheck__container">
+          <Title level={1}>{task.name}</Title>
+          <Title level={5}>Все подпункты должны быть оценены</Title>
+          {task?.subTasks.map((item, index) => {
+            const prevCategory = task.subTasks[index === 0 ? 0 : index - 1].category;
+            let shouldShowCategory = true;
+            if (item.category === prevCategory && index !== 0) {
+              shouldShowCategory = false;
+            } else {
+              shouldShowCategory = true;
+            }
+            return (
+              <>
+                <Subtask
+                  item={item}
+                  index={index}
+                  onChange={this.onChange}
+                  createSubTaskScoreObject={this.createSubTaskScoreObject}
+                  shouldShowCategory={shouldShowCategory}
+                  taskScore={taskScore}
+                  updateIsCanBeSubmitted={this.updateIsCanBeSubmitted}
+                />
+              </>
+            );
+          })}
+          <div className="button_submit__container">
+            <Button type={isCanBeSubmitted ? 'primary' : ''} onClick={this.handleSubmit}>
+              Отправить на проверку
+            </Button>
+          </div>
         </div>
       </div>
     ) : null;
@@ -184,5 +183,4 @@ const mapStatetoProps = ({ checkSessionId, selectedTaskId }) => {
     currentTaskId: selectedTaskId,
   };
 };
-// export default Selfcheck;
 export default connect(mapStatetoProps)(Selfcheck);
