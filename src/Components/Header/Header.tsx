@@ -17,7 +17,7 @@ const Header = (props: any) => {
       <b>X-Check</b>
       <div className="profile">
         <Avatar size={30} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-        <p style={{ marginRight: '15px' }}>{user}</p>
+        <p style={{ marginRight: '15px' }}>{user.userName}</p>
         <Button
           type="primary"
           onClick={() => history.push('/authorization')}
