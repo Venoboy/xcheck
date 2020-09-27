@@ -98,10 +98,14 @@ const Score: React.FC = () => {
     myReviews.forEach((item: any) => {
       tempData.push({
         key: item.id,
-        name: fetchTasks[fetchReviewRequests[fetchTaskScores[item.taskScoreId].reviewRequestId].taskId].name,
+        name:
+          fetchTasks[fetchReviewRequests[fetchTaskScores[item.taskScoreId].reviewRequestId].taskId]
+            .name,
         state: item.state,
         score: item.score,
-        taskauthor: fetchTasks[fetchReviewRequests[fetchTaskScores[item.taskScoreId].reviewRequestId].taskId].author,
+        taskauthor:
+          fetchTasks[fetchReviewRequests[fetchTaskScores[item.taskScoreId].reviewRequestId].taskId]
+            .author,
         reviewauthor: item.author,
         details: <Button onClick={() => toDetails(item.id)}>Details</Button>,
       });
@@ -123,7 +127,7 @@ const Score: React.FC = () => {
   return (
     <div className="score">
       <Header />
-      <Table columns={columns} dataSource={data} size="large" loading={!!!data} />
+      <Table columns={columns} dataSource={data} size="large" loading={!data} />
     </div>
   );
 };

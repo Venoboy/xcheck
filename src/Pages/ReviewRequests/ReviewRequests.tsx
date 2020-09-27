@@ -7,27 +7,15 @@ const sortDate = (a: any, b: any, type: string) => {
   let aMili: any = 0;
   let bMili: any = 0;
 
-  switch (type) {
-    case 'start':
-      {
-        aMili = new Date(a.datestart.split('/').join(','));
-        bMili = new Date(b.datestart.split('/').join(','));
-      }
-      break;
-    case 'end':
-      {
-        aMili = new Date(a.enddate.split('/').join(','));
-        bMili = new Date(b.enddate.split('/').join(','));
-      }
-      break;
-    case 'delivered':
-      {
-        aMili = new Date(a.delivered.split('/').join(','));
-        bMili = new Date(b.delivered.split('/').join(','));
-      }
-      break;
-    default:
-      break;
+  if (type === 'start') {
+    aMili = new Date(a.datestart.split('/').join(','));
+    bMili = new Date(b.datestart.split('/').join(','));
+  } else if (type === 'end') {
+    aMili = new Date(a.enddate.split('/').join(','));
+    bMili = new Date(b.enddate.split('/').join(','));
+  } else if (type === 'delivered') {
+    aMili = new Date(a.delivered.split('/').join(','));
+    bMili = new Date(b.delivered.split('/').join(','));
   }
 
   return aMili.getTime() - bMili.getTime();
@@ -115,7 +103,7 @@ const ReviewRequests: React.FC = () => {
   return (
     <div className="review-requests">
       <Header />
-      <Table columns={columns} dataSource={data} size="large" loading={!!!data} />
+      <Table columns={columns} dataSource={data} size="large" loading={!data} />
     </div>
   );
 };
