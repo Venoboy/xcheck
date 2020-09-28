@@ -20,7 +20,6 @@
   }
 
   .selecting-task__info {
-
     .solution-url {
       max-width: 600px;
       width: 100%;
@@ -48,7 +47,7 @@
     background-color: #fff;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
-    color: rgba(0,0,0,.65);
+    color: rgba(0, 0, 0, 0.65);
 
     .ant-dropdown-link {
       position: relative;
@@ -80,9 +79,9 @@
       background-color: #fff;
       border: 1px solid #d9d9d9;
       border-radius: 2px;
-      color: rgba(0,0,0,.65);
+      color: rgba(0, 0, 0, 0.65);
     }
-    
+
     .submit {
       margin-right: 20px;
     }

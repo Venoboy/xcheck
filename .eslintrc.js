@@ -24,7 +24,15 @@ module.exports = {
       },
     },
   },
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier', '@typescript-eslint', "react-hooks",],
+  plugins: [
+    'babel',
+    'import',
+    'jsx-a11y',
+    'react',
+    'prettier',
+    '@typescript-eslint',
+    'react-hooks',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 6,
